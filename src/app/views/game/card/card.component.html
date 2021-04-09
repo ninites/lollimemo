@@ -1,0 +1,11 @@
+<ng-container *ngIf="card">
+  <div class="card_container" (click)="onClick()">
+    <div
+      class="flip-card-inner"
+      [ngStyle]="{ transform: card.displayed ? 'rotateY(180deg)' : '' }"
+    >
+      <div class="flip-card-front"></div>
+      <div class="flip-card-back" [ngStyle]="backroungImg"></div>
+    </div>
+  </div>
+</ng-container>

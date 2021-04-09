@@ -1,0 +1,12 @@
+<div class="difficulty">
+  <h2>Difficulté</h2>
+  <select [(ngModel)]="diffChoice">
+    <option *ngFor="let value of difficulty" [ngValue]="value">
+      {{ value }}
+    </option>
+  </select>
+  <reg-button
+    [label]="'Selectionner'"
+    (mousedown)="setDifficulty()"
+  ></reg-button>
+</div>

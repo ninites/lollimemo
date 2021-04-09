@@ -1,0 +1,26 @@
+<div *ngIf="!multi">
+  <timer></timer>
+</div>
+
+<div class="card_wrapper">
+  <card
+    *ngFor="let card of cardsList"
+    [card]="card"
+    (displayCard)="displayCard($event)"
+  >
+  </card>
+</div>
+
+<div *ngIf="multi">
+  <player-info
+    *ngFor="let player of players; let index = index"
+    [player]="player"
+    [index]="index"
+  ></player-info>
+</div>
+
+<alert></alert>
+
+<modal *ngIf="modalSrv.isDisplayed" [closeOnClick]="false" [opacity]="0.05">
+  <win-box (restartChange)="reset()"></win-box>
+</modal>

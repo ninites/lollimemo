@@ -1,0 +1,12 @@
+<div class="numberOfPlayers">
+  <h2>Nombre de joueurs</h2>
+  <div class="numberOfPlayers_buttons">
+    <button
+      *ngFor="let choice of numberChoice; let i = index"
+      [ngClass]="usersChoice[i] ? 'selected' : ''"
+      (click)="selectNumberOfPlayer(choice)"
+    >
+      {{ choice }}
+    </button>
+  </div>
+</div>

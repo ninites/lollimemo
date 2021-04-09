@@ -1,0 +1,14 @@
+.regButton {
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover:enabled {
+    transform: scale(1.1);
+  }
+  &:focus {
+    outline: 0;
+  }
+}

@@ -1,0 +1,16 @@
+.playerName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+  }
+  &_inputsSolo {
+    & > * {
+      margin: 10px;
+    }
+  }
+}

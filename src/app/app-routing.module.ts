@@ -1,10 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: 'setup', pathMatch: 'full' },
+  {
+    path: 'setup',
+    loadChildren: async () => {
+      const module = await import('./views/setup/setup.module');
+      return module.SetupModule;
+    },
+  },
+  {
+    path: 'game',
+    loadChildren: async () => {
+      const module = await import('./views/game/game.module');
+      return module.GameModule;
+    },
+  },
+  { path: '**', redirectTo: 'setup', pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

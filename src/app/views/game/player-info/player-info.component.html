@@ -1,0 +1,6 @@
+<ng-container *ngIf="player">
+  <div class="playerInfo">
+    <h3  [ngStyle]="game.playerIndexTurn === index ? playerTurn : {} "  >{{ player.username }}</h3>
+    <p>{{ player.totalPoints }}</p>
+  </div>
+</ng-container>

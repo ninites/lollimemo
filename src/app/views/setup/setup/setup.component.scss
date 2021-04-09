@@ -1,0 +1,38 @@
+.setup {
+  &_title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > * {
+      margin: 10px;
+    }
+  }
+
+  &_dots {
+    display: flex;
+    justify-content: center;
+    & > * {
+      margin: 10px;
+    }
+  }
+
+  &_nextprev {
+    display: flex;
+    justify-content: center;
+    & > * {
+      margin: 10px;
+    }
+  }
+
+  &_start {
+    display: flex;
+    justify-content: center;
+    & > * {
+      margin: 10px;
+    }
+  }
+
+  &_children {
+    height: 200px;
+  }
+}

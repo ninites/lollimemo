@@ -1,0 +1,6 @@
+<div class="alert" *ngIf="alert.isDisplayed" [@openClose]>
+  <reg-button [label]="'X'" (click)="closeAlert()"></reg-button>
+  <div class="alert_message">
+    {{ alert.message }}
+  </div>
+</div>

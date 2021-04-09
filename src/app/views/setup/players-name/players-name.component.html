@@ -1,0 +1,19 @@
+<div class="playerName">
+  <form (ngSubmit)="onSubmit($event)" [formGroup]="userForm">
+    <div formArrayName="aliases" class="playerName_inputsWrapper">
+      <div
+        *ngFor="let alias of aliases.controls; let i = index"
+        class="playerName_inputsSolo"
+      >
+        <h2>Choisis ton pseudo Joueur {{ i + 1 }}</h2>
+        <input type="text" [formControlName]="i" />
+        <reg-button
+          [id]="i"
+          [type]="'submit'"
+          [disabled]="!formValidation[i].isMinlength"
+          [label]="formValidation[i].isSubmited ? 'Modifier' : 'Valider'"
+        ></reg-button>
+      </div>
+    </div>
+  </form>
+</div>
