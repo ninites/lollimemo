@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../../views/game/game-services/game.service';
+import { TimerService } from './timer.service';
 
 @Component({
   selector: 'timer',
@@ -7,9 +7,12 @@ import { GameService } from '../../../views/game/game-services/game.service';
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent implements OnInit {
-  constructor(public game: GameService) {}
+  constructor(public timer : TimerService) {}
 
-  ngOnInit(): void {
-   
+  ngOnInit(): void {   
+  }
+
+  ngOnDestroy() : void {
+    this.timer.resetTimer()
   }
 }

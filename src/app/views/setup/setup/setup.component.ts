@@ -44,13 +44,11 @@ export class SetupComponent implements OnInit {
 
   createIndexPages() {
     if (!this.route.routeConfig?.children) return;
-    const modifiedRoutes = [...this.route.routeConfig?.children];
+    const modifiedRoutes = [...this.route.routeConfig.children];
     modifiedRoutes.pop();
     modifiedRoutes.shift();
     this.setupRoutes = modifiedRoutes;
-
     this.setupServ.setRouteConfig(this.setupRoutes);
-
     for (let index = 0; index < this.setupRoutes.length; index++) {
       this.dots = [...this.dots, '.'];
     }

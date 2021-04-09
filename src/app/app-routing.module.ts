@@ -9,6 +9,7 @@ const routes: Routes = [
       const module = await import('./views/setup/setup.module');
       return module.SetupModule;
     },
+    data: { animation: 'Setup' },
   },
   {
     path: 'game',
@@ -16,6 +17,7 @@ const routes: Routes = [
       const module = await import('./views/game/game.module');
       return module.GameModule;
     },
+    data: { animation: 'Game' },
   },
   { path: '**', redirectTo: 'setup', pathMatch: 'full' },
 ];

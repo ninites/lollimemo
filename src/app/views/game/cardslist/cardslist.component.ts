@@ -4,6 +4,7 @@ import { PicturesService } from '../game-services/pictures.service';
 import { Picture, Player } from '../../../interface/interface';
 import { ModalService } from '../../../shared/widget/modal/modal.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
+import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 
 @Component({
   selector: 'app-cardslist',
@@ -15,7 +16,8 @@ export class CardslistComponent implements OnInit {
     private picsSrvc: PicturesService,
     private game: GameService,
     private gameParams: GameParametersService,
-    public modalSrv: ModalService
+    public modalSrv: ModalService,
+    private timer : TimerService
   ) {}
 
   cardsList: Picture[] = [];
@@ -30,7 +32,7 @@ export class CardslistComponent implements OnInit {
   }
 
   startGame() {
-    this.game.timer(false);
+    this.timer.setTimer(false);
     this.picsSrvc.getPictures(this.gameParams.selectedDifficulty).subscribe({
       next: (resp): void => {
         this.cardsList = resp;

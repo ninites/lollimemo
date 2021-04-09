@@ -1,10 +1,12 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { opacityAnim } from 'src/app/animations/animations';
 import { ModalService } from './modal.service';
 
 @Component({
   selector: 'modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
+  animations: [opacityAnim],
 })
 export class ModalComponent implements OnInit {
   @Input() closeOnClick: boolean = true;

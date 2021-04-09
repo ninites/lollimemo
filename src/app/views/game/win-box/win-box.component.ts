@@ -4,18 +4,22 @@ import { ModalService } from '../../../shared/widget/modal/modal.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { Player } from 'src/app/interface/interface';
 import { Router } from '@angular/router';
+import { TimerService } from 'src/app/shared/widget/timer/timer.service';
+import { popAnim } from 'src/app/animations/animations';
 
 @Component({
   selector: 'win-box',
   templateUrl: './win-box.component.html',
   styleUrls: ['./win-box.component.scss'],
+  animations : [popAnim]
 })
 export class WinBoxComponent implements OnInit {
   constructor(
     public game: GameService,
     private modalSrv: ModalService,
     private gameParams: GameParametersService,
-    private router: Router
+    private router: Router,
+    public timer : TimerService
   ) {}
   @Output() restartChange = new EventEmitter();
   multi: boolean = false;

@@ -1,4 +1,4 @@
-<div class="winbox_all">
+<div class="winbox_all" [@popIn]>
   <div *ngIf="multi && winner">
     <h2>{{ winner.username }} a gagné !</h2>
   </div>
@@ -6,18 +6,13 @@
   <div *ngIf="!multi">
     <h2>Tu as gagné ! en {{ game.numberOftries }} coups !</h2>
     <p>
-      Tu as mis {{ game.minutes === "00" ? "" : game.minutes + "minutes et" }}
-      {{ game.seconds }} secondes
+      Tu as mis
+      {{ timer.minutes === "00" ? "" : timer.minutes + "minutes et" }}
+      {{ timer.seconds }} secondes
     </p>
   </div>
 
-  <reg-button
-    [label]="'Rejouer'"
-    (click)="restart()"
-  ></reg-button>
-  <reg-button
-    [label]="'Parametres'"
-    (click)="restartAndChangeParams()"
-  >
+  <reg-button [label]="'Rejouer'" (click)="restart()"></reg-button>
+  <reg-button [label]="'Parametres'" (click)="restartAndChangeParams()">
   </reg-button>
 </div>
