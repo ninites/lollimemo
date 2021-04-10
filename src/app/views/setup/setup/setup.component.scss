@@ -1,10 +1,13 @@
+@import "variables";
+
 .setup {
   &_title {
     display: flex;
     flex-direction: column;
+    font-family: $kidFont !important;
     align-items: center;
     & > * {
-      margin: 10px;
+      margin: $marginMedium;
     }
   }
 
@@ -12,7 +15,7 @@
     display: flex;
     justify-content: center;
     & > * {
-      margin: 10px;
+      margin: $marginMedium;
     }
   }
 
@@ -20,7 +23,7 @@
     display: flex;
     justify-content: center;
     & > * {
-      margin: 10px;
+      margin: $marginMedium;
     }
   }
 
@@ -28,7 +31,7 @@
     display: flex;
     justify-content: center;
     & > * {
-      margin: 10px;
+      margin: $marginMedium;
     }
   }
 

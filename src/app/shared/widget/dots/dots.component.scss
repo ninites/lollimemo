@@ -1,0 +1,28 @@
+@import "variables";
+
+.dots {
+  button {
+    background-color: $orangeLight;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    border: none;
+    transition: 0.4s;
+    &:enabled {
+      box-shadow: $shadowFillSmall;
+      cursor: pointer;
+    }
+
+    &:hover:enabled {
+        box-shadow: 0 0 0 0 ;
+        background-color: $pinkLight;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .selected {
+    background-color: $orangeMedium;
+  }
+}

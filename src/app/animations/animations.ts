@@ -88,7 +88,7 @@ export const slideInAnimation = trigger('routeAnimations', [
     group([
       query(':leave', [
         animate(
-          '200ms ease-out',
+          '300ms ease-out',
           keyframes([
             style({ transform: 'scale(1)', opacity: 1 }),
             style({ transform: 'scale(1.2)' }),

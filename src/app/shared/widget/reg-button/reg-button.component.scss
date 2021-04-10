@@ -1,14 +1,37 @@
+@import "variables";
+
 .regButton {
-  background-color: lightgrey;
-  padding: 10px;
-  border-radius: 10px;
+  background-color: $orangeLight;
+  color: $orangeDark;
+  padding: $paddingMedium;
+  border-radius: $borderRadius;
   border: none;
-  cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
+  font-weight: bold;
+
+  &_selected {
+    background-color: $orangeMedium;
+    transform: scale(1.2);
+    color: $greenLight;
+  }
+
+  &:enabled {
+    cursor: pointer;
+    box-shadow: $shadowFill;
+  }
+
+  &:disabled {
+    background-color: $pinkMedium;
+  }
   &:hover:enabled {
-    transform: scale(1.1);
+    box-shadow: 0 0 0 0;
+    background-color: $pinkLight;
   }
   &:focus {
     outline: 0;
+  }
+
+  &:active {
+    background-color: $greenMedium;
   }
 }
