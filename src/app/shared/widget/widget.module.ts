@@ -6,6 +6,8 @@ import { TimerComponent } from './timer/timer.component';
 import { AlertComponent } from './alert/alert.component';
 import { DotsComponent } from './dots/dots.component';
 import { InfoPopComponent } from './info-pop/info-pop.component';
+import { RegInputComponent } from './reg-input/reg-input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,8 +17,9 @@ import { InfoPopComponent } from './info-pop/info-pop.component';
     AlertComponent,
     DotsComponent,
     InfoPopComponent,
+    RegInputComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   exports: [
     RegButtonComponent,
     ModalComponent,
@@ -24,6 +27,7 @@ import { InfoPopComponent } from './info-pop/info-pop.component';
     AlertComponent,
     DotsComponent,
     InfoPopComponent,
+    RegInputComponent,
   ],
 })
 export class WidgetModule {}

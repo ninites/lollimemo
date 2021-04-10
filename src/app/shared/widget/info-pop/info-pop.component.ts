@@ -21,7 +21,7 @@ export class InfoPopComponent implements OnInit {
   ngOnChanges(): void {
     this.style = {
       width: this.width + 'px',
-      left: ((this.width - 15) / 2) * -1 + 'px',
+      left: ((this.width - 25) / 2) * -1 + 'px',
     };
   }
 }

@@ -6,7 +6,7 @@
         class="playerName_inputsSolo"
       >
         <h2>Choisis ton pseudo Joueur {{ i + 1 }}</h2>
-        <input type="text" [formControlName]="i" />
+        <reg-input [parentForm]="userForm" [parentControlName]="i"></reg-input>
         <reg-button
           [id]="i"
           [type]="'submit'"

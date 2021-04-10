@@ -1,3 +1,4 @@
-<div [@routeMain]="prepareRoute(outlet)">
+<div [@routeMain]="prepareRoute(outlet)" class="rooterMain">
+  <app-header></app-header>
   <router-outlet #outlet="outlet"></router-outlet>
 </div>

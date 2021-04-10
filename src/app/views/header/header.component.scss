@@ -1,0 +1,11 @@
+@import "variables";
+
+.header {
+    display: flex;
+    justify-content: center;
+    font-family: $kidFont;
+    font-size: 40px;
+    h1 {
+      text-shadow: $textShadowFill;
+  }
+}
