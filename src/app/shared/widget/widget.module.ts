@@ -5,6 +5,7 @@ import { ModalComponent } from './modal/modal.component';
 import { TimerComponent } from './timer/timer.component';
 import { AlertComponent } from './alert/alert.component';
 import { DotsComponent } from './dots/dots.component';
+import { InfoPopComponent } from './info-pop/info-pop.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { DotsComponent } from './dots/dots.component';
     ModalComponent,
     TimerComponent,
     AlertComponent,
-    DotsComponent
+    DotsComponent,
+    InfoPopComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -20,7 +22,8 @@ import { DotsComponent } from './dots/dots.component';
     ModalComponent,
     TimerComponent,
     AlertComponent,
-    DotsComponent
+    DotsComponent,
+    InfoPopComponent,
   ],
 })
 export class WidgetModule {}

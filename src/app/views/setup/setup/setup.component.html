@@ -12,20 +12,41 @@
 
   <div class="setup_nextprev">
     <div *ngFor="let value of buttons; let i = index">
-      <reg-button [disabled]="setupServ.disableButtons[i]" [label]="value" (click)="changeChildren(value)" [height]="50"
-        [width]="100"></reg-button>
+      <reg-button
+        [disabled]="setupServ.disableButtons[i]"
+        [label]="value"
+        (click)="changeChildren(value)"
+        [height]="50"
+        [width]="100"
+      ></reg-button>
     </div>
   </div>
 
   <div *ngIf="setupServ.displayStartButton" class="setup_start">
-    <reg-button [label]="'Démarrer'" [disabled]="gameParams.selectedDifficulty === 0" (click)="letsStart()">
+    <reg-button
+      [label]="'Démarrer'"
+      [disabled]="gameParams.selectedDifficulty === 0"
+      (click)="letsStart()"
+    >
     </reg-button>
   </div>
 
   <div class="setup_dots">
-    <dots *ngFor="let dot of dots; let j = index" (mousedown)="changeChildren('dot', j)"
-      [disabled]="setupServ.disableDots[j]" [selected]="setupServ.childIndex === j && true ">
-    </dots>
+    <div class="setup_dotsWrapper" *ngFor="let dot of dots; let j = index">
+      <dots
+        (mousedown)="changeChildren('dot', j)"
+        (mouseover)="setPopInfo(j)"
+        (mouseout)="setPopInfo(j)"
+        [disabled]="setupServ.disableDots[j]"
+        [selected]="setupServ.childIndex === j && true"
+      >
+      </dots>
+      <info-pop
+        [displayed]="displayInfo[j]"
+        [messages]="{ setupInfo: infoName[j] }"
+        [width]="200"
+      ></info-pop>
+    </div>
   </div>
 </div>
 

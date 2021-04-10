@@ -21,11 +21,12 @@
   }
 
   &:disabled {
-    background-color: $pinkMedium;
+    background-color: $greenLight;
   }
   &:hover:enabled {
     box-shadow: 0 0 0 0;
-    background-color: $pinkLight;
+    background-color: $orangeDark;
+    color : $greenLight
   }
   &:focus {
     outline: 0;

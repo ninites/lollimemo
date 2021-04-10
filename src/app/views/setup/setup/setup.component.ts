@@ -26,6 +26,8 @@ export class SetupComponent implements OnInit {
   dots: string[] = [];
   errorMessage: { [key: string]: string } = {};
   displayModal: boolean = false;
+  displayInfo: boolean[] = [];
+  infoName: string[] = [];
 
   ngOnInit(): void {
     this.createIndexPages();
@@ -51,7 +53,30 @@ export class SetupComponent implements OnInit {
     this.setupServ.setRouteConfig(this.setupRoutes);
     for (let index = 0; index < this.setupRoutes.length; index++) {
       this.dots = [...this.dots, '.'];
+      this.displayInfo = [...this.displayInfo, false];
+      this.setInfoPopName(this.setupRoutes[index].path);
     }
+  }
+
+  setInfoPopName(name: string): void {
+    switch (name) {
+      case 'players':
+        this.infoName.push('Nombre de joueurs');
+        break;
+      case 'names':
+        this.infoName.push('Choix du nom');
+        break;
+      case 'difficulty':
+        this.infoName.push('Choix de la difficulté');
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  setPopInfo(index: number): void {
+    this.displayInfo[index] = !this.displayInfo[index];
   }
 
   changeChildren(value: string, dotIndex: any = undefined): void {

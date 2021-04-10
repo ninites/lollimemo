@@ -1,2 +1,10 @@
-<input [disabled]="disabled" [attr.type]="type" [attr.value]="label" [attr.id]="id" class="regButton" [ngStyle]="style"
-  [ngClass]="selected? 'regButton_selected' : '' " [@popIn] />
+<input
+  class="regButton"
+  [disabled]="disabled"
+  [attr.type]="type"
+  [attr.value]="label"
+  [attr.id]="id"
+  [ngStyle]="style"
+  [ngClass]="selected ? 'regButton_selected' : ''"
+  [@popIn]
+/>

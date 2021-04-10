@@ -1,0 +1,8 @@
+<div class="infoPop" *ngIf="displayed" [ngStyle]="style" [@popIn]>
+  <div class="infoPop_container">
+    <div class="infoPop_triangle"></div>
+    <div class="infoPop_wrapper" *ngFor="let message of messages | keyvalue">
+      <p>{{ message.value }}</p>
+    </div>
+  </div>
+</div>

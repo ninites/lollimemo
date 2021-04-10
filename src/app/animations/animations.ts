@@ -115,7 +115,7 @@ export const popAnim = trigger('popIn', [
   transition(
     ':enter',
     animate(
-      '0.4s ease-in-out',
+      '0.2s',
       keyframes([
         style({ transform: 'scale(0)', opacity: 0 }),
         style({ transform: 'scale(1.2)' }),
@@ -126,7 +126,7 @@ export const popAnim = trigger('popIn', [
   transition(
     ':leave',
     animate(
-      '0.4s ease-in-out',
+      '0.2s',
       keyframes([
         style({ transform: 'scale(1)', opacity: 1 }),
         style({ transform: 'scale(1.2)' }),
