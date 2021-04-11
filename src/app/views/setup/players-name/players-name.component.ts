@@ -30,6 +30,7 @@ export class PlayersNameComponent implements OnInit {
     },
   ];
   validate$ = new BehaviorSubject(this.formValidation);
+  btnValidation: boolean = true;
 
   ngOnInit(): void {
     this.maxNumberOfPlayer = this.gameParams.numberOfPlayer;
@@ -63,6 +64,7 @@ export class PlayersNameComponent implements OnInit {
           this.formValidation[index].isMinlength = alias.length > 2 && true;
         });
         this.validate$.next(this.formValidation);
+        this.btnValidation = true;
       },
     });
   }
@@ -84,6 +86,7 @@ export class PlayersNameComponent implements OnInit {
 
     this.alert.message = `Le nom du joueur ${alertUserIndex} a bien ete modifie en ${this.aliases.value[userToModifyIndex]} `;
     this.alert.switchAlert();
+    this.btnValidation = false;
   }
 
   sendUserName(): void {
@@ -94,6 +97,7 @@ export class PlayersNameComponent implements OnInit {
     if (dontOverrideArray) {
       this.formValidation[lastWrittenName].isSubmited = true;
       this.gameParams.postPlayerName(this.aliases.value[lastWrittenName]);
+      this.btnValidation = false;
     }
     this.addPlayerInput();
   }
@@ -121,6 +125,7 @@ export class PlayersNameComponent implements OnInit {
         if (players[index]?.username) {
           this.aliases.push(this.fb.control(players[index].username));
           this.formValidation.push({ isSubmited: true, isMinlength: true });
+          this.btnValidation = false;
         }
       }
     }

@@ -35,7 +35,7 @@ export const alertLeft = trigger('translateLeft', [
 ]);
 
 export const slideInAnimation = trigger('routeAnimations', [
-  transition('Diff <=> Players', [
+  transition('* <=> *', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style({
@@ -43,44 +43,6 @@ export const slideInAnimation = trigger('routeAnimations', [
         top: 0,
         left: 0,
         width: '100%',
-        overflow: 'hidden',
-      }),
-    ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [
-        animate(
-          '300ms ease-out',
-          keyframes([
-            style({ transform: 'scale(1)', opacity: 1 }),
-            style({ transform: 'scale(1.2)' }),
-            style({ transform: 'scale(0)', opacity: 0 }),
-          ])
-        ),
-      ]),
-      query(':enter', [
-        animate(
-          '300ms ease-out',
-          keyframes([
-            style({ transform: 'scale(0)', opacity: 1 }),
-            style({ transform: 'scale(1.2)' }),
-            style({ transform: 'scale(1)', opacity: 0 }),
-          ])
-        ),
-      ]),
-    ]),
-    query(':enter', animateChild()),
-  ]),
-  transition('* <=> Names', [
-    style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        overflow: 'hidden',
       }),
     ]),
     query(':enter', [style({ left: '-100%' })]),
