@@ -1,8 +1,21 @@
+@import "variables";
+
 .difficulty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  & > * {
-    margin: 10px;
+
+  h2 {
+    font-family: $kidFont;
+  }
+
+  &_inputsDiff {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    & > * {
+      margin: $marginMedium;
+    }
   }
 }

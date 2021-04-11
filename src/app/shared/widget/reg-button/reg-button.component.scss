@@ -4,10 +4,10 @@
   background-color: $orangeLight;
   color: $orangeDark;
   padding: $paddingMedium;
-  border-radius: $borderRadius;
   border: none;
   transition: 0.3s;
   font-weight: bold;
+  border-radius: $borderRadius;
 
   &_selected {
     background-color: $orangeMedium;
@@ -23,16 +23,25 @@
   &:disabled {
     background-color: $greenLight;
   }
+
   &:hover:enabled {
     box-shadow: 0 0 0 0;
     background-color: $orangeDark;
-    color : $greenLight
+    color: $greenLight;
   }
   &:focus {
     outline: 0;
   }
 
   &:active {
-    background-color: $greenMedium;
+    background-color: $greenMedium !important;
+  }
+
+  &_confirmation {
+    background-color: $greenLight;
+  }
+
+  &_bindToInput {
+    border-radius: $borderRadiusBtnRight !important;
   }
 }

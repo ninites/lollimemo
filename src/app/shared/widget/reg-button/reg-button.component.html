@@ -5,6 +5,10 @@
   [attr.value]="label"
   [attr.id]="id"
   [ngStyle]="style"
-  [ngClass]="selected ? 'regButton_selected' : ''"
+  [ngClass]="{
+    regButton_selected: selected,
+    regButton_bindToInput: !solo,
+    regButton_confirmation: confirmation
+  }"
   [@popIn]
 />

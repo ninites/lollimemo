@@ -1,12 +1,16 @@
 <div class="difficulty">
   <h2>Difficulté</h2>
-  <select [(ngModel)]="diffChoice">
-    <option *ngFor="let value of difficulty" [ngValue]="value">
-      {{ value }}
-    </option>
-  </select>
-  <reg-button
-    [label]="'Selectionner'"
-    (mousedown)="setDifficulty()"
-  ></reg-button>
+  <div class="difficulty_inputsDiff">
+    <reg-select
+      [values]="difficulty"
+      [(choice)]="diffChoice"
+      (choiceChange)="onChange($event)"
+      [width]="200"
+    ></reg-select>
+    <reg-button
+      [label]="'Selectionner'"
+      (mousedown)="setDifficulty()"
+      [confirmation]="needConfirmation"
+    ></reg-button>
+  </div>
 </div>

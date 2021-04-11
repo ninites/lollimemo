@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { popAnim } from 'src/app/animations/animations';
 
 @Component({
@@ -16,10 +16,12 @@ export class RegButtonComponent implements OnInit {
   @Input() height?: number;
   @Input() selected?: boolean;
   @Input() fontSize?: number;
+  @Input() solo: boolean = true;
+  @Input() confirmation: boolean = false;
 
   style: { [key: string]: any } = {};
 
-  constructor() {}
+  constructor(public elementRef: ElementRef) {}
 
   ngOnInit(): void {
     this.style = {

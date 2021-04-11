@@ -1,3 +1,5 @@
+@import "variables";
+
 .playerName {
   display: flex;
   flex-direction: column;
@@ -12,5 +14,11 @@
     & > * {
       margin: 10px;
     }
+  }
+  &_inputsComp {
+    display: flex;
+  }
+  h2 {
+   font-family: $kidFont;
   }
 }

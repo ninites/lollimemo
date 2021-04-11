@@ -19,8 +19,6 @@
   ></player-info>
 </div>
 
-<alert></alert>
-
 <modal *ngIf="modalSrv.isDisplayed" [closeOnClick]="false" [opacity]="0.05">
   <win-box (restartChange)="reset()"></win-box>
 </modal>

@@ -13,6 +13,8 @@ $orangeMedium: #ffd7ba;
 $orangeDark: #fec89a;
 
 $borderRadius: 5px;
+$borderRadiusBtnRight: 0 $borderRadius $borderRadius 0;
+$borderRadiusInputRight: $borderRadius 0 0 $borderRadius;
 $marginMedium: 10px;
 $marginLow: 5px;
 $paddingMedium: 10px;
@@ -21,3 +23,8 @@ $paddingLow: 5px;
 $shadowFill: 3px 3px 0 0 rgba($orangeDark, 1);
 $shadowFillSmall: 1px 1px 0 0 rgba($orangeDark, 1);
 $textShadowFill: 3px 3px 0 $greenDark;
+
+:export {
+  borderRadiusBtnRight: $borderRadiusBtnRight;
+  borderRadiusInputRight: $borderRadiusInputRight;
+}

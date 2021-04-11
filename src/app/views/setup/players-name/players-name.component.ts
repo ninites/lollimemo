@@ -3,6 +3,7 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { FormValidation } from 'src/app/interface/interface';
+import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { SetupService } from '../setup-service/setup.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class PlayersNameComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private gameParams: GameParametersService,
-    private setupServ: SetupService
+    private setupServ: SetupService,
+    private alert: AlertService
   ) {}
 
   maxNumberOfPlayer: number = 1;
@@ -77,6 +79,11 @@ export class PlayersNameComponent implements OnInit {
       this.aliases.value[userToModifyIndex]
     );
     this.addPlayerInput();
+    const alertUserIndex =
+      typeof userToModifyIndex === 'string' && parseInt(userToModifyIndex) + 1;
+
+    this.alert.message = `Le nom du joueur ${alertUserIndex} a bien ete modifie en ${this.aliases.value[userToModifyIndex]} `;
+    this.alert.switchAlert();
   }
 
   sendUserName(): void {

@@ -1,0 +1,35 @@
+@import "variables";
+.regInput {
+  display: flex;
+  align-items: center;
+  background-color: $greenLight;
+  border-radius: $borderRadius;
+  input {
+    height: 100%;
+    padding: $paddingMedium;
+    border: none;
+    border-radius: $borderRadius;
+    background-color: $greenLight;
+    transition: 0.3s;
+    &:focus {
+      outline: none;
+      background-color: $greenDark;
+    }
+    &::placeholder {
+      color: $orangeDark;
+    }
+  }
+
+  &_bindToButton {
+    border-radius: $borderRadiusInputRight !important;
+    background-color: red;
+  }
+
+  &_validate {
+    box-shadow: $shadowFill;
+    background-color: $orangeLight !important;
+    &:focus {
+      background-color: $greenDark !important;
+    }
+  }
+}

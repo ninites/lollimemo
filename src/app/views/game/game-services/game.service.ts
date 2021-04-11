@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
-import { AlertService } from 'src/app/shared/widget/alert/alert.service';
+import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 
 @Injectable({

@@ -1,0 +1,10 @@
+<select
+  class="regSelect"
+  [ngStyle]="style"
+  [(ngModel)]="choice"
+  (ngModelChange)="sendValueToParent()"
+>
+  <option *ngFor="let value of values" [ngValue]="value">
+    {{ value }}
+  </option>
+</select>

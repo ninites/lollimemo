@@ -1,3 +1,10 @@
-<div [formGroup]="parentForm">
-  <input type="text" [formControlName]="parentControlName" />
+<div class="regInput" [formGroup]="parentForm">
+  <input
+    type="text"
+    [formControlName]="parentControlName"
+    [attr.disabled]="disabled ? '' : null"
+    [ngStyle]="style"
+    [placeholder]="placeholder"
+    [ngClass]="{ regInput_validate: validate, regInput_bindToButton: !solo }"
+  />
 </div>

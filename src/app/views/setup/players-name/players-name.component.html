@@ -6,13 +6,23 @@
         class="playerName_inputsSolo"
       >
         <h2>Choisis ton pseudo Joueur {{ i + 1 }}</h2>
-        <reg-input [parentForm]="userForm" [parentControlName]="i"></reg-input>
-        <reg-button
-          [id]="i"
-          [type]="'submit'"
-          [disabled]="!formValidation[i].isMinlength"
-          [label]="formValidation[i].isSubmited ? 'Modifier' : 'Valider'"
-        ></reg-button>
+        <div class="playerName_inputsComp">
+          <reg-input
+            [parentForm]="userForm"
+            [parentControlName]="i"
+            [width]="200"
+            [placeholder]="'Entre ton nom'"
+            [validate]="formValidation[i].isMinlength"
+            [solo]="false"
+          ></reg-input>
+          <reg-button
+            [id]="i"
+            [type]="'submit'"
+            [disabled]="!formValidation[i].isMinlength"
+            [label]="formValidation[i].isSubmited ? 'Modifier' : 'Valider'"
+            [solo]="false"
+          ></reg-button>
+        </div>
       </div>
     </div>
   </form>

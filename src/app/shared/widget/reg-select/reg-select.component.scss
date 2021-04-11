@@ -1,0 +1,17 @@
+@import "variables";
+
+.regSelect {
+  background-color: $greenLight;
+  border: none;
+  padding: $paddingMedium;
+  position: relative;
+  border-radius: $borderRadius;
+
+  option {
+      font-weight: bold;
+      border-radius: $borderRadius;
+  }
+  &:focus {
+    outline: none;
+  }
+}
