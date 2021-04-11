@@ -17,13 +17,14 @@ export class CardslistComponent implements OnInit {
     private game: GameService,
     private gameParams: GameParametersService,
     public modalSrv: ModalService,
-    private timer : TimerService
+    private timer: TimerService
   ) {}
 
   cardsList: Picture[] = [];
   isFlipping: boolean = false;
   players: Player[] = [];
   multi: boolean = false;
+  interval: any;
 
   ngOnInit(): void {
     this.startGame();
@@ -69,15 +70,19 @@ export class CardslistComponent implements OnInit {
     this.openCard(ids.unique);
     const gameStatus = this.game.addTurnTry(ids);
     if (gameStatus === 'win')
-      setTimeout(() => this.modalSrv.switchModal(), 800);
+      this.interval = setTimeout(() => this.modalSrv.switchModal(), 800);
     if (gameStatus === 'close') {
       this.isFlipping = true;
       await new Promise((resolve, reject) => {
-        setTimeout(() => {
+        this.interval = setTimeout(() => {
           resolve(this.closeCards());
         }, 1000);
       });
       this.isFlipping = false;
     }
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.interval);
   }
 }

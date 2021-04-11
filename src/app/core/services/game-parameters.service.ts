@@ -5,7 +5,7 @@ import { Player } from '../../interface/interface';
   providedIn: 'root',
 })
 export class GameParametersService {
-  selectedDifficulty: number = 5;
+  selectedDifficulty: number = 0;
   selectedDifficultyString: string = '';
   players: Player[] = [];
   numberOfPlayer: number = 1;
