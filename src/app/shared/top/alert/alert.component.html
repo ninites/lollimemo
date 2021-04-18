@@ -1,5 +1,7 @@
 <div class="alert" *ngIf="alert.isDisplayed" [@translateLeft]>
-  <reg-button [label]="'X'" (click)="closeAlert()"></reg-button>
+  <div class="alert_button">
+    <reg-button [label]="'X'" (click)="closeAlert()"></reg-button>
+  </div>
   <div class="alert_message">
     {{ alert.message }}
   </div>

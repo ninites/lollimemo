@@ -34,6 +34,7 @@ export class CardslistComponent implements OnInit {
 
   startGame() {
     this.timer.setTimer(false);
+
     this.picsSrvc.getPictures(this.gameParams.selectedDifficulty).subscribe({
       next: (resp): void => {
         this.cardsList = resp;
@@ -84,5 +85,6 @@ export class CardslistComponent implements OnInit {
 
   ngOnDestroy() {
     clearTimeout(this.interval);
+    this.timer.resetTimer()
   }
 }

@@ -10,7 +10,7 @@ export class GameService {
   constructor(
     private gameParams: GameParametersService,
     private alert: AlertService,
-    private timer : TimerService
+    private timer: TimerService
   ) {}
 
   onTurnTry: number = 0;
@@ -77,14 +77,13 @@ export class GameService {
     this.onTurnTry = 0;
     this.turnTry = [];
     this.alreadyOpened = [];
-    this.timer.resetTimer()
   }
 
   hardReset() {
     this.reset();
     this.alreadyDiscovered = [];
     this.numberOftries = 0;
-    this.timer.setTimer(true);
+    this.timer.resetTimer();
 
     this.gameParams.players.forEach((player) => {
       player.totalPoints = 0;
@@ -94,7 +93,4 @@ export class GameService {
   getNumberOfTries(): number {
     return this.numberOftries;
   }
-
-
-
 }

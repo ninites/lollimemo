@@ -1,0 +1,20 @@
+@import "variables";
+
+.playerInfo {
+  &_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $orangeMedium;
+    padding: $paddingMedium;
+    border-radius: $borderRadius;
+    box-shadow: $shadowFill;
+    margin: 0 $marginMedium 0 $marginMedium;
+    transition: 0.4s;
+  }
+
+  &_myTurn {
+      background-color: $greenDark;
+      transform: scale(1.1);
+  }
+}

@@ -137,7 +137,11 @@ export class PlayersNameComponent implements OnInit {
         return Object.values(input).filter((value) => value === false);
       })
       .reduce((acc, value) => acc.concat(value));
-    return result.length === 0;
+
+    return (
+      result.length === 0 &&
+      fromToVerify.length === this.gameParams.numberOfPlayer
+    );
   }
 
   get aliases() {

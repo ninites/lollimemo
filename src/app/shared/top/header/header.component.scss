@@ -1,11 +1,17 @@
 @import "variables";
 
 .header {
-    display: flex;
-    justify-content: center;
-    font-family: $kidFont;
-    font-size: 40px;
-    h1 {
-      text-shadow: $textShadowFill;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $kidFont;
+  font-size: $headerSize;
+  h1 {
+    padding: 0 $paddingMedium 0 $paddingMedium;
+    text-shadow: $textShadowFill;
+  }
+  &_nav {
+    padding: 0 $paddingMedium 0 $paddingMedium;
   }
 }

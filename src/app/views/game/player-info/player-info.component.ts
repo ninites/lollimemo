@@ -10,9 +10,6 @@ import { GameService } from '../game-services/game.service';
 export class PlayerInfoComponent implements OnInit {
   @Input() player?: Player;
   @Input() index: number = 0;
-  playerTurn = {
-    color: 'red',
-  };
 
   constructor(public game: GameService) {}
 

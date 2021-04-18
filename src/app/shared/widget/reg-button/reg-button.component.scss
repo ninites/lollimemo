@@ -8,6 +8,9 @@
   transition: 0.3s;
   font-weight: bold;
   border-radius: $borderRadius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &_selected {
     background-color: $orangeMedium;

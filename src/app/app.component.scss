@@ -1,6 +1,17 @@
-.rooterMain {
+@import "variables";
+
+.root {
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  place-content: center;
+
+  &_rooterMain {
+    position: relative;
+    height: 100%;
+    width: $gameSize;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+  }
 }

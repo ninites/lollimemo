@@ -1,0 +1,23 @@
+@import "variables";
+
+.timer {
+  display: flex;
+  font-size: $fontSizeL;
+  font-weight: bold;
+  align-items: center;
+  background-color: $orangeLight;
+  padding: $paddingMedium;
+  border-radius: $borderRadius;
+  box-shadow: $shadowFill;
+
+  p {
+    margin: 0 $marginLow 0 $marginLow;
+  }
+
+  &_digit {
+    border: 3px solid $orangeDark;
+    background-color: $orangeMedium;
+    border-radius: $borderRadius;
+    padding: $paddingMedium;
+  }
+}

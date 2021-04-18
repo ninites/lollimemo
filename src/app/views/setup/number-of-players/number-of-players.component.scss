@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   &_buttons {
+    display: flex;
     & > * {
       margin: $marginMedium;
     }

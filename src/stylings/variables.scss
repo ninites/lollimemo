@@ -24,7 +24,11 @@ $shadowFill: 3px 3px 0 0 rgba($orangeDark, 1);
 $shadowFillSmall: 1px 1px 0 0 rgba($orangeDark, 1);
 $textShadowFill: 3px 3px 0 $greenDark;
 
-:export {
-  borderRadiusBtnRight: $borderRadiusBtnRight;
-  borderRadiusInputRight: $borderRadiusInputRight;
-}
+$fontSizeS: small;
+$fontSizeM: medium;
+$fontSizeL: 22px;
+
+
+$gameSize: 100%;
+$cardSize: 80px;
+$headerSize: $fontSizeM;

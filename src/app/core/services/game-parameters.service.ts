@@ -42,6 +42,8 @@ export class GameParametersService {
   }
 
   gameParamsValidation(): { [key: string]: string } {
+    this.players = this.players.slice(0, this.numberOfPlayer);
+
     const gameParameters = {
       diff: this.selectedDifficulty,
       players: this.players,
@@ -74,5 +76,9 @@ export class GameParametersService {
     this.selectedDifficulty = 0;
     this.selectedDifficultyString = '';
     this.numberOfPlayer = 1;
+  }
+
+  resetScore(): void {
+    this.players.forEach((player) => (player.totalPoints = 0));
   }
 }

@@ -1,10 +1,22 @@
-<select
+<div
+  clickOutside
   class="regSelect"
   [ngStyle]="style"
-  [(ngModel)]="choice"
-  (ngModelChange)="sendValueToParent()"
+  (click)="displayOptions = !displayOptions"
 >
-  <option *ngFor="let value of values" [ngValue]="value">
-    {{ value }}
-  </option>
-</select>
+  <p>{{ choice }}</p>
+  <div
+    *ngIf="displayOptions"
+    class="regSelect_optionsWrapper"
+    [ngStyle]="style"
+    [@popIn]
+  >
+    <div
+      class="regSelect_options"
+      *ngFor="let value of values"
+      (click)="sendValueToParent(value)"
+    >
+      {{ value }}
+    </div>
+  </div>
+</div>

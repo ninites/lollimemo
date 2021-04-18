@@ -5,7 +5,7 @@ import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, WidgetModule,DirectivesModule],
-  exports: [WidgetModule],
+  imports: [CommonModule, WidgetModule, DirectivesModule],
+  exports: [WidgetModule, DirectivesModule],
 })
 export class SharedModule {}

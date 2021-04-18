@@ -6,12 +6,29 @@
   padding: $paddingMedium;
   position: relative;
   border-radius: $borderRadius;
+  position: relative;
+  cursor: pointer;
 
   option {
-      font-weight: bold;
-      border-radius: $borderRadius;
+    font-weight: bold;
+    border-radius: $borderRadius;
   }
   &:focus {
     outline: none;
+  }
+
+  &_optionsWrapper {
+    position: absolute;
+    top: 40px;
+    left: 0;
+  }
+
+  &_options {
+    width: 100%;
+    background-color: $greenLight;
+    padding: $paddingMedium;
+    &:hover {
+      background-color: $pinkLight;
+    }
   }
 }

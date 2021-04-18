@@ -45,31 +45,39 @@ export const slideInAnimation = trigger('routeAnimations', [
         width: '100%',
       }),
     ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
+    query(':enter', [style({ left: '-100%' })], { optional: true }),
+    query(':leave', animateChild(), { optional: true }),
     group([
-      query(':leave', [
-        animate(
-          '300ms ease-out',
-          keyframes([
-            style({ transform: 'scale(1)', opacity: 1 }),
-            style({ transform: 'scale(1.2)' }),
-            style({ transform: 'scale(0)', opacity: 0 }),
-          ])
-        ),
-      ]),
-      query(':enter', [
-        animate(
-          '300ms ease-out',
-          keyframes([
-            style({ transform: 'scale(0)', opacity: 1 }),
-            style({ transform: 'scale(1.2)' }),
-            style({ transform: 'scale(1)', opacity: 0 }),
-          ])
-        ),
-      ]),
+      query(
+        ':leave',
+        [
+          animate(
+            '300ms ease-out',
+            keyframes([
+              style({ transform: 'scale(1)', opacity: 1 }),
+              style({ transform: 'scale(1.2)' }),
+              style({ transform: 'scale(0)', opacity: 0 }),
+            ])
+          ),
+        ],
+        { optional: true }
+      ),
+      query(
+        ':enter',
+        [
+          animate(
+            '300ms ease-out',
+            keyframes([
+              style({ transform: 'scale(0)', opacity: 1 }),
+              style({ transform: 'scale(1.2)' }),
+              style({ transform: 'scale(1)', opacity: 0 }),
+            ])
+          ),
+        ],
+        { optional: true }
+      ),
     ]),
-    query(':enter', animateChild()),
+    query(':enter', animateChild(), { optional: true }),
   ]),
 ]);
 
@@ -99,41 +107,46 @@ export const popAnim = trigger('popIn', [
 ]);
 
 export const routeMain = trigger('routeMain', [
-  transition('Setup => Game', [
+  transition('* <=> *', [
     style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-    ]),
-    query(':enter', [style({ left: '100%' })]),
-    query(':leave', animateChild()),
+    query(
+      ':enter, :leave',
+      [
+        style({
+          position: 'absolute',
+          left: '50%',
+          right: '50%',
+          transform: 'translate(-50%,-50%)',
+          transition: 'all 0.5s ease-in-out',
+        }),
+      ],
+      { optional: true }
+    ),
+    query(':enter', animateChild(), { optional: true }),
+    query(':leave', animateChild(), { optional: true }),
     group([
-      query(':leave', [animate('300ms ease-out', style({ left: '-100%' }))]),
-      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))]),
+      query(
+        ':leave',
+        [
+          animate(
+            '500ms',
+            keyframes([style({ opacity: 1 }), style({ opacity: 0 })])
+          ),
+        ],
+        { optional: true }
+      ),
+      query(
+        ':enter',
+        [
+          animate(
+            '500ms',
+            keyframes([style({ opacity: 0 }), style({ opacity: 1 })])
+          ),
+        ],
+        { optional: true }
+      ),
     ]),
-    query(':enter', animateChild()),
-  ]),
-  transition('Game => Setup', [
-    style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-    ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [animate('200ms ease-out', style({ left: '100%' }))]),
-      query(':enter', [animate('300ms ease-out', style({ left: '0%' }))]),
-    ]),
-    query(':enter', animateChild()),
+    query(':enter', animateChild(), { optional: true }),
   ]),
 ]);
 

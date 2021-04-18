@@ -1,9 +1,15 @@
 <div class="numberOfPlayers">
   <h2>Nombre de joueurs</h2>
   <div class="numberOfPlayers_buttons">
-    <reg-button *ngFor="let choice of numberChoice; let i = index" [selected]="usersChoice[i]"
-      (click)="selectNumberOfPlayer(choice)" [label]="choice.toString()" [fontSize]="20" [height]="100" [width]="100">
-
+    <reg-button
+      *ngFor="let choice of numberChoice; let i = index"
+      [selected]="usersChoice[i]"
+      (click)="selectNumberOfPlayer(choice)"
+      [label]="choice.toString()"
+      [fontSize]="20"
+      [height]="100"
+      [width]="100"
+    >
     </reg-button>
   </div>
 </div>
