@@ -38,8 +38,7 @@ export class WinBoxComponent implements OnInit {
   restartAndChangeParams() {
     this.modalSrv.switchModal();
     setTimeout(() => {
-      this.game.hardReset();
-      this.gameParams.resetParams();
+      this.gameParams.resetScore()
       this.router.navigate(['/setup']);
     });
   }

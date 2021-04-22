@@ -18,7 +18,7 @@ export class RegInputComponent implements OnInit {
   constructor(private controlContainer: ControlContainer) {}
 
   ngOnInit(): void {
-    this.parentForm = this.controlContainer.control;
+    this.parentForm = this.controlContainer.control;    
   }
 
   ngOnChanges(): void {

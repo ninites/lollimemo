@@ -21,6 +21,14 @@ const routes: Routes = [
     canActivate: [GameParamsValidGuard],
     data: { animation: 'Game' },
   },
+  {
+    path: 'themes',
+    loadChildren: async () => {
+      const module = await import('./views/themes/themes.module');
+      return module.ThemesModule;
+    },
+    data: { animation: 'Themes' },
+  },
   { path: '**', redirectTo: 'setup', pathMatch: 'full' },
 ];
 

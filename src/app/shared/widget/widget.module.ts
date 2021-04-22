@@ -8,6 +8,8 @@ import { InfoPopComponent } from './info-pop/info-pop.component';
 import { RegInputComponent } from './reg-input/reg-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegSelectComponent } from './reg-select/reg-select.component';
+import { RegFileComponent } from './reg-file/reg-file.component';
+import { PicturesPreviewComponent } from './pictures-preview/pictures-preview.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { RegSelectComponent } from './reg-select/reg-select.component';
     InfoPopComponent,
     RegInputComponent,
     RegSelectComponent,
+    RegFileComponent,
+    PicturesPreviewComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   exports: [
@@ -28,6 +32,8 @@ import { RegSelectComponent } from './reg-select/reg-select.component';
     InfoPopComponent,
     RegInputComponent,
     RegSelectComponent,
+    RegFileComponent,
+    PicturesPreviewComponent,
   ],
 })
 export class WidgetModule {}

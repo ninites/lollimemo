@@ -1,0 +1,37 @@
+@import "variables";
+
+.regFile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &_label {
+    background-color: $orangeLight;
+    color: $orangeDark;
+    padding: $paddingMedium;
+    border: none;
+    transition: 0.3s;
+    font-weight: bold;
+    border-radius: $borderRadius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadowFill;
+    cursor: pointer;
+    width: 100%;
+
+    &:hover {
+      box-shadow: 0 0 0 0;
+      background-color: $orangeDark;
+      color: $greenLight;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  #reg-file {
+    display: none;
+  }
+}

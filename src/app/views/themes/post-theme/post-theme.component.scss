@@ -1,0 +1,41 @@
+@import "variables";
+
+.postTheme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &_titleInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &_regComps {
+    display: flex;
+  }
+
+  &_preview {
+    display: flex;
+    flex-wrap: wrap;
+    & >* {
+      margin: $marginMedium;
+    }
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      & > * {
+        margin: $marginMedium;
+      }
+    }
+  }
+}

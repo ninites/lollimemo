@@ -1,0 +1,6 @@
+<div class="regFile" [formGroup]="parentForm">
+  <label for="reg-file" class="regFile_label" [ngStyle]="style"
+    >{{ labelValue }}
+  </label>
+  <input id="reg-file" type="file" (change)="onChange($event)" multiple/>
+</div>

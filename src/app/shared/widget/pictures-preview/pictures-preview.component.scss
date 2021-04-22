@@ -1,0 +1,12 @@
+@import "variables";
+
+.picturePreview {
+  display: flex;
+  &_preview {
+    background-position: center;
+    background-size: cover;
+    border-radius: $borderRadius;
+    box-shadow: $shadowFill;
+    padding: $paddingLow;
+  }
+}
