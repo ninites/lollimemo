@@ -15,10 +15,23 @@
     display: flex;
   }
 
+  &_inputPictures {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  &_picturesButtonsinputBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: $marginMedium;
+  }
+
   &_preview {
     display: flex;
     flex-wrap: wrap;
-    & >* {
+    & > * {
       margin: $marginMedium;
     }
   }

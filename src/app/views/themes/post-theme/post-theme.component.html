@@ -2,6 +2,7 @@
   <h2>Ajouter un theme</h2>
   <div class="postTheme_form">
     <form [formGroup]="postThemeForm">
+
       <div class="postTheme_titleInput">
         <label for="post_image">Entrez le nom du theme</label>
         <div class="postTheme_regComps">
@@ -14,15 +15,34 @@
           ></reg-input>
         </div>
       </div>
-      <label for="post_image_button"
-        >Ajoutez {{ 10 - postThemeForm.value.pictures.length }} images pour
-        creer un theme</label
-      >
-      <reg-file
-        id="post_img_button"
-        [width]="200"
-        [parentForm]="postThemeForm"
-      ></reg-file>
+
+      <div class="postTheme_inputPictures">
+
+        <div class="postTheme_picturesButtonsinputBox">
+          <label for="post_cardBack_button">Ajoutez un dos de carte</label>
+          <reg-file
+            id="post_cardBack_button"
+            [width]="200"
+            [controlName]="'cardBack'"
+            [parentForm]="postThemeForm"
+          ></reg-file>
+        </div>
+
+        <div class="postTheme_picturesButtonsinputBox">
+          <label for="post_image_button"
+            >Ajoutez {{ 10 - postThemeForm.value.pictures.length }} images pour
+            creer un theme</label
+          >
+          <reg-file
+            id="post_img_button"
+            [width]="200"
+            [parentForm]="postThemeForm"
+            [controlName]="'pictures'"
+            [multiple]="true"
+          ></reg-file>
+        </div>
+
+      </div>
       <reg-button
         [label]="'Valider'"
         [disabled]="!postThemeForm.valid"

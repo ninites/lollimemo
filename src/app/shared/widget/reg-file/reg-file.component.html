@@ -1,6 +1,13 @@
 <div class="regFile" [formGroup]="parentForm">
-  <label for="reg-file" class="regFile_label" [ngStyle]="style"
+  <label [attr.for]="controlName" class="regFile_label" [ngStyle]="style"
     >{{ labelValue }}
   </label>
-  <input id="reg-file" type="file" (change)="onChange($event)" multiple/>
+  <input
+    [attr.id]="controlName"
+    class="regFile_noInput"
+    type="file"
+    (click)="test()"
+    (change)="onChange($event)"
+    [multiple]="multiple"
+  />
 </div>
