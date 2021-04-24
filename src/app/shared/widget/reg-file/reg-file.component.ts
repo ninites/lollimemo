@@ -27,11 +27,7 @@ export class RegFileComponent implements OnInit {
       width: this.width + 'px',
     };
   }
-  test() : void {
-    console.log(this);
-    
-  }
-
+ 
   parentHandler(): void {
     this.parentForm.valueChanges
       .pipe(map((values: any) => values[this.controlName]))

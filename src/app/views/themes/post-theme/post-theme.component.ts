@@ -19,6 +19,7 @@ export class PostThemeComponent implements OnInit {
 
   buttonLabel: string = 'Valider';
   picturesLengthAlert: number = 0;
+  displaySideMenu: boolean = false;
 
   pictureChangeHandler(): void {
     this.postThemeForm.valueChanges
@@ -34,13 +35,13 @@ export class PostThemeComponent implements OnInit {
       });
   }
 
-  pictureDelete(pictureId: number): void {
-    const result = [...this.postThemeForm.value.pictures].filter(
+  pictureDelete(pictureId: number, source: string): void {
+    const result = [...this.postThemeForm.value[source]].filter(
       (pic, index) => {
         return index !== pictureId;
       }
     );
-    this.postThemeForm.patchValue({ pictures: [...result] });
+    this.postThemeForm.patchValue({ [source]: [...result] });
   }
 
   ngOnInit(): void {

@@ -1,0 +1,29 @@
+@import "variables";
+
+$sideMenuSize: 250px;
+
+.sideMenu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $greenLight;
+  border-left: $orangeDark 3px solid;
+  width: $sideMenuSize;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  transform: translateX($sideMenuSize);
+  transition: 0.3s ease;
+
+ 
+  & > * {
+    margin: $marginMedium;
+  }
+
+  &_displayed {
+    transform: translateX(0);
+  }
+}

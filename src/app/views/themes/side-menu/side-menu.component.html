@@ -1,0 +1,6 @@
+<div class="sideMenu" [ngClass]="{ sideMenu_displayed: display }">
+  <p>Dos de carte</p>
+  <ng-content select="[background]"></ng-content>
+  <p>Images selectionnées</p>
+  <ng-content select="[card]"></ng-content>
+</div>

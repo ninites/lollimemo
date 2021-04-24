@@ -13,6 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [WidgetModule, DirectivesModule],
+  exports: [
+    CommonModule,
+    WidgetModule,
+    DirectivesModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class SharedModule {}

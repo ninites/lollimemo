@@ -2,7 +2,6 @@
   <h2>Ajouter un theme</h2>
   <div class="postTheme_form">
     <form [formGroup]="postThemeForm">
-
       <div class="postTheme_titleInput">
         <label for="post_image">Entrez le nom du theme</label>
         <div class="postTheme_regComps">
@@ -17,7 +16,6 @@
       </div>
 
       <div class="postTheme_inputPictures">
-
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
           <reg-file
@@ -41,21 +39,42 @@
             [multiple]="true"
           ></reg-file>
         </div>
-
       </div>
+      <reg-button
+      [width]="200"
+        *ngIf="
+          postThemeForm.value.pictures.length > 0 ||
+          postThemeForm.value.cardBack.length > 0
+        "
+        [label]="'Previsualiser les images'"
+        (click)="displaySideMenu = !displaySideMenu"
+      ></reg-button>
       <reg-button
         [label]="'Valider'"
         [disabled]="!postThemeForm.valid"
+        [width]="200"
       ></reg-button>
     </form>
-    <div class="postTheme_preview">
-      <pictures-preview
-        *ngFor="let picture of postThemeForm.value.pictures; let index = index"
-        [index]="index"
-        [picture]="picture"
-        [size]="100"
-        (fileDelete)="pictureDelete($event)"
-      ></pictures-preview>
-    </div>
+    <div class="postTheme_preview"></div>
   </div>
 </div>
+<side-menu [display]="displaySideMenu">
+  <div background>
+    <pictures-preview
+      *ngFor="let back of postThemeForm.value.cardBack; let index = index"
+      [index]="index"
+      [picture]="back"
+      [size]="100"
+      (fileDelete)="pictureDelete($event, 'cardBack')"
+    ></pictures-preview>
+  </div>
+  <div card>
+    <pictures-preview
+      *ngFor="let picture of postThemeForm.value.pictures; let index = index"
+      [index]="index"
+      [picture]="picture"
+      [size]="100"
+      (fileDelete)="pictureDelete($event, 'pictures')"
+    ></pictures-preview>
+  </div>
+</side-menu>
