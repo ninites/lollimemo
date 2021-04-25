@@ -9,6 +9,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: $borderRadius;
+    background-color: $orangeMedium;
+    padding: $paddingMedium;
+    width: 90%;
+    align-items: center;
+    & > * {
+      margin: $marginLow;
+    }
   }
 
   &_regComps {
@@ -19,6 +27,10 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    border-radius: $borderRadius;
+    background-color: $greenLight;
+    padding: $paddingMedium;
+    width: 90%;
   }
 
   &_picturesButtonsinputBox {
@@ -26,6 +38,9 @@
     flex-direction: column;
     align-items: center;
     margin: $marginMedium;
+    & > * {
+      margin: $marginLow;
+    }
   }
 
   &_preview {
@@ -35,7 +50,6 @@
       margin: $marginMedium;
     }
   }
-
 
   &_form {
     display: flex;

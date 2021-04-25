@@ -1,9 +1,11 @@
 <div
   clickOutside
+  (clickOutside)="displayOptions = false"
   class="regSelect"
   [ngStyle]="style"
   (click)="displayOptions = !displayOptions"
 >
+  <p *ngIf="!choice">Faites votre choix</p>
   <p>{{ choice }}</p>
   <div
     *ngIf="displayOptions"

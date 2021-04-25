@@ -18,6 +18,7 @@ export class RegButtonComponent implements OnInit {
   @Input() fontSize?: number;
   @Input() solo: boolean = true;
   @Input() confirmation: boolean = false;
+  @Input() noPadding: boolean = false;
 
   style: { [key: string]: any } = {};
 
@@ -29,5 +30,6 @@ export class RegButtonComponent implements OnInit {
       height: this.height + 'px',
       fontSize: this.fontSize + 'px',
     };
+    if (this.noPadding) this.style = { ...this.style, padding: 0 };
   }
 }

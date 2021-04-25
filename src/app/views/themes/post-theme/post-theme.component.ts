@@ -44,6 +44,11 @@ export class PostThemeComponent implements OnInit {
     this.postThemeForm.patchValue({ [source]: [...result] });
   }
 
+  onSubmit(e: any): void {
+    e.preventDefault();
+    console.log(this.postThemeForm.value);
+  }
+
   ngOnInit(): void {
     this.pictureChangeHandler();
   }

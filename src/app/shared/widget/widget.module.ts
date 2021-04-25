@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegSelectComponent } from './reg-select/reg-select.component';
 import { RegFileComponent } from './reg-file/reg-file.component';
 import { PicturesPreviewComponent } from './pictures-preview/pictures-preview.component';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { PicturesPreviewComponent } from './pictures-preview/pictures-preview.co
     RegFileComponent,
     PicturesPreviewComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, DirectivesModule],
   exports: [
     RegButtonComponent,
     ModalComponent,

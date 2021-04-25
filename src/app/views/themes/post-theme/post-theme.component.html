@@ -1,7 +1,7 @@
 <div class="postTheme">
   <h2>Ajouter un theme</h2>
   <div class="postTheme_form">
-    <form [formGroup]="postThemeForm">
+    <form [formGroup]="postThemeForm" (submit)="onSubmit($event)">
       <div class="postTheme_titleInput">
         <label for="post_image">Entrez le nom du theme</label>
         <div class="postTheme_regComps">
@@ -37,11 +37,13 @@
             [parentForm]="postThemeForm"
             [controlName]="'pictures'"
             [multiple]="true"
+            [multiMax]="10"
           ></reg-file>
         </div>
       </div>
       <reg-button
-      [width]="200"
+        id="clickOutside_sideMenu_button"
+        [width]="200"
         *ngIf="
           postThemeForm.value.pictures.length > 0 ||
           postThemeForm.value.cardBack.length > 0
@@ -50,6 +52,7 @@
         (click)="displaySideMenu = !displaySideMenu"
       ></reg-button>
       <reg-button
+        [type]="'submit'"
         [label]="'Valider'"
         [disabled]="!postThemeForm.valid"
         [width]="200"
@@ -58,7 +61,12 @@
     <div class="postTheme_preview"></div>
   </div>
 </div>
-<side-menu [display]="displaySideMenu">
+<side-menu
+  clickOutside
+  [exceptions]="['sideMenu_button']"
+  (clickOutside)="displaySideMenu = false"
+  [display]="displaySideMenu"
+>
   <div background>
     <pictures-preview
       *ngFor="let back of postThemeForm.value.cardBack; let index = index"
