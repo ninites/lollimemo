@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-family: $kidFont;
   font-size: $headerSize;
@@ -13,5 +13,11 @@
   }
   &_nav {
     padding: 0 $paddingMedium 0 $paddingMedium;
+    a{
+      text-shadow: $textShadowFill;
+    }
+    & > * {
+      margin: 0 $marginLow 0 $marginLow;
+    }
   }
 }

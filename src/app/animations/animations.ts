@@ -106,6 +106,7 @@ export const popAnim = trigger('popIn', [
   ),
 ]);
 
+
 export const routeMain = trigger('routeMain', [
   transition('* <=> *', [
     style({ position: 'relative' }),

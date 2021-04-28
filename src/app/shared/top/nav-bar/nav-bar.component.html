@@ -1,0 +1,22 @@
+<div class="navBar">
+  <div class="navBar_star">
+    <i
+      id="clickOutside_navBar_starButton"
+      class="fas fa-star fa-2x"
+      (click)="isDisplayed = !isDisplayed"
+      [ngClass]="{ activatedStar: isDisplayed }"
+    ></i>
+  </div>
+  <div
+    *ngIf="isDisplayed"
+    class="navBar_list"
+    [@popIn]
+    clickOutside
+    [exceptions]="['navBar_starButton']"
+    (clickOutside)="isDisplayed = !isDisplayed"
+  >
+    <a (click)="goHome()">Home</a>
+    <a [routerLink]="['/themes']">Ajouter dun theme</a>
+    <a [routerLink]="['/subscribe']">S'inscrire</a>
+  </div>
+</div>

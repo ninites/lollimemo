@@ -28,4 +28,9 @@ export class ModalComponent implements OnInit {
     if (!this.closeOnClick) return;
     this.modalSrv.switchModal();
   }
+
+
+  ngOnDestroy() : void {
+    this.el.nativeElement.remove()
+  }
 }

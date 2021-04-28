@@ -29,6 +29,14 @@ const routes: Routes = [
     },
     data: { animation: 'Themes' },
   },
+  {
+    path: 'subscribe',
+    loadChildren: async () => {
+      const module = await import('./views/subscribe/subscribe.module');
+      return module.SubscribeModule;
+    },
+    data: { animation: 'Themes' },
+  },
   { path: '**', redirectTo: 'setup', pathMatch: 'full' },
 ];
 

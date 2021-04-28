@@ -1,5 +1,10 @@
-<div class="modal_all" (click)="removeModal($event)" [ngStyle]="style" [@opacityAnim]>
-  <div class="modall_content" stopPropagation>
+<div
+  class="modal_all"
+  (click)="removeModal($event)"
+  [ngStyle]="style"
+  [@opacityAnim]
+>
+  <div class="modal_content" stopPropagation>
     <ng-content></ng-content>
   </div>
 </div>

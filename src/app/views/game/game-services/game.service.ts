@@ -47,7 +47,6 @@ export class GameService {
         return 'win';
       }
 
-      if (multiplayer) this.changePlayerTurn();
       this.reset();
       return;
     }

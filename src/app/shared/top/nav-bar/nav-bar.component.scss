@@ -1,0 +1,49 @@
+@import "variables.scss";
+
+.navBar {
+  &_star {
+    cursor: pointer;
+  }
+  &_list {
+    position: absolute;
+    width: $gameSize;
+    width: 85%;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $greenLight;
+    padding: $paddingMedium;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    box-shadow: $shadowFill;
+    & > * {
+      margin: $marginLow;
+    }
+  }
+  .fa-star {
+    transition: 0.5s;
+    animation: shake infinite 0.5s;
+    &:hover {
+      color: $greenLight;
+    }
+  }
+
+  .activatedStar {
+    color: $greenLight;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+
+  100% {
+    transform: rotate(-5deg);
+  }
+}

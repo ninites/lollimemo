@@ -22,6 +22,7 @@ export class ClickOutsideDirective {
       return document.querySelector(`#clickOutside_${ex}`);
     });
     except.push(this.elRef.nativeElement);
+
     const clickInside: boolean[] = [];
     except.forEach((element: HTMLElement) => {
       if (element && element.contains(event.target)) {
