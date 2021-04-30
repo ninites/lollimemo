@@ -1,9 +1,9 @@
-<input
+<button
   class="regButton"
   [disabled]="disabled"
   [attr.type]="type"
-  [attr.value]="label"
   [attr.id]="id"
+  [attr.value]="label"
   [ngStyle]="style"
   [ngClass]="{
     regButton_selected: selected,
@@ -11,4 +11,7 @@
     regButton_confirmation: confirmation
   }"
   [@popIn]
-/>
+>
+{{label}}
+  <ng-content></ng-content>
+</button>

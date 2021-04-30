@@ -30,10 +30,10 @@ const routes: Routes = [
     data: { animation: 'Themes' },
   },
   {
-    path: 'subscribe',
+    path: 'user',
     loadChildren: async () => {
-      const module = await import('./views/subscribe/subscribe.module');
-      return module.SubscribeModule;
+      const module = await import('./views/user/user.module');
+      return module.UserModule;
     },
     data: { animation: 'Themes' },
   },

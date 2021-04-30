@@ -69,7 +69,7 @@ export class PlayersNameComponent implements OnInit {
     });
   }
 
-  onSubmit(e: any): void {
+  onSubmit(e: any): void {    
     const options = e.submitter.value;
     if (options === 'Valider') this.sendUserName();
     if (options === 'Modifier') this.modifyUserName(e.submitter.id);

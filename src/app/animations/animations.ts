@@ -106,6 +106,30 @@ export const popAnim = trigger('popIn', [
   ),
 ]);
 
+export const menuPop = trigger('menuPop', [
+  transition(
+    ':enter',
+    animate(
+      '0.2s',
+      keyframes([
+        style({ transform: ' translate(-50% , -200px)' , opacity: 0 }),
+        style({ transform: ' translate(-50%,0)', opacity: 1 }),
+      ])
+    )
+  ),
+  transition(
+    ':leave',
+    animate(
+      '0.2s',
+      keyframes([
+        style({ transform: ' translate(-50%)', opacity: 1 }),
+        style({ transform: ' translate(-50%)', opacity: 0 }),
+      ])
+    )
+  ),
+]);
+
+
 
 export const routeMain = trigger('routeMain', [
   transition('* <=> *', [

@@ -13,12 +13,19 @@ export class RegInputComponent implements OnInit {
   @Input() placeholder: string = '';
   @Input() validate: boolean = false;
   @Input() solo: boolean = true;
+  @Input() type: string = 'text';
 
   style: {} = {};
+  displayEye: boolean = false;
   constructor(private controlContainer: ControlContainer) {}
 
-  ngOnInit(): void {
-    this.parentForm = this.controlContainer.control;    
+  ngOnInit(): void {    
+    this.displayEye = this.type === 'password' && true;
+    this.parentForm = this.controlContainer.control;
+  }
+
+  changeType(): void {
+    this.type = this.type === 'password' ? 'text' : 'password';
   }
 
   ngOnChanges(): void {

@@ -1,10 +1,16 @@
 <div class="regInput" [formGroup]="parentForm">
   <input
-    type="text"
+    [ngStyle]="style"
+    [attr.type]="type"
     [formControlName]="parentControlName"
     [attr.disabled]="disabled ? '' : null"
-    [ngStyle]="style"
     [placeholder]="placeholder"
     [ngClass]="{ regInput_validate: validate, regInput_bindToButton: !solo }"
   />
+  <div class="regInput_eyeButton" *ngIf="displayEye">
+    <reg-button (click)="changeType()" [solo]="false">
+      <i class="fas fa-eye" *ngIf="type === 'password'"></i>
+      <i class="fas fa-eye-slash" *ngIf="type === 'text'"></i>
+    </reg-button>
+  </div>
 </div>

@@ -10,13 +10,16 @@
   <div
     *ngIf="isDisplayed"
     class="navBar_list"
-    [@popIn]
+    [@menuPop]
     clickOutside
     [exceptions]="['navBar_starButton']"
     (clickOutside)="isDisplayed = !isDisplayed"
   >
-    <a (click)="goHome()">Home</a>
-    <a [routerLink]="['/themes']">Ajouter dun theme</a>
-    <a [routerLink]="['/subscribe']">S'inscrire</a>
+    <div class="navBar_href" (click)="isDisplayed = !isDisplayed">
+      <a (click)="goHome()">Home</a>
+      <a [routerLink]="['/themes']">Ajouter dun theme</a>
+      <a [routerLink]="['/user/subscribe']">S'inscrire</a>
+      <a [routerLink]="['/user/login']">S'enregistrer</a>
+    </div>
   </div>
 </div>

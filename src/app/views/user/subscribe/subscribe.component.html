@@ -1,0 +1,20 @@
+<div class="subscribe">
+  <form [formGroup]="subForm" (submit)="onSubmit()">
+    <div
+      class="subscribe_formRepeat"
+      *ngFor="let inputField of formList | keyvalue"
+    >
+      <label [attr.for]="inputField.key">{{ inputField.key }}</label>
+      <reg-input
+        [attr.id]="inputField.key"
+        [parentForm]="subForm"
+        [parentControlName]="inputField.key"
+        [width]="200"
+        [type]="inputField.key === 'password' ? 'password' : 'text'"
+        [solo]="inputField.key !== 'password'"
+      ></reg-input>
+      {{errorMessage[inputField.key]}}
+    </div>
+    <reg-button [label]="'Envoyer'" [disabled]="!subForm.valid" [type]="'submit'" ></reg-button>
+  </form>
+</div>

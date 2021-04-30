@@ -5,6 +5,7 @@
     cursor: pointer;
   }
   &_list {
+    z-index: 20;
     position: absolute;
     width: $gameSize;
     width: 85%;
@@ -14,9 +15,13 @@
     background-color: $greenLight;
     padding: $paddingMedium;
     border-radius: $borderRadius;
+
+    box-shadow: $shadowFill;
+  }
+
+  &_href {
     display: flex;
     flex-direction: column;
-    box-shadow: $shadowFill;
     & > * {
       margin: $marginLow;
     }
