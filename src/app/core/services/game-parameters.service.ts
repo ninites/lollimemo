@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../../interface/interface';
+import { CoreModule } from '../core.module';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: CoreModule,
 })
 export class GameParametersService {
   selectedDifficulty: number = 0;

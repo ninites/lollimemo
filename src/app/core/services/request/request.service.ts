@@ -5,9 +5,14 @@ import { catchError, concatAll, map, mergeMap, toArray } from 'rxjs/operators';
 import { Picture } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { environment } from 'src/environments/environment';
+import { CoreModule } from '../../core.module';
+
+export interface Token {
+  accesToken: string;
+}
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: CoreModule,
 })
 export class RequestService {
   constructor(private alert: AlertService, private http: HttpClient) {}
@@ -43,14 +48,30 @@ export class RequestService {
     const result = this.http.post(environment.proxy + endpoint, payload).pipe(
       catchError((err) => {
         this.errorHandler(err);
-        return throwError(err)
+        return throwError(err);
+      }),
+      map((response: { [key: string]: string } | any) => {
+        if (response.accesToken) {
+          localStorage.setItem('accesToken', JSON.stringify(response));
+        }
+        return response;
       })
     );
     return result;
   }
 
-  errorHandler(err: any): void {    
-    this.alert.message = err.message;
+  get(endpoint: string): Observable<any> {
+    const result = this.http.get(environment.proxy + endpoint).pipe(
+      catchError((err) => {
+        this.errorHandler(err);
+        return throwError(err);
+      })
+    );
+    return result;
+  }
+
+  errorHandler(err: any): void {
+    this.alert.message = 'Erreur au niveau de la requete';
     this.alert.switchAlert();
   }
 }

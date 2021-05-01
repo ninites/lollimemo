@@ -12,5 +12,4 @@ app.use("/users", users);
 
 app.listen(port, () => {
   console.log("server on port " + port);
-  console.log("plop");
 });

@@ -113,6 +113,7 @@ export const menuPop = trigger('menuPop', [
       '0.2s',
       keyframes([
         style({ transform: ' translate(-50% , -200px)' , opacity: 0 }),
+        style({ transform: ' translate(-50% ,50px)' , opacity: 0.5 }),
         style({ transform: ' translate(-50%,0)', opacity: 1 }),
       ])
     )

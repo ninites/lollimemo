@@ -1,0 +1,19 @@
+<div class="user">
+  <form [formGroup]="loginForm" (submit)="onSubmit()">
+    <div class="user_formRepeat" *ngFor="let value of htmlLoginForm | keyvalue">
+      <label [attr.for]="value.key">{{ value.key }}</label>
+      <reg-input
+        [attr.id]="value.key"
+        [parentForm]="loginForm"
+        [parentControlName]="value.key"
+        [width]="200"
+        [type]="value.key === 'password' ? 'password' : 'text'"
+        [solo]="value.key !== 'password'"
+      ></reg-input>
+    </div>
+    {{errorMessage}}
+    <reg-button [type]="'submit'" [disabled]="!loginForm.valid"
+      >Login</reg-button
+    >
+  </form>
+</div>

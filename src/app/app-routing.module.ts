@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GameParamsValidGuard } from './views/setup/setup-guard/game-params-valid.guard';
+import { AuthGuard } from './core/guards/auth-guard/auth.guard';
+import { GameParamsValidGuard } from './core/guards/setup-guard/game-params-valid.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'setup', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
       const module = await import('./views/themes/themes.module');
       return module.ThemesModule;
     },
+    canActivate:[AuthGuard],
     data: { animation: 'Themes' },
   },
   {

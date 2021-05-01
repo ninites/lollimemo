@@ -2,6 +2,10 @@ const model = require("../models/users");
 const jwt = require("jsonwebtoken");
 
 class Users {
+  static auth = async (req, res) => {
+    res.status(200).send(true);
+  };
+
   static getOne = async (req, res) => {
     const { id } = req.params;
     const user = await model.getOne(id);
@@ -10,15 +14,14 @@ class Users {
 
   static postOne = async (req, res) => {
     const tryNew = {
-      email : req.body.email,
+      email: req.body.email,
       username: req.body.username,
       password: req.body.password,
     };
-   
+
     const missingFields = {};
     for (const key in tryNew) {
       if (!req.body[key]) {
-        console.log(key , req.body[key]);
         missingFields[key] = "Merci de remplir " + [key];
       }
     }
@@ -61,7 +64,7 @@ class Users {
     });
 
     if (selectedUser.length === 0) {
-      res.status(400).json("Login ou mot de passe incorrect");
+      res.status(400).json({ err: "Login ou mot de passe incorrect" });
       return;
     }
 

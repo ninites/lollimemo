@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopModule } from './shared/top/top.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { TopModule } from './shared/top/top.module';
     HttpClientModule,
     BrowserAnimationsModule,
     TopModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
