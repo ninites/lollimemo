@@ -6,9 +6,7 @@ import { GameParametersService } from 'src/app/core/services/game-parameters.ser
   providedIn: 'root',
 })
 export class SetupService {
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   displayStartButton: boolean = false;
   disableButtons: boolean[] = [false, false];
@@ -29,7 +27,7 @@ export class SetupService {
   }
 
   setDisableButtons(array: boolean[]): void {
-    this.disableButtons = array;
+    this.disableButtons = array;    
   }
 
   setIndexInChildren(): void {

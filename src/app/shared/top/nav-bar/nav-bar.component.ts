@@ -26,12 +26,8 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  goHome() {
-    this.gameParams.resetScore();
-    this.router.navigate(['/setup']);
-  }
-
   logOut(): void {
+    this.gameParams.resetParams();
     this.auth.clearToken();
     this.router.navigate(['/']);
   }

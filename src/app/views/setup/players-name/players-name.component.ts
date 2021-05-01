@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
+import { RequestService } from 'src/app/core/services/request/request.service';
 import { FormValidation } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { SetupService } from '../setup-service/setup.service';
@@ -16,7 +18,9 @@ export class PlayersNameComponent implements OnInit {
     private fb: FormBuilder,
     private gameParams: GameParametersService,
     private setupServ: SetupService,
-    private alert: AlertService
+    private alert: AlertService,
+    private auth: AuthentificationService,
+    private request: RequestService
   ) {}
 
   maxNumberOfPlayer: number = 1;
@@ -31,6 +35,7 @@ export class PlayersNameComponent implements OnInit {
   ];
   validate$ = new BehaviorSubject(this.formValidation);
   btnValidation: boolean = true;
+  isAuth: boolean = false;
 
   ngOnInit(): void {
     this.maxNumberOfPlayer = this.gameParams.numberOfPlayer;
@@ -39,14 +44,27 @@ export class PlayersNameComponent implements OnInit {
     this.useEffectForValidation();
     this.validate$.next(this.formValidation);
     this.inputHandler();
+    this.getUserInfo();
+  }
+
+  getUserInfo(): void {
+    this.auth.isAuth$.subscribe((isAuth) => {
+      this.isAuth = isAuth;
+      if (isAuth) {
+        this.request.get('users/info').subscribe((response) => {
+          this.aliases.patchValue([response.username]);
+        });
+      }
+    });
   }
 
   useEffectForValidation(): void {
+  
     this.validate$.subscribe({
-      next: (resp) => {
+      next: (resp) => {        
         const allFormValid = this.formValidationVerification(resp);
         if (allFormValid) {
-          this.setupServ.setDisableButtons([false, false]);
+          this.setupServ.displayPathButton()
           this.setupServ.setDisableDots([false, false, false]);
         } else {
           this.setupServ.setDisableButtons([false, true]);
@@ -69,7 +87,7 @@ export class PlayersNameComponent implements OnInit {
     });
   }
 
-  onSubmit(e: any): void {    
+  onSubmit(e: any): void {
     const options = e.submitter.value;
     if (options === 'Valider') this.sendUserName();
     if (options === 'Modifier') this.modifyUserName(e.submitter.id);

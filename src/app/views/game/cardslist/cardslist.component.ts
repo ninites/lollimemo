@@ -86,5 +86,6 @@ export class CardslistComponent implements OnInit {
   ngOnDestroy() {
     clearTimeout(this.interval);
     this.timer.resetTimer()
+    this.game.hardReset()
   }
 }

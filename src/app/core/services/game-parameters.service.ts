@@ -10,7 +10,6 @@ export class GameParametersService {
   selectedDifficultyString: string = '';
   players: Player[] = [];
   numberOfPlayer: number = 1;
-
   constructor() {}
 
   setDifficulty(diff: string) {

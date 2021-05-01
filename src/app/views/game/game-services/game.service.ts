@@ -41,7 +41,7 @@ export class GameService {
 
       const winCondition =
         this.alreadyDiscovered.length === this.gameParams.selectedDifficulty;
-
+      debugger
       if (winCondition) {
         this.timer.setTimer(true);
         return 'win';

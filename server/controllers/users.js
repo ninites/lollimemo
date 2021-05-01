@@ -6,6 +6,16 @@ class Users {
     res.status(200).send(true);
   };
 
+  static getInfo = async (req, res) => {
+    if (!req.body.userInfo) {
+      res.sendStatus(404);
+      return;
+    }
+    const { id } = req.body.userInfo;
+    const user = await model.getOne(id);
+    res.status(200).json(...user)
+  };
+
   static getOne = async (req, res) => {
     const { id } = req.params;
     const user = await model.getOne(id);
