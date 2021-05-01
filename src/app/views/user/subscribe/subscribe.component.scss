@@ -1,5 +1,21 @@
+@import 'variables.scss';
+
 .subscribe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    margin: $marginMedium;
+  }
+  form {
+    background-color: $orangeMedium;
+    border-radius: $borderRadius;
+    padding: $paddingMedium;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-sa;
+    & > * {
+      margin: $marginMedium;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { routeMain } from './animations/animations';
+import { RouteHistoryService } from './core/services/route-history/route-history.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,11 @@ import { routeMain } from './animations/animations';
   animations: [routeMain],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private routeHistory: RouteHistoryService) {}
 
+  ngOnInit(): void {
+    this.routeHistory.follow();
+  }
   prepareRoute(outlet: RouterOutlet) {
     return (
       outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation

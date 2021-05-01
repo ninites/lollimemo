@@ -6,17 +6,17 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthentificationService } from '../../services/auth/authentification.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthentificationService) {}
+  constructor() {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = this.auth.getToken();
+    const token = this.getToken();
+
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
@@ -24,5 +24,14 @@ export class TokenInterceptor implements HttpInterceptor {
     });
 
     return next.handle(request);
+  }
+
+  getToken(): string {
+    const storageToken = localStorage.getItem('accesToken');
+    if (storageToken) {
+      const token = JSON.parse(storageToken);
+      return token.accesToken;
+    }
+    return '';
   }
 }

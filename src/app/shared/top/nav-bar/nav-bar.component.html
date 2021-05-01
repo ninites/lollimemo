@@ -17,9 +17,10 @@
   >
     <div class="navBar_href" (click)="isDisplayed = !isDisplayed">
       <a (click)="goHome()">Home</a>
-      <a [routerLink]="['/themes']">Ajouter dun theme</a>
-      <a [routerLink]="['/user/subscribe']">S'inscrire</a>
-      <a [routerLink]="['/user/login']">S'enregistrer</a>
+      <a *ngIf="isAuth" [routerLink]="['/themes']">Ajouter dun theme</a>
+      <a *ngIf="!isAuth" [routerLink]="['/user/subscribe']">S'inscrire</a>
+      <a *ngIf="!isAuth" [routerLink]="['/user/login']">S'enregistrer</a>
+      <a *ngIf="isAuth" (click)="logOut()">Se déconnecter</a>
     </div>
   </div>
 </div>

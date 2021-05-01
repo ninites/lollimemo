@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth-guard/auth.guard';
 import { GameParamsValidGuard } from './core/guards/setup-guard/game-params-valid.guard';
+import { IsAuthResolver } from './core/resolvers/isAuth/is-auth.resolver';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'setup', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: 'setup',
+    pathMatch: 'full',
+  },
   {
     path: 'setup',
     loadChildren: async () => {
@@ -12,6 +17,9 @@ const routes: Routes = [
       return module.SetupModule;
     },
     data: { animation: 'Setup' },
+    resolve: {
+      isAth: IsAuthResolver,
+    },
   },
   {
     path: 'game',
@@ -21,6 +29,9 @@ const routes: Routes = [
     },
     canActivate: [GameParamsValidGuard],
     data: { animation: 'Game' },
+    resolve: {
+      isAth: IsAuthResolver,
+    },
   },
   {
     path: 'themes',
@@ -28,8 +39,11 @@ const routes: Routes = [
       const module = await import('./views/themes/themes.module');
       return module.ThemesModule;
     },
-    canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
     data: { animation: 'Themes' },
+    resolve: {
+      isAth: IsAuthResolver,
+    },
   },
   {
     path: 'user',
@@ -37,7 +51,10 @@ const routes: Routes = [
       const module = await import('./views/user/user.module');
       return module.UserModule;
     },
-    data: { animation: 'Themes' },
+    data: { animation: 'User' },
+    resolve: {
+      isAth: IsAuthResolver,
+    },
   },
   { path: '**', redirectTo: 'setup', pathMatch: 'full' },
 ];

@@ -72,6 +72,6 @@ export class RequestService {
 
   errorHandler(err: any): void {
     this.alert.message = 'Erreur au niveau de la requete';
-    this.alert.switchAlert();
+    // this.alert.switchAlert();
   }
 }

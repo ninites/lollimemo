@@ -4,8 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 
 const routes: Routes = [
-  { path: 'subscribe', component: SubscribeComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'subscribe',
+    component: SubscribeComponent,
+    data: { animation: 'subscribe' },
+  },
+  { path: 'login', component: LoginComponent, data: { animation: 'login' } },
 ];
 
 @NgModule({

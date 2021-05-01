@@ -140,10 +140,9 @@ export const routeMain = trigger('routeMain', [
       [
         style({
           position: 'absolute',
-          left: '50%',
-          right: '50%',
-          transform: 'translate(-50%,-50%)',
-          transition: 'all 0.5s ease-in-out',
+          left: 0,
+          right: 0,
+          transition: 'all 0.4s ease-in-out',
         }),
       ],
       { optional: true }
