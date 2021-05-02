@@ -12,13 +12,17 @@ class Users {
       return;
     }
     const { id } = req.body.userInfo;
-    const user = await model.getOne(id);
-    res.status(200).json(...user)
+    const user = await model.getOne({ id: id });
+    res.status(200).json(user);
   };
 
   static getOne = async (req, res) => {
-    const { id } = req.params;
-    const user = await model.getOne(id);
+    let user;
+    if (Object.keys(req.query).length > 0) {
+      user = await model.getOne(req.query);
+    } else {
+      user = await model.getAll();
+    }
     res.status(200).json(user);
   };
 
@@ -42,8 +46,7 @@ class Users {
     }
 
     const postUser = await model.postOne(req.body);
-    const newUser = await model.getOne(postUser);
-    res.status(200).json(newUser);
+    res.status(200).json(postUser);
   };
 
   static login = async (req, res, next) => {

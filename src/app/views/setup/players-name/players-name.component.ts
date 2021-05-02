@@ -51,7 +51,7 @@ export class PlayersNameComponent implements OnInit {
     this.auth.isAuth$.subscribe((isAuth) => {
       this.isAuth = isAuth;
       if (isAuth) {
-        this.request.get('users/info').subscribe((response) => {
+        this.request.get('users/info').subscribe((response) => {          
           this.aliases.patchValue([response.username]);
         });
       }

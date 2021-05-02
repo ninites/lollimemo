@@ -1,25 +1,34 @@
-const mysql = require("../config/mysql");
-
+const User = require("./schema/user");
 class Users {
-  static getOne = async (id) => {
-    const sql = "SELECT * FROM users WHERE id = ?";
-    const [result] = await mysql.query(sql, id);
+  static getOne = async ({ id }) => {
+    let result;
+    try {
+      result = await User.findOne({ _id: id });
+    } catch (err) {
+      console.log(err);
+    }
     return result;
   };
 
   static postOne = async (body) => {
-    const sql = "INSERT INTO users SET ? ";
-    const [result] = await mysql.query(sql, body);
-    return result.insertId;
+    let newUser;
+    try {
+      newUser = await new User({ ...body }).save();
+    } catch (err) {
+      console.log(err);
+    }
+    return newUser;
   };
 
   static getAll = async () => {
-    const sql = "SELECT * FROM users";
-    const [result] = await mysql.query(sql);
+    let result;
+    try {
+      result = await User.find();
+    } catch (err) {
+      console.log(err);
+    }
     return result;
   };
-
-
 }
 
 module.exports = Users;
