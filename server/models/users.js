@@ -1,9 +1,15 @@
-const User = require("./schema/user");
+const { User } = require("./schema/schema");
 class Users {
-  static getOne = async ({ id }) => {
+  static getOne = async (filter) => {
+    const wording = filter.id;
+    delete filter.id;
+    filter._id = wording;
     let result;
     try {
-      result = await User.findOne({ _id: id });
+      result = await User.findOne(filter).populate({
+        path: "themes",
+        populate: { path: "images", model: "Image" },
+      });
     } catch (err) {
       console.log(err);
     }

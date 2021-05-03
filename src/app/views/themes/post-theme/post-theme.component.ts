@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 
 @Component({
@@ -9,7 +10,11 @@ import { AlertService } from 'src/app/shared/top/alert/alert.service';
   styleUrls: ['./post-theme.component.scss'],
 })
 export class PostThemeComponent implements OnInit {
-  constructor(private fb: FormBuilder, private alert: AlertService) {}
+  constructor(
+    private fb: FormBuilder,
+    private alert: AlertService,
+    private request: RequestService
+  ) {}
 
   postThemeForm = this.fb.group({
     name: ['', [Validators.minLength(2), Validators.required]],
@@ -46,7 +51,11 @@ export class PostThemeComponent implements OnInit {
 
   onSubmit(e: any): void {
     e.preventDefault();
-    console.log(this.postThemeForm.value);
+    const formData = new FormData();
+    for (const key in this.postThemeForm.value) {
+      formData.append(key, this.postThemeForm.value[key]);
+    }
+    this.request.post('themes/', formData).subscribe(console.log);
   }
 
   ngOnInit(): void {
