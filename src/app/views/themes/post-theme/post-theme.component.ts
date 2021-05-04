@@ -51,11 +51,14 @@ export class PostThemeComponent implements OnInit {
 
   onSubmit(e: any): void {
     e.preventDefault();
-    const formData = new FormData();
-    for (const key in this.postThemeForm.value) {
-      formData.append(key, this.postThemeForm.value[key]);
-    }
-    this.request.post('themes/', formData).subscribe(console.log);
+    const { name, pictures, cardBack } = this.postThemeForm.value;
+    const payload = new FormData();
+    payload.append('name', name);
+    payload.append('cardBack', cardBack[0]);
+    pictures.forEach((picture: any) => {
+      payload.append('pictures', picture);
+    });
+    this.request.post('themes/', payload).subscribe(console.log);
   }
 
   ngOnInit(): void {

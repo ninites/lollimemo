@@ -9,9 +9,18 @@ const authToken = async (req, res, next) => {
     res.status(401).send(false);
     return;
   }
-  jwt.verify(token, secretJWTKey, (err, result) => {
-    req.body.userInfo = result;
+  const tokenVerif = await jwt.verify(token, secretJWTKey, (err, result) => {
+    if (err) return err;
+    return result;
   });
+
+  if (!tokenVerif.id) {
+    res.status(401).send(false);
+    return;
+  }
+
+  req.body.userInfo = tokenVerif;
+
   next();
 };
 

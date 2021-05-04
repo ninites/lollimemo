@@ -4,21 +4,24 @@ class Themes {
   static postOne = async (info) => {
     const userId = info.userInfo.id;
 
-    const themeBody = {
-      name: info.name,
-    };
+    const newCardBack = await Image.create({
+      path: info.cardBack[0].path,
+      type: "cardBack",
+    });
 
     const newPictures = await Promise.all(
       info.pictures.map(async (picture) => {
-        return await Image.create(picture);
+        return await Image.create({ type: "themePic", path: picture.path });
       })
     );
 
-    const newTheme = await Theme.create(themeBody);
+    const fullSet = [newCardBack, ...newPictures];
+
+    const newTheme = await Theme.create({ name: info.name });
 
     await Theme.findOneAndUpdate(
       { _id: newTheme._id },
-      { $push: { images: { $each: newPictures } } },
+      { $push: { images: { $each: fullSet } } },
       { new: true, useFindAndModify: false }
     );
 
