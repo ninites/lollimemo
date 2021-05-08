@@ -77,7 +77,7 @@ export class PostThemeComponent implements OnInit {
         this.postThemeForm.reset();
       },
       error: (err) => {
-        this.alert.message = 'Un probleme à eu lieu pendant l ajout';
+        this.alert.message = err.error;
         this.alert.switchAlert();
       },
     });
