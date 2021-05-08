@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth-guard/auth.guard';
 import { GameParamsValidGuard } from './core/guards/setup-guard/game-params-valid.guard';
 import { IsAuthResolver } from './core/resolvers/isAuth/is-auth.resolver';
 
@@ -29,18 +28,6 @@ const routes: Routes = [
     },
     canActivate: [GameParamsValidGuard],
     data: { animation: 'Game' },
-    resolve: {
-      isAth: IsAuthResolver,
-    },
-  },
-  {
-    path: 'themes',
-    loadChildren: async () => {
-      const module = await import('./views/themes/themes.module');
-      return module.ThemesModule;
-    },
-    canActivate: [AuthGuard],
-    data: { animation: 'Themes' },
     resolve: {
       isAth: IsAuthResolver,
     },

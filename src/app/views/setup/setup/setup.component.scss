@@ -1,6 +1,8 @@
 @import "variables";
 
 .setup {
+  display: flex;
+  flex-direction: column;
   &_title {
     display: flex;
     flex-direction: column;

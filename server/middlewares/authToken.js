@@ -1,27 +1,28 @@
 const jwt = require("jsonwebtoken");
 const secretJWTKey = "plop";
+const ApiError = require("../error/ApiError");
 
 const authToken = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   const tokenPresence = token === "null" || token === undefined;
   if (tokenPresence) {
-    res.status(401).send(false);
-    return;
-  }
-  const tokenVerif = await jwt.verify(token, secretJWTKey, (err, result) => {
-    if (err) return err;
-    return result;
-  });
-
-  if (!tokenVerif.id) {
-    res.status(401).send(false);
+    next(ApiError.unAuth());
     return;
   }
 
-  req.body.userInfo = tokenVerif;
-
-  next();
+  try {
+    const tokenVerif = await jwt.verify(token, secretJWTKey, (err, result) => {
+      if (err) {
+        throw new Error(err);
+      }
+      return result;
+    });
+    req.body.userInfo = tokenVerif;
+    next();
+  } catch (err) {
+    next(ApiError.unAuth());
+  }
 };
 
 module.exports = authToken;

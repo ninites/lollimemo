@@ -10,6 +10,7 @@ export class GameParametersService {
   selectedDifficultyString: string = '';
   players: Player[] = [];
   numberOfPlayer: number = 1;
+  selectedTheme: { [key: string]: any } = {};
   constructor() {}
 
   setDifficulty(diff: string) {
@@ -29,6 +30,10 @@ export class GameParametersService {
     this.numberOfPlayer = number;
   }
 
+  setTheme(theme: {}): void {
+    this.selectedTheme = theme;
+  }
+
   modifyUserName(index: number, newName: string): void {
     this.players[index].username = newName;
   }
@@ -45,9 +50,10 @@ export class GameParametersService {
     this.players = this.players.slice(0, this.numberOfPlayer);
 
     const gameParameters = {
-      diff: this.selectedDifficulty,
-      players: this.players,
-      numberOfplayer: this.numberOfPlayer,
+      difficulty: this.selectedDifficulty,
+      names: this.players,
+      players: this.numberOfPlayer,
+      themes: this.selectedTheme,
     };
 
     const errors: { [key: string]: string } = {};
@@ -55,19 +61,23 @@ export class GameParametersService {
     for (const key in gameParameters) {
       const message = 'Merci de renseigner ';
       switch (key) {
-        case 'diff':
+        case 'difficulty':
           if (gameParameters[key] === 0)
             errors[key] = message + 'la difficulté';
           break;
-        case 'players':
-          if (gameParameters[key].length === 0)
+        case 'names':
+          if (gameParameters[key].length !== this.numberOfPlayer)
             errors[key] = message + 'le nom du ou des joueurs';
           break;
-
+        case 'themes':
+          if (Object.keys(gameParameters[key]).length === 0)
+            errors[key] = message + 'un theme';
+          break;
         default:
           break;
       }
     }
+
     return errors;
   }
 

@@ -43,6 +43,7 @@ export const slideInAnimation = trigger('routeAnimations', [
         top: 0,
         left: 0,
         width: '100%',
+        overflow:'hidden'
       }),
     ]),
     query(':enter', [style({ left: '-100%' })], { optional: true }),

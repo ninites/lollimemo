@@ -1,0 +1,19 @@
+<div class="selectThemes">
+  <h2>Choix du theme</h2>
+  <div class="selectThemes_choice">
+    <reg-select
+      [values]="themesName"
+      [width]="200"
+      [(choice)]="choosenTheme"
+      (choiceChange)="onChange()"
+    ></reg-select>
+
+    <reg-button
+      (click)="setSelection()"
+      [disabled]="!choosenTheme"
+      [confirmation]="!userSelection"
+      >Selectionner</reg-button
+    >
+  </div>
+  <div class="selectThemes_preview"><img [src]="themeImgSrc" /></div>
+</div>

@@ -11,18 +11,21 @@
             [parentForm]="userForm"
             [parentControlName]="i"
             [width]="200"
-            [placeholder]="'Entre ton nom'"
+            placeholder="Entre ton nom"
             [validate]="formValidation[i].isMinlength"
             [solo]="false"
           ></reg-input>
           <reg-button
             [id]="i"
-            [type]="'submit'"
+            type="submit"
             [disabled]="!formValidation[i].isMinlength"
             [label]="formValidation[i].isSubmited ? 'Modifier' : 'Valider'"
             [solo]="false"
             [confirmation]="btnValidation"
           ></reg-button>
+          <div class="playerName_connect" *ngIf="i === 0 && !isAuth">
+            <reg-button [routerLink]="['/user/login']" ><i class="fas fa-sign-in-alt"></i></reg-button>
+          </div>
         </div>
       </div>
     </div>

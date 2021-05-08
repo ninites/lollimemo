@@ -1,10 +1,13 @@
 const { User } = require("./schema/schema");
 class Users {
   static getOne = async (filter) => {
+
     const wording = filter.id;
     delete filter.id;
     filter._id = wording;
+
     let result;
+
     try {
       result = await User.findOne(filter).populate({
         path: "themes",
@@ -13,6 +16,7 @@ class Users {
     } catch (err) {
       console.log(err);
     }
+    
     return result;
   };
 

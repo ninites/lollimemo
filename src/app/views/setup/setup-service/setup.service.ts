@@ -6,11 +6,14 @@ import { GameParametersService } from 'src/app/core/services/game-parameters.ser
   providedIn: 'root',
 })
 export class SetupService {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private gameParams: GameParametersService
+  ) {}
 
   displayStartButton: boolean = false;
   disableButtons: boolean[] = [false, false];
-  disableDots: boolean[] = [false, false, true];
+  disableDots: boolean[] = [];
   childIndex: number = 0;
   routeConfig = [];
 
@@ -22,12 +25,31 @@ export class SetupService {
     this.childIndex = number;
   }
 
-  setDisableDots(array: boolean[]): void {
-    this.disableDots = array;
+  setDisableDots(): void {
+    const disableList = this.gameParams.gameParamsValidation();
+    let indexToDisableResult = 99;
+    Object.keys(disableList).forEach((key, index) => {
+      const indexToDisable = this.routeConfig.findIndex(
+        (route: any) => route.path === key
+      );
+      if (indexToDisable < indexToDisableResult)
+        indexToDisableResult = indexToDisable;
+    });
+    for (let index = 0; index < this.routeConfig.length; index++) {
+      this.disableDots[index] = index > indexToDisableResult && true;
+    }
+  }
+
+  setDots(): void {
+    this.disableDots = [];
+    for (let index = 0; index < this.routeConfig.length; index++) {
+      this.disableDots = [...this.disableDots, index === 0 ? false : true];
+    }
+    this.setDisableDots();
   }
 
   setDisableButtons(array: boolean[]): void {
-    this.disableButtons = array;    
+    this.disableButtons = array;
   }
 
   setIndexInChildren(): void {

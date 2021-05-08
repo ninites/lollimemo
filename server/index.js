@@ -14,6 +14,7 @@ module.exports = client;
 const users = require("./routes/users");
 const themes = require("./routes/themes");
 const images = require("./routes/images");
+const apiErrorHandler = require("./error/apiErroHandler");
 
 app.use(cors("*"));
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/users", users);
 app.use("/themes", themes);
 app.use("/uploads", images);
+app.use(apiErrorHandler);
 
 app.listen(port, () => {
   console.log("server on port " + port);

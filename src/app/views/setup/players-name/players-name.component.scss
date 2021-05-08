@@ -11,14 +11,19 @@
     margin: 10px;
   }
   &_inputsSolo {
+  
     & > * {
       margin: 10px;
     }
   }
   &_inputsComp {
     display: flex;
+    align-items: center;
   }
   h2 {
-   font-family: $kidFont;
+    font-family: $kidFont;
+  }
+  &_connect {
+    margin: 0 $marginMedium 0 $marginMedium;
   }
 }

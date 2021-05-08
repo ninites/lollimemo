@@ -23,7 +23,7 @@ export class SetupComponent implements OnInit {
 
   buttons: string[] = ['precedent', 'suivant'];
   setupRoutes: any = [];
-  dots: string[] = [];
+  dots: boolean[] = [];
   errorMessage: { [key: string]: string } = {};
   displayModal: boolean = false;
   displayInfo: boolean[] = [];
@@ -51,11 +51,12 @@ export class SetupComponent implements OnInit {
     modifiedRoutes.shift();
     this.setupRoutes = modifiedRoutes;
     this.setupServ.setRouteConfig(this.setupRoutes);
+    this.setupServ.setDots();
     for (let index = 0; index < this.setupRoutes.length; index++) {
-      this.dots = [...this.dots, '.'];
       this.displayInfo = [...this.displayInfo, false];
       this.setInfoPopName(this.setupRoutes[index].path);
     }
+    this.dots = this.setupServ.disableDots;
   }
 
   setInfoPopName(name: string): void {
@@ -69,7 +70,9 @@ export class SetupComponent implements OnInit {
       case 'difficulty':
         this.infoName.push('Choix de la difficulté');
         break;
-
+      case 'themes':
+        this.infoName.push('Choix du theme');
+        break;
       default:
         break;
     }

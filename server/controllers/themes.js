@@ -13,7 +13,7 @@ class Themes {
   static getAllByUser = async (req, res) => {
     const { id } = req.body.userInfo;
     const actualUser = await userModel.getOne({ id: id });
-   res.status(200).json(actualUser.themes)
+    res.status(200).json(actualUser.themes);
   };
 }
 

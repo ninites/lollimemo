@@ -29,6 +29,7 @@ export class AuthentificationService {
       })
     );
   }
+  
 
   checkAuth(): Observable<any> {
     return this.requestAx.get('users/auth').pipe(

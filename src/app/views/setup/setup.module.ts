@@ -8,6 +8,7 @@ import { SetupComponent } from './setup/setup.component';
 import { PlayersNameComponent } from './players-name/players-name.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectThemesComponent } from './select-themes/select-themes.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NumberOfPlayersComponent,
     SetupComponent,
     PlayersNameComponent,
+    SelectThemesComponent,
   ],
   imports: [
     CommonModule,

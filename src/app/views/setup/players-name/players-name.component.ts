@@ -65,10 +65,10 @@ export class PlayersNameComponent implements OnInit {
         const allFormValid = this.formValidationVerification(resp);
         if (allFormValid) {
           this.setupServ.displayPathButton()
-          this.setupServ.setDisableDots([false, false, false]);
+          this.setupServ.setDisableDots();
         } else {
           this.setupServ.setDisableButtons([false, true]);
-          this.setupServ.setDisableDots([false, false, true]);
+          this.setupServ.setDisableDots();
         }
       },
     });
