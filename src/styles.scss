@@ -14,12 +14,10 @@ body {
   background-repeat: no-repeat;
   font-family: $regularFont;
   height: 100%;
+  overflow: hidden;
 }
 
 .all {
   position: relative;
-  overflow: hidden;
   height: 100%;
 }
-
-

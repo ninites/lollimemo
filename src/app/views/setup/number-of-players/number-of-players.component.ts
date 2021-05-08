@@ -18,7 +18,7 @@ export class NumberOfPlayersComponent implements OnInit {
 
   ngOnInit(): void {
     this.setPlayerNumber(this.gameParams.numberOfPlayer);
-    this.setupServ.setIndexInChildren();
+    this.setupServ.setIndexInChildren();    
   }
 
   setPlayerNumber(choice: number): void {

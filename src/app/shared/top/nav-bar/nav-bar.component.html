@@ -16,8 +16,8 @@
     (clickOutside)="isDisplayed = !isDisplayed"
   >
     <div class="navBar_href" (click)="isDisplayed = !isDisplayed">
-      <a [routerLink]="['/']">Home</a>
-      <a *ngIf="isAuth" [routerLink]="['/themes']">Ajouter un theme</a>
+      <a [routerLink]="['/']">Jouer</a>
+      <a *ngIf="isAuth" [routerLink]="['/user/profile']">Mon profil</a>
       <a *ngIf="!isAuth" [routerLink]="['/user/subscribe']">S'inscrire</a>
       <a *ngIf="!isAuth" [routerLink]="['/user/login']">S'enregistrer</a>
       <a *ngIf="isAuth" (click)="logOut()">Se déconnecter</a>

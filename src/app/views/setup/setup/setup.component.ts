@@ -31,7 +31,6 @@ export class SetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.createIndexPages();
-    this.setupServ.displayPathButton();
   }
 
   ngAfterContentChecked() {

@@ -23,21 +23,33 @@ export class PostThemeComponent implements OnInit {
   });
 
   buttonLabel: string = 'Valider';
-  picturesLengthAlert: number = 0;
   displaySideMenu: boolean = false;
 
   pictureChangeHandler(): void {
-    this.postThemeForm.valueChanges
-      .pipe(
-        filter((values) => {
-          return values.pictures.length !== this.picturesLengthAlert;
-        })
-      )
-      .subscribe(() => {
-        this.picturesLengthAlert = this.postThemeForm.value.pictures.length;
-        this.alert.message = `${this.postThemeForm.value.pictures.length} images sont disponibles dans en preview dans le menu`;
-        this.alert.switchAlert();
+    this.postThemeForm.valueChanges.subscribe(() => {
+      this.checkSame();
+    });
+  }
+
+  checkSame(): void {
+    const allPics = this.postThemeForm.value.pictures;
+    let dupli = [];
+    dupli = allPics.map((picture: any, index: number, array: []) => {
+      let duplicate = 0;
+      array.forEach((pic: any) => {
+        if (pic.name === picture.name) duplicate++;
       });
+      if (duplicate > 1) {
+        return 'doublon';
+      } else {
+        return;
+      }
+    });
+    if (dupli.includes('doublon')) {
+      this.alert.message =
+        ' Attention vous avez mis plusieurs fois la meme image';
+      this.alert.switchAlert();
+    }
   }
 
   pictureDelete(pictureId: number, source: string): void {
@@ -58,7 +70,17 @@ export class PostThemeComponent implements OnInit {
     pictures.forEach((picture: any) => {
       payload.append('pictures', picture);
     });
-    this.request.post('themes/', payload).subscribe(console.log);
+    this.request.post('themes/', payload).subscribe({
+      next: (resp) => {
+        this.alert.message = 'Theme correctement ajouté';
+        this.alert.switchAlert();
+        this.postThemeForm.reset();
+      },
+      error: (err) => {
+        this.alert.message = 'Un probleme à eu lieu pendant l ajout';
+        this.alert.switchAlert();
+      },
+    });
   }
 
   ngOnInit(): void {

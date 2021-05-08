@@ -13,13 +13,13 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent, data: { animation: 'login' } },
   {
-    path: 'themes',
+    path: 'profile',
     loadChildren: async () => {
-      const module = await import('./themes/themes.module');
-      return module.ThemesModule;
+      const module = await import('./profile/profile.module');
+      return module.ProfileModule;
     },
     canActivate: [AuthGuard],
-    data: { animation: 'Themes' },
+    data: { animation: 'Profile' },
     resolve: {
       isAth: IsAuthResolver,
     },

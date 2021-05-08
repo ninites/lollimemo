@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { popAnim } from 'src/app/animations/animations';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { environment } from 'src/environments/environment';
@@ -9,6 +10,7 @@ import { SetupService } from '../setup-service/setup.service';
   selector: 'app-select-themes',
   templateUrl: './select-themes.component.html',
   styleUrls: ['./select-themes.component.scss'],
+  animations: [popAnim],
 })
 export class SelectThemesComponent implements OnInit {
   constructor(
@@ -20,9 +22,9 @@ export class SelectThemesComponent implements OnInit {
   userTheme = [];
   themesName: string[] = [];
   choosenTheme: string = '';
-  themeImgSrc: string = '';
   userSelection: string = '';
   validation$: BehaviorSubject<any> = new BehaviorSubject(false);
+  style: { [key: string]: any } = {};
 
   ngOnInit(): void {
     this.setupServ.setIndexInChildren();
@@ -55,7 +57,12 @@ export class SelectThemesComponent implements OnInit {
   onChange(): void {
     this.userSelection = '';
     this.validation$.next(false);
-    const choosenTheme: any = this.userTheme.filter(
+    const cardBack = this.getCardBack(this.userTheme);
+    this.style.backgroundImage = `url('${environment.proxy + cardBack}')`;
+  }
+
+  getCardBack(theme: { [key: string]: any }): string {
+    const choosenTheme: any = theme.filter(
       (theme: any) => theme.name === this.choosenTheme
     );
 
@@ -63,7 +70,7 @@ export class SelectThemesComponent implements OnInit {
       (image: any) => image.type === 'cardBack'
     );
 
-    this.themeImgSrc = environment.proxy + cardBack[0].path;
+    return cardBack[0].path;
   }
 
   getThemes(): void {
@@ -83,6 +90,10 @@ export class SelectThemesComponent implements OnInit {
       : '';
     this.userSelection = paramsValue;
     this.choosenTheme = paramsValue;
+    if (Object.keys(this.gameParams.selectedTheme).length !== 0) {
+      const cardBack = this.getCardBack([this.gameParams.selectedTheme]);
+      this.style.backgroundImage = `url('${environment.proxy + cardBack}')`;
+    }
     if (paramsValue) this.validation$.next(true);
   }
 }

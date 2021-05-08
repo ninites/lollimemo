@@ -15,5 +15,10 @@
       >Selectionner</reg-button
     >
   </div>
-  <div class="selectThemes_preview"><img [src]="themeImgSrc" /></div>
+  <div
+    class="selectThemes_preview"
+    [ngStyle]="style"
+    *ngIf="choosenTheme"
+    [@popIn]
+  ></div>
 </div>
