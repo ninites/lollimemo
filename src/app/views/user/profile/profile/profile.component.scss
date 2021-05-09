@@ -1,0 +1,18 @@
+@import "variables.scss";
+
+.userProfile {
+  &_optionsBloc {
+    font-weight: bold;
+    width: 130px;
+    height: 30px;
+    background-color: $orangeLight;
+    box-shadow: $shadowFill;
+    border-radius: $borderRadius;
+    padding: $paddingMedium;
+  }
+
+  .swiper-container {
+    width: 90%;
+    padding: $paddingMedium 0 40px 0;
+  }
+}

@@ -1,2 +1,16 @@
-<p>profile works!</p>
-<a [routerLink]="['/user/profile/themes']">Ajouter un theme</a>
+<div class="userProfile">
+  <swiper
+    [slidesPerView]="2"
+    [pagination]="{ clickable: true }"
+    [spaceBetween]="0"
+  >
+    <ng-template swiperSlide *ngFor="let option of userOptions">
+      <div class="userProfile_optionsBloc" [routerLink]="option.link">
+        {{ option.value }}
+      </div>
+    </ng-template>
+  </swiper>
+  <div [@routeMain]="prepareRoute(outlet)" class="root_rooterMain">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</div>

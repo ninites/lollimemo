@@ -5,18 +5,24 @@ import { IsAuthResolver } from 'src/app/core/resolvers/isAuth/is-auth.resolver';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path: '', component: ProfileComponent },
   {
-    path: 'themes',
-    loadChildren: async () => {
-      const module = await import('./themes/themes.module');
-      return module.ThemesModule;
-    },
-    canActivate: [AuthGuard],
-    data: { animation: 'Themes' },
-    resolve: {
-      isAth: IsAuthResolver,
-    },
+    path: '',
+    component: ProfileComponent,
+    children: [
+      { path: '', redirectTo: 'themes', pathMatch: 'full' },
+      {
+        path: 'themes',
+        loadChildren: async () => {
+          const module = await import('./themes/themes.module');
+          return module.ThemesModule;
+        },
+        canActivate: [AuthGuard],
+        data: { animation: 'Themes' },
+        resolve: {
+          isAth: IsAuthResolver,
+        },
+      },
+    ],
   },
 ];
 
