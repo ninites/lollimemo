@@ -8,6 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileComponent,
+    data: { animation: 'Profile' },
     children: [
       { path: '', redirectTo: 'themes', pathMatch: 'full' },
       {

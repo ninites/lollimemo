@@ -1,0 +1,15 @@
+@import "variables.scss";
+
+.themeLanding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &_wrapper {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    & > * {
+      margin: $marginMedium;
+    }
+  }
+}

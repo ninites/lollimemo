@@ -1,7 +1,9 @@
 <div class="userProfile">
   <swiper
     [slidesPerView]="2"
-    [pagination]="{ clickable: true }"
+    [pagination]="{
+      clickable: true
+    }"
     [spaceBetween]="0"
   >
     <ng-template swiperSlide *ngFor="let option of userOptions">

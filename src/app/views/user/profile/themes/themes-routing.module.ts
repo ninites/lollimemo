@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostThemeComponent } from './post-theme/post-theme.component';
+import { ThemeLandingComponent } from './theme-landing/theme-landing.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'post', pathMatch: 'full' },
-  { path: 'post', component: PostThemeComponent },
+  {
+    path: '',
+    component: ThemeLandingComponent,
+    data: { animation: 'ThemesLanding' },
+  },
+  {
+    path: 'post',
+    component: PostThemeComponent,
+    data: { animation: 'ThemesPost' },
+  },
 ];
 
 @NgModule({

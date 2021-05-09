@@ -1,0 +1,12 @@
+<div class="themeLanding">
+  <div class="themeLanding_wrapper">
+    <reg-button
+      *ngFor="let choice of themesCrud"
+      [height]="100"
+      [width]="100"
+      [routerLink]="choice.link"
+    >
+      {{ choice.value }}
+    </reg-button>
+  </div>
+</div>

@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: $regularFont;
 
   &_selected {
     background-color: $orangeMedium;
