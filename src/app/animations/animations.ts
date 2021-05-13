@@ -37,27 +37,29 @@ export const alertLeft = trigger('translateLeft', [
 export const slideInAnimation = trigger('routeAnimations', [
   transition('* <=> *', [
     style({ position: 'relative' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-    ]),
-    query(':enter', [style({ left: '-100%' })], { optional: true }),
+    query(
+      ':enter, :leave',
+      [
+        style({
+          position: 'absolute',
+          left: '-50%',
+          right: '-50%',
+          width: '100vw',
+          transform: 'translate(-50%,-50%)',
+          transition: 'all 0.4s ease-in-out',
+        }),
+      ],
+      { optional: true }
+    ),
+    query(':enter', animateChild(), { optional: true }),
     query(':leave', animateChild(), { optional: true }),
     group([
       query(
         ':leave',
         [
           animate(
-            '300ms ease-out',
-            keyframes([
-              style({ transform: 'scale(1)', opacity: 1 }),
-              style({ transform: 'scale(1.2)' }),
-              style({ transform: 'scale(0)', opacity: 0 }),
-            ])
+            '500ms',
+            keyframes([style({ opacity: 1 }), style({ opacity: 0 })])
           ),
         ],
         { optional: true }
@@ -66,12 +68,8 @@ export const slideInAnimation = trigger('routeAnimations', [
         ':enter',
         [
           animate(
-            '300ms ease-out',
-            keyframes([
-              style({ transform: 'scale(0)', opacity: 1 }),
-              style({ transform: 'scale(1.2)' }),
-              style({ transform: 'scale(1)', opacity: 0 }),
-            ])
+            '500ms',
+            keyframes([style({ opacity: 0 }), style({ opacity: 1 })])
           ),
         ],
         { optional: true }
@@ -112,8 +110,8 @@ export const menuPop = trigger('menuPop', [
     animate(
       '0.2s',
       keyframes([
-        style({ transform: ' translate(-50% , -200px)' , opacity: 0 }),
-        style({ transform: ' translate(-50% ,50px)' , opacity: 0.5 }),
+        style({ transform: ' translate(-50% , -200px)', opacity: 0 }),
+        style({ transform: ' translate(-50% ,50px)', opacity: 0.5 }),
         style({ transform: ' translate(-50%,0)', opacity: 1 }),
       ])
     )
@@ -129,8 +127,6 @@ export const menuPop = trigger('menuPop', [
     )
   ),
 ]);
-
-
 
 export const routeMain = trigger('routeMain', [
   transition('* <=> *', [
@@ -191,4 +187,3 @@ export const opacityAnim = trigger('opacityAnim', [
     )
   ),
 ]);
-
