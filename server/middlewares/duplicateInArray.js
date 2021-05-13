@@ -1,4 +1,5 @@
 const ApiError = require("../error/ApiError");
+const fs = require('fs')
 
 const duplicateInArray = async (req, res, next) => {
   const { pictures } = req.files;
@@ -17,6 +18,13 @@ const duplicateInArray = async (req, res, next) => {
     }
   });
   if (dupli.includes("doublon")) {
+    pictures.forEach(async (image) => {
+      if (fs.existsSync(image.path)) {
+        fs.unlink(image.path, (err) => err);
+      } else {
+        console.error("Picture doesn't exists");
+      }
+    });
     next(ApiError.internal("Vous avez un doublon"));
     return;
   }

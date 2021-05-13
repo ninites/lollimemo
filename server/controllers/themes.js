@@ -15,6 +15,12 @@ class Themes {
     const actualUser = await userModel.getOne({ id: id });
     res.status(200).json(actualUser.themes);
   };
+
+  static deleteOne = async (req, res) => {
+    const { id } = req.body.userInfo;
+    const deleteTheme = await themesModel.deleteOne(req.params,id);
+    res.status(200).json(deleteTheme);
+  };
 }
 
 module.exports = Themes;

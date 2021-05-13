@@ -1,0 +1,80 @@
+@import "variables.scss";
+
+.deleteThemeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  h2 {
+    font-family: $kidFont;
+  }
+
+  &_bar {
+    border-radius: $borderRadius;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    background-color: $greenLight;
+    & > * {
+      margin: $marginMedium;
+    }
+  }
+
+  &_pictureContainer {
+    margin-top: $marginMedium;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &_picture {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    margin: $marginMedium;
+    background-size: cover;
+    border-radius: $borderRadius;
+    box-shadow: $shadowFill;
+  }
+
+  &_cardBack {
+    border-radius: $borderRadius;
+    background-color: $orangeLight;
+    padding: $paddingMedium;
+  }
+
+  &_previewSolo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin: $marginLow;
+    background-size: cover;
+    border-radius: $borderRadius;
+    box-shadow: $shadowFill;
+  }
+
+  &_setPreview {
+    display: flex;
+    flex-direction: column;
+    background-color: $orangeLight;
+    border-radius: $borderRadius;
+    padding: $paddingMedium;
+    margin-top: $marginMedium;
+  }
+
+  &_previewSoloContainer {
+    display: flex;
+    
+  }
+
+  p {
+    margin-left: $marginMedium;
+    font-weight: bold;
+  }
+}

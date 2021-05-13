@@ -1,5 +1,5 @@
 <div class="user">
-  <h2>S'enregistrer</h2>
+  <h2>Se connecter</h2>
   <form [formGroup]="loginForm" (submit)="onSubmit()">
     <div class="user_formRepeat" *ngFor="let value of htmlLoginForm | keyvalue">
       <label [attr.for]="value.key">{{ value.key }}</label>
@@ -13,7 +13,6 @@
       ></reg-input>
     </div>
     <a [routerLink]="['/']">Mot de passe oublié</a>
-    <p *ngIf="errorMessage">{{errorMessage}}</p>
     <reg-button [type]="'submit'" [disabled]="!loginForm.valid"
       >Login</reg-button
     >

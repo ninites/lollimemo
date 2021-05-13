@@ -24,11 +24,18 @@ export class PostThemeComponent implements OnInit {
 
   buttonLabel: string = 'Valider';
   displaySideMenu: boolean = false;
+  pictureLengthTest: number = 0;
 
   pictureChangeHandler(): void {
-    this.postThemeForm.valueChanges.subscribe(() => {
-      this.checkSame();
-    });
+    this.postThemeForm.valueChanges
+      .pipe(
+        filter((type) => {
+          return type.pictures.length !== this.pictureLengthTest && true;
+        })
+      )
+      .subscribe(() => {
+        this.checkSame();
+      });
   }
 
   checkSame(): void {
@@ -74,7 +81,6 @@ export class PostThemeComponent implements OnInit {
       next: (resp) => {
         this.alert.message = 'Theme correctement ajouté';
         this.alert.switchAlert();
-        this.postThemeForm.reset();
       },
       error: (err) => {
         this.alert.message = err.error;

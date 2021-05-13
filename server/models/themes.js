@@ -1,4 +1,6 @@
 const { Theme, User, Image } = require("./schema/schema");
+const fs = require("fs");
+const { ObjectId } = require("bson");
 
 class Themes {
   static postOne = async (info) => {
@@ -32,6 +34,33 @@ class Themes {
     );
 
     return newTheme;
+  };
+
+  static deleteOne = async (filter, userId) => {
+    const { id } = filter;
+
+    const actualUser = await User.find({ _id: userId });
+    await actualUser[0].themes.pull({ _id: id });
+
+    const themeToDelete = await Theme.findById(id);
+    const imagesToErase = await Image.find({
+      _id: { $in: themeToDelete.images },
+    });
+    const unSyncImg = imagesToErase.forEach(async (image) => {
+      if (fs.existsSync(image.path)) {
+        fs.unlink(image.path, (err) => err);
+      } else {
+        console.error("Picture doesn't exists");
+      }
+    });
+    const imagesRemoved = await Image.deleteMany({
+      _id: {
+        $in: themeToDelete.images,
+      },
+    });
+
+    const themeRemoved = await themeToDelete.deleteOne();
+    return themeRemoved;
   };
 }
 

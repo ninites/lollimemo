@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { AlertService } from 'src/app/shared/top/alert/alert.service';
 
 @Component({
   selector: 'app-subscribe',
@@ -12,7 +13,8 @@ export class SubscribeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private request: RequestService,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {}
 
   subForm = this.fb.group({
@@ -22,11 +24,6 @@ export class SubscribeComponent implements OnInit {
   });
 
   formList = {};
-  errorMessage: { [key: string]: string } = {
-    username: '',
-    email: '',
-    password: '',
-  };
 
   onSubmit(): void {
     this.request.post('users', this.subForm.value).subscribe({
@@ -34,9 +31,8 @@ export class SubscribeComponent implements OnInit {
         this.router.navigate(['/user/login']);
       },
       error: (err) => {
-        for (const key in err.error) {
-          this.errorMessage[key] = err.error[key];
-        }
+        this.alert.message = err.error;
+        this.alert.switchAlert();
       },
     });
   }

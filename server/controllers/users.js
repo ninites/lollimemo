@@ -1,6 +1,8 @@
 const model = require("../models/users");
 const jwt = require("jsonwebtoken");
-
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+const ApiError = require("../error/ApiError");
 class Users {
   static auth = async (req, res) => {
     res.status(200).send(true);
@@ -26,58 +28,54 @@ class Users {
     res.status(200).json(user);
   };
 
-  static postOne = async (req, res) => {
-    const tryNew = {
-      email: req.body.email,
-      username: req.body.username,
-      password: req.body.password,
-    };
-
-    const missingFields = {};
-    for (const key in tryNew) {
-      if (!req.body[key]) {
-        missingFields[key] = "Merci de remplir " + [key];
-      }
+  static postOne = async (req, res, next) => {
+    let hashPass;
+    try {
+      hashPass = await new Promise((resolve, reject) => {
+        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+          if (err) reject(err);
+          resolve(hash);
+        });
+      }).catch((err) => {
+        return err;
+      });
+    } catch (err) {
+      next(ApiError.internal("Probleme de bcrypt"));
     }
-
-    if (Object.keys(missingFields).length > 0) {
-      res.status(400).json(missingFields);
-      return;
-    }
-
+    req.body.password = hashPass;
     const postUser = await model.postOne(req.body);
     res.status(200).json(postUser);
   };
 
   static login = async (req, res, next) => {
-    const tryNew = {
-      username: req.body.username,
-      password: req.body.password,
-    };
-
-    const missingFields = {};
-    for (const key in tryNew) {
-      if (!req.body[key]) {
-        missingFields[key] = "Merci de remplir " + [key];
-      }
-    }
-
-    if (Object.keys(missingFields).length > 0) {
-      res.status(400).json(missingFields);
-      return;
-    }
-
     const users = await model.getAll();
     const { username, password } = req.body;
 
     const selectedUser = users.filter((usr) => {
       const checkUsername = usr.username === username;
-      const checkPassword = usr.password === password;
-      if (checkPassword && checkUsername) return usr;
+      if (checkUsername) return usr;
     });
 
     if (selectedUser.length === 0) {
-      res.status(400).json({ err: "Login ou mot de passe incorrect" });
+      next(ApiError.unAuth("Cet utilisateur n'existe pas"));
+      return;
+    }
+
+    let compare;
+    try {
+      compare = await new Promise((resolve, reject) => {
+        bcrypt.compare(password, selectedUser[0].password, (err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      }).catch((err) => err.message);
+    } catch (err) {
+      next(ApiError.unAuth("Login ou mot de passe incorrect"));
+      return;
+    }
+
+    if (!compare) {
+      next(ApiError.unAuth("Login ou mot de passe incorrect"));
       return;
     }
 

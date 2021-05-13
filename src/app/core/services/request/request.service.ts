@@ -60,6 +60,16 @@ export class RequestService {
     return result;
   }
 
+  delete(endpoit: string): Observable<any> {
+    const result = this.http.delete(environment.proxy + endpoit).pipe(
+      catchError((err) => {
+        this.errorHandler(err);
+        return throwError(err);
+      })
+    );
+    return result;
+  }
+
   get(endpoint: string): Observable<any> {
     const result = this.http.get(environment.proxy + endpoint).pipe(
       catchError((err) => {

@@ -4,11 +4,15 @@ class ApiError {
   }
 
   static unAuth(msg) {
-    return new ApiError(401, "not authorized");
+    return new ApiError(401, msg || "not authorized");
   }
 
   static badRequest(msg) {
     return new ApiError(400, msg);
+  }
+
+  static conflict(msg) {
+    return new ApiError(409, msg);
   }
 
   static internal(msg) {

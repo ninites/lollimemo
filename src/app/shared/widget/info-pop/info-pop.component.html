@@ -1,8 +1,15 @@
 <div class="infoPop" *ngIf="displayed" [ngStyle]="style" [@popIn]>
   <div class="infoPop_container">
     <div class="infoPop_triangle"></div>
-    <div class="infoPop_wrapper" *ngFor="let message of messages | keyvalue">
-      <p>{{ message.value }}</p>
+    <div class="infoPop_wrapper">
+      <ng-container *ngIf="type === 'text'">
+        <div *ngFor="let message of messages | keyvalue">
+          <p>{{ message.value }}</p>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="type === 'image'">
+        <div class="infoPop_imageMess" [ngStyle]="imgMess"></div>
+      </ng-container>
     </div>
   </div>
 </div>

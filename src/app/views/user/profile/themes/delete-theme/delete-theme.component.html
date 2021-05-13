@@ -1,0 +1,18 @@
+<div class="deleteTheme">
+  <div class="deleteTheme_container">
+    <swiper
+      [slidesPerView]="1"
+      [spaceBetween]="50"
+      [roundLengths]="true"
+      [centeredSlides]="true"
+    >
+      <ng-template swiperSlide *ngFor="let theme of userThemes">
+        <delete-theme-item
+          [theme]="theme"
+          class="deleteTheme_itemContainer"
+          (onDelete)="delete($event)"
+        ></delete-theme-item>
+      </ng-template>
+    </swiper>
+  </div>
+</div>
