@@ -1,8 +1,9 @@
 <div class="cardList">
+  <h2>{{ themeName }}</h2>
   <div *ngIf="!multi">
     <timer></timer>
   </div>
-  
+
   <div class="cardList_cardWrapper">
     <card
       *ngFor="let card of cardsList"
@@ -11,7 +12,7 @@
     >
     </card>
   </div>
-  
+
   <div *ngIf="multi" class="cardList_players">
     <player-info
       *ngFor="let player of players; let index = index"

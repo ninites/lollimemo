@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, concatAll, map, mergeMap, toArray } from 'rxjs/operators';
+import {
+  catchError,
+  concatAll,
+  filter,
+  map,
+  mergeMap,
+  toArray,
+} from 'rxjs/operators';
 import { Picture } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { environment } from 'src/environments/environment';
@@ -19,7 +26,46 @@ export class RequestService {
 
   apiUrl: string = 'https://picsum.photos/v2/list';
 
-  getPictures(picturesNumber: number): Observable<Picture[]> {
+  getThemePics(picturesNumber: number, themeId: string): Observable<any> {
+    return this.http.get(environment.proxy + 'themes/all').pipe(
+      map((themes: { [key: string]: any }) => {
+        //// Select good theme
+        const selectedTheme = themes.filter(
+          (theme: { [key: string]: any }) => theme._id === themeId
+        );
+        const [themeImg] = selectedTheme;
+        const images = themeImg.images.filter(
+          (imgs: any) => imgs.type !== 'cardBack'
+        );
+
+        //// Make a random array to choose files later
+        const randomNumber: number[] = [];
+        while (randomNumber.length < picturesNumber) {
+          const random = Math.floor(Math.random() * images.length - 1) + 1;
+          if (!randomNumber.includes(random)) randomNumber.push(random);
+        }
+
+        //// Choose pics randomly in all pictures set
+        let result: any = [];
+        randomNumber.forEach((number: number) => {
+          const copycat = { ...images[number] };
+          result.push([images[number], copycat]);
+        });
+
+        //// Flatten and add uniqueId
+        result = result.flat(picturesNumber);
+        result.forEach((card: any, index: number) => {
+          card.id = card._id;
+          delete card._id;
+          card.uniqueId = index;
+        });
+
+        return result.sort(() => Math.random() - 0.5);
+      })
+    );
+  }
+
+  getDefaultTheme(picturesNumber: number): Observable<Picture[]> {
     const pages: number = Math.floor(Math.random() * 99);
     const picturesObs = this.http
       .get<Picture[]>(`${this.apiUrl}?page=${pages}&limit=${picturesNumber}`)

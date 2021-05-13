@@ -1,12 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Picture } from 'src/app/interface/interface';
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'card',
   templateUrl: './card.component.html',
@@ -14,7 +7,7 @@ import { Picture } from 'src/app/interface/interface';
 })
 export class CardComponent implements OnInit {
   constructor() {}
-  @Input() card?: Picture;
+  @Input() card?: any;
   @Output() displayCard = new EventEmitter<{}>();
   backroungImg: {} = {};
   rotation: {} = {};
@@ -22,8 +15,11 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     if (this.card) {
       this.backroungImg = {
-        'background-image': `url(${this.card.download_url})`,
+        'background-image': `url('${
+          this.card.download_url || environment.proxy + this.card.path
+        }')`,
       };
+      
     }
   }
 

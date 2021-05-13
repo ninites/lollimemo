@@ -25,21 +25,33 @@ export class CardslistComponent implements OnInit {
   players: Player[] = [];
   multi: boolean = false;
   interval: any;
+  themeName : string = ''
 
   ngOnInit(): void {
     this.startGame();
     this.players = this.gameParams.players;
     this.multi = this.gameParams.players.length > 1;
+    this.themeName = this.gameParams.selectedTheme.name
   }
 
   startGame() {
     this.timer.setTimer(false);
+    const selectedTheme = this.gameParams.selectedTheme._id;
+    const diff = this.gameParams.selectedDifficulty;
 
-    this.request.getPictures(this.gameParams.selectedDifficulty).subscribe({
-      next: (resp): void => {
-        this.cardsList = resp;
-      },
-    });
+    if (selectedTheme) {
+      this.request.getThemePics(diff, selectedTheme).subscribe({
+        next: (resp) => {
+          this.cardsList = resp;
+        },
+      });
+    } else {
+      this.request.getDefaultTheme(diff).subscribe({
+        next: (resp): void => {
+          this.cardsList = resp;
+        },
+      });
+    }
   }
 
   reset() {
@@ -85,7 +97,7 @@ export class CardslistComponent implements OnInit {
 
   ngOnDestroy() {
     clearTimeout(this.interval);
-    this.timer.resetTimer()
-    this.game.hardReset()
+    this.timer.resetTimer();
+    this.game.hardReset();
   }
 }

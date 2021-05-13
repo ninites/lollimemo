@@ -19,7 +19,7 @@ export class SelectThemesComponent implements OnInit {
     private gameParams: GameParametersService
   ) {}
 
-  userTheme = [];
+  userTheme: { [key: string]: any }[] = [{ name: 'default', images: [] }];
   themesName: string[] = [];
   choosenTheme: string = '';
   userSelection: string = '';
@@ -58,7 +58,9 @@ export class SelectThemesComponent implements OnInit {
     this.userSelection = '';
     this.validation$.next(false);
     const cardBack = this.getCardBack(this.userTheme);
-    this.style.backgroundImage = `url('${environment.proxy + cardBack}')`;
+    this.style.backgroundImage = cardBack
+      ? `url('${environment.proxy + cardBack}')`
+      : '';
   }
 
   getCardBack(theme: { [key: string]: any }): string {
@@ -70,14 +72,15 @@ export class SelectThemesComponent implements OnInit {
       (image: any) => image.type === 'cardBack'
     );
 
-    return cardBack[0].path;
+    return cardBack[0] ? cardBack[0].path : '';
   }
 
   getThemes(): void {
     this.request.get('themes/all').subscribe({
       next: (resp) => {
-        this.userTheme = resp;
-        resp.forEach((theme: any) => {
+        const fullList = [...this.userTheme, ...resp];
+        this.userTheme = fullList;
+        fullList.forEach((theme: any) => {
           this.themesName.push(theme.name);
         });
       },
@@ -92,7 +95,9 @@ export class SelectThemesComponent implements OnInit {
     this.choosenTheme = paramsValue;
     if (Object.keys(this.gameParams.selectedTheme).length !== 0) {
       const cardBack = this.getCardBack([this.gameParams.selectedTheme]);
-      this.style.backgroundImage = `url('${environment.proxy + cardBack}')`;
+      this.style.backgroundImage = cardBack
+        ? `url('${environment.proxy + cardBack}')`
+        : '';
     }
     if (paramsValue) this.validation$.next(true);
   }

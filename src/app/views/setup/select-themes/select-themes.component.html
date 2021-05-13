@@ -18,7 +18,7 @@
   <div
     class="selectThemes_preview"
     [ngStyle]="style"
-    *ngIf="choosenTheme"
+    *ngIf="choosenTheme && style.backgroundImage"
     [@popIn]
   ></div>
 </div>
