@@ -5,7 +5,7 @@
         class="flip-card-inner"
         [ngStyle]="{ transform: card.displayed ? 'rotateY(180deg)' : '' }"
       >
-        <div class="flip-card-front"></div>
+        <div class="flip-card-front" [ngStyle]="back"></div>
         <div class="flip-card-back" [ngStyle]="backroungImg"></div>
       </div>
     </div>

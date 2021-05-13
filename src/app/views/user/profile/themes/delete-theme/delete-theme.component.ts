@@ -3,7 +3,7 @@ import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import SwiperCore, { Navigation } from 'swiper/core';
 @Component({
-  selector: 'app-delete-theme',
+  selector: 'delete-theme',
   templateUrl: './delete-theme.component.html',
   styleUrls: ['./delete-theme.component.scss'],
 })

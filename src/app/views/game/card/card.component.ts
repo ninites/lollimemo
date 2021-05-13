@@ -8,9 +8,11 @@ import { environment } from 'src/environments/environment';
 export class CardComponent implements OnInit {
   constructor() {}
   @Input() card?: any;
+  @Input() cardBack?: string = '';
   @Output() displayCard = new EventEmitter<{}>();
   backroungImg: {} = {};
   rotation: {} = {};
+  back: any = {};
 
   ngOnInit(): void {
     if (this.card) {
@@ -19,7 +21,11 @@ export class CardComponent implements OnInit {
           this.card.download_url || environment.proxy + this.card.path
         }')`,
       };
-      
+    }
+    if (this.cardBack) {
+      this.back = {
+        'background-image': `url('${this.cardBack}')`,
+      };
     }
   }
 

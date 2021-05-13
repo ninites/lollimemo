@@ -39,9 +39,11 @@ class Themes {
   static deleteOne = async (filter, userId) => {
     const { id } = filter;
 
-    const actualUser = await User.find({ _id: userId });
-    await actualUser[0].themes.pull({ _id: id });
-
+    await User.updateOne(
+      { _id: userId },
+      { $pull: { themes: id } },
+      { new: true, useFindAndModify: false }
+    );
     const themeToDelete = await Theme.findById(id);
     const imagesToErase = await Image.find({
       _id: { $in: themeToDelete.images },
@@ -53,7 +55,7 @@ class Themes {
         console.error("Picture doesn't exists");
       }
     });
-    const imagesRemoved = await Image.deleteMany({
+    await Image.deleteMany({
       _id: {
         $in: themeToDelete.images,
       },

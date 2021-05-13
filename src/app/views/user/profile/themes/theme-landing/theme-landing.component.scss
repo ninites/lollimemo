@@ -3,13 +3,13 @@
 .themeLanding {
   display: flex;
   flex-direction: column;
-  align-items: center;
   &_wrapper {
+    align-self: center;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     width: 90%;
     & > * {
-      margin: $marginMedium;
+      margin-bottom: $marginMedium;
     }
   }
 }

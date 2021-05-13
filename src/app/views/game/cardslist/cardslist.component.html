@@ -8,6 +8,7 @@
     <card
       *ngFor="let card of cardsList"
       [card]="card"
+      [cardBack]="cardBack"
       (displayCard)="displayCard($event)"
     >
     </card>

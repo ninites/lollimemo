@@ -5,6 +5,7 @@ import { ModalService } from '../../../shared/widget/modal/modal.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cardslist',
@@ -25,13 +26,14 @@ export class CardslistComponent implements OnInit {
   players: Player[] = [];
   multi: boolean = false;
   interval: any;
-  themeName : string = ''
+  themeName: string = '';
+  cardBack: string = '';
 
   ngOnInit(): void {
     this.startGame();
     this.players = this.gameParams.players;
     this.multi = this.gameParams.players.length > 1;
-    this.themeName = this.gameParams.selectedTheme.name
+    this.themeName = this.gameParams.selectedTheme.name;
   }
 
   startGame() {
@@ -45,6 +47,11 @@ export class CardslistComponent implements OnInit {
           this.cardsList = resp;
         },
       });
+
+      const cardBack = this.gameParams.selectedTheme.images.filter(
+        (img: any) => img.type === 'cardBack'
+      );
+      this.cardBack = environment.proxy + cardBack[0].path;
     } else {
       this.request.getDefaultTheme(diff).subscribe({
         next: (resp): void => {

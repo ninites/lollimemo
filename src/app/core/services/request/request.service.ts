@@ -56,7 +56,6 @@ export class RequestService {
         result = result.flat(picturesNumber);
         result.forEach((card: any, index: number) => {
           card.id = card._id;
-          delete card._id;
           card.uniqueId = index;
         });
 

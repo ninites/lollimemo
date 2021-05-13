@@ -29,7 +29,6 @@ export class SelectThemesComponent implements OnInit {
   ngOnInit(): void {
     this.setupServ.setIndexInChildren();
     this.getThemes();
-    this.getSavedValue();
     this.checkValidation();
   }
 
@@ -83,6 +82,7 @@ export class SelectThemesComponent implements OnInit {
         fullList.forEach((theme: any) => {
           this.themesName.push(theme.name);
         });
+        this.getSavedValue();
       },
     });
   }
@@ -91,6 +91,13 @@ export class SelectThemesComponent implements OnInit {
     const paramsValue = this.gameParams.selectedTheme.name
       ? this.gameParams.selectedTheme.name
       : '';
+
+    const checkIfExists = this.userTheme.filter(
+      (theme) => theme.name === paramsValue
+    );
+
+    if (checkIfExists.length === 0) return;
+
     this.userSelection = paramsValue;
     this.choosenTheme = paramsValue;
     if (Object.keys(this.gameParams.selectedTheme).length !== 0) {

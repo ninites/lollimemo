@@ -24,7 +24,6 @@ export class SetupComponent implements OnInit {
   buttons: string[] = ['precedent', 'suivant'];
   setupRoutes: any = [];
   dots: boolean[] = [];
-  errorMessage: { [key: string]: string } = {};
   displayModal: boolean = false;
   displayInfo: boolean[] = [];
   infoName: string[] = [];
@@ -98,11 +97,6 @@ export class SetupComponent implements OnInit {
   }
 
   letsStart() {
-    this.errorMessage = this.gameParams.gameParamsValidation();
-    if (Object.values(this.errorMessage).length > 0) {
-      this.modal.switchModal();
-      return;
-    }
     this.router.navigate(['/game']);
   }
 }
