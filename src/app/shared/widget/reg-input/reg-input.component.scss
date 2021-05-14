@@ -4,6 +4,7 @@
   border-radius: $borderRadius;
   input {
     height: 100%;
+    color: $orangeLight;
     padding: $paddingMedium;
     border: none;
     border-radius: $borderRadius;
@@ -12,23 +13,21 @@
     &:focus {
       outline: none;
       background-color: $greenDark;
+      color: $orangeLight !important;
     }
     &::placeholder {
       color: $orangeDark;
     }
   }
 
-  &_eyeButton {
-  }
-
   &_bindToButton {
     border-radius: $borderRadiusInputRight !important;
-    background-color: red;
   }
 
   &_validate {
     box-shadow: $shadowFill;
     background-color: $orangeLight !important;
+    color: $textColor !important;
     &:focus {
       background-color: $greenDark !important;
     }

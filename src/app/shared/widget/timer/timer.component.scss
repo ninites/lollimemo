@@ -2,7 +2,7 @@
 
 .timer {
   display: flex;
-  font-size: $fontSizeL;
+  font-size: $fontSizeM;
   font-weight: bold;
   align-items: center;
   background-color: $orangeLight;
@@ -18,6 +18,6 @@
     border: 3px solid $orangeDark;
     background-color: $orangeMedium;
     border-radius: $borderRadius;
-    padding: $paddingMedium;
+    padding: $paddingLow;
   }
 }

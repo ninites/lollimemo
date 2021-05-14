@@ -1,16 +1,16 @@
 $regularFont: "Questrial", sans-serif;
 $kidFont: "Leckerli One", cursive;
 
-$pinkDark: #fec5bb;
-$pinkMedium: #fcd5ce;
-$pinkLight: #fae1dd;
-$pinkExtraLight: #f8edeb;
-$greenMedium: #e8e8e4;
-$greenLight: #ece4db;
-$greenDark: #d8e2dc;
-$orangeLight: #ffe5d9;
-$orangeMedium: #ffd7ba;
-$orangeDark: #fec89a;
+
+$greenMedium: #ffe66d;
+$greenLight: #ffe66d;
+$greenDark: #ffe66d;
+$orangeLight: #4ecdc4;
+$orangeMedium: #4bc0b8;
+$orangeDark: #47bdb5;
+$textColor: white;
+$backgroundColor : #f7fff7;
+$disabled : #e6f7e6;
 
 $borderRadius: 5px;
 $borderRadiusBtnRight: 0 $borderRadius $borderRadius 0;
@@ -20,9 +20,9 @@ $marginLow: 5px;
 $paddingMedium: 10px;
 $paddingLow: 5px;
 
-$shadowFill: 3px 3px 0 0 rgba($orangeDark, 1);
-$shadowFillSmall: 1px 1px 0 0 rgba($orangeDark, 1);
-$textShadowFill: 3px 3px 0 $greenDark;
+$shadowFill: 2px 2px 0 0 rgba($orangeDark, 1);
+$shadowFillSmall: 0px 0px 0 0 rgba($orangeDark, 1);
+$textShadowFill: 1px 1px 0 $greenDark;
 
 $fontSizeS: small;
 $fontSizeM: medium;

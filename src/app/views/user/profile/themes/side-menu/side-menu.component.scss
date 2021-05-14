@@ -1,20 +1,17 @@
 @import "variables";
 
-$sideMenuSize: 250px;
-
 .sideMenu {
+  width: 0px;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   background-color: $greenLight;
-  opacity: 0.9;
   font-size: $fontSizeS;
-  border-left: $orangeDark 3px solid;
+  border-right: $orangeDark 3px solid;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  transform: translateX($sideMenuSize);
-  transition: 0.3s ease;
+  transition: 0.2s ease;
   z-index: 1;
   &_transclude {
     display: flex;
@@ -27,11 +24,11 @@ $sideMenuSize: 250px;
     font-weight: bold;
     width: 100%;
     padding: $paddingMedium 0 $paddingMedium 0;
-    background-color: $greenDark;
+    background-color: $orangeDark;
     text-align: center;
   }
 
   &_displayed {
-    transform: translateX(0);
+    width: 150px;
   }
 }

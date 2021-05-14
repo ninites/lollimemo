@@ -12,6 +12,10 @@
   padding: $paddingMedium;
   font-weight: bold;
 
+  &_message {
+    color: $orangeLight;
+  }
+
   &_button {
     display: flex;
     align-items: center;

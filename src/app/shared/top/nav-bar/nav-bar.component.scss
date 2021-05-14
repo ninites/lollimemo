@@ -1,54 +1,56 @@
 @import "variables.scss";
 
 .navBar {
-  &_star {
-    cursor: pointer;
-  }
-  &_list {
-    z-index: 20;
-    position: absolute;
-    width: $gameSize;
-    width: 85%;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: $greenLight;
-    padding: $paddingMedium;
-    border-radius: $borderRadius;
+  transition: 0.2s ease;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  height: 50px;
 
-    box-shadow: $shadowFill;
+  &_iconText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: -$marginMedium;
+    p {
+      color: $orangeLight;
+      margin-top: $marginLow;
+    }
+  }
+
+  &_list {
+    display: flex;
+    width: $gameSize;
+    background-color: $greenLight;
+    padding: $paddingLow;
+  }
+
+  .fas {
+    color: $orangeLight;
+  }
+
+  &_userSide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_login {
+    color: $orangeLight;
+    font-weight: bold;
+    margin-right: $marginMedium;
   }
 
   &_href {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     & > * {
       margin: $marginLow;
     }
-  }
-  .fa-star {
-    transition: 0.5s;
-    animation: shake infinite 0.5s;
-    &:hover {
-      color: $greenLight;
-    }
-  }
-
-  .activatedStar {
-    color: $greenLight;
-  }
-}
-
-@keyframes shake {
-  0% {
-    transform: rotate(-5deg);
-  }
-
-  50% {
-    transform: rotate(5deg);
-  }
-
-  100% {
-    transform: rotate(-5deg);
   }
 }

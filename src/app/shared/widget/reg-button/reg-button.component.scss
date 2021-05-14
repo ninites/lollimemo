@@ -2,7 +2,7 @@
 
 .regButton {
   background-color: $orangeLight;
-  color: $orangeDark;
+  color: $textColor;
   padding: $paddingMedium;
   border: none;
   transition: 0.3s;
@@ -14,9 +14,9 @@
   font-family: $regularFont;
 
   &_selected {
-    background-color: $orangeMedium;
+    background-color: $greenMedium;
     transform: scale(1.2);
-    color: $greenLight;
+    color: $orangeLight;
   }
 
   &:enabled {
@@ -25,7 +25,7 @@
   }
 
   &:disabled {
-    background-color: $greenLight;
+    background-color: $disabled;
   }
 
   &:hover:enabled {
@@ -43,6 +43,7 @@
 
   &_confirmation {
     background-color: $greenLight;
+    color: $orangeLight;
   }
 
   &_bindToInput {

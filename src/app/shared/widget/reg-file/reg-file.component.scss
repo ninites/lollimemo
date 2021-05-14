@@ -6,8 +6,9 @@
   justify-content: center;
 
   &_label {
+    font-size: small;
     background-color: $orangeLight;
-    color: $orangeDark;
+    color: $textColor;
     padding: $paddingMedium;
     border: none;
     transition: 0.3s;

@@ -1,7 +1,7 @@
 @import "variables";
 
 .regSelect {
-  background-color: $greenLight;
+  background-color: $orangeLight;
   border: none;
   padding: $paddingMedium;
   position: relative;
@@ -20,15 +20,18 @@
   &_optionsWrapper {
     position: absolute;
     top: 40px;
-    left: 0;
+    border-radius: $borderRadius;
+    background-color: $orangeLight;
   }
 
   &_options {
     width: 100%;
-    background-color: $greenLight;
     padding: $paddingMedium;
+    font-weight: bold;
+    color: $greenLight;
+
     &:hover {
-      background-color: $pinkLight;
+      background-color: $greenMedium;
     }
   }
 }

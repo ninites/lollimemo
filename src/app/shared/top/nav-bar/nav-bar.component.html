@@ -1,26 +1,30 @@
 <div class="navBar">
-  <div class="navBar_star">
-    <i
-      id="clickOutside_navBar_starButton"
-      class="fas fa-star fa-2x"
-      (click)="isDisplayed = !isDisplayed"
-      [ngClass]="{ activatedStar: isDisplayed }"
-    ></i>
-  </div>
-  <div
-    *ngIf="isDisplayed"
-    class="navBar_list"
-    [@menuPop]
-    clickOutside
-    [exceptions]="['navBar_starButton']"
-    (clickOutside)="isDisplayed = !isDisplayed"
-  >
-    <div class="navBar_href" (click)="isDisplayed = !isDisplayed">
-      <a [routerLink]="['/']">Jouer</a>
-      <a *ngIf="isAuth" [routerLink]="['/user/profile']">Mon profil</a>
-      <a *ngIf="!isAuth" [routerLink]="['/user/subscribe']">S'inscrire</a>
-      <a *ngIf="!isAuth" [routerLink]="['/user/login']">Se connecter</a>
-      <a *ngIf="isAuth" (click)="logOut()">Se déconnecter</a>
+  <div class="navBar_list">
+    <div class="navBar_href">
+      <a [routerLink]="['/']"
+        ><div class="navBar_iconText">
+          <i class="fas fa-play fa-lg"></i>
+          <p>Jouer</p>
+        </div></a
+      >
+      <a *ngIf="isAuth" [routerLink]="['/user/profile']"
+        ><div class="navBar_iconText">
+          <i class="fas fa-user fa-lg"></i>
+          <p>Profile</p>
+        </div></a
+      >
+      <a *ngIf="isAuth" (click)="logOut()"
+        ><div class="navBar_iconText">
+          <i class="fas fa-sign-out-alt fa-lg"></i>
+          <p>Deco</p>
+        </div></a
+      >
+      <div class="navBar_userSide" *ngIf="!isAuth">
+        <a class="navBar_login" [routerLink]="['/user/login']">Se Connecter</a>
+        <a class="navBar_subscribe" [routerLink]="['/user/subscribe']"
+          ><reg-button [height]="30">S'inscrire</reg-button></a
+        >
+      </div>
     </div>
   </div>
 </div>

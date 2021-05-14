@@ -13,8 +13,15 @@
     transition: 0.4s;
   }
 
+  h3 {
+    font-size: small;
+  }
+
   &_myTurn {
-      background-color: $greenDark;
-      transform: scale(1.1);
+    background-color: $greenDark;
+    transform: scale(1.1);
+    & > * {
+      color: $orangeLight !important;
+    }
   }
 }

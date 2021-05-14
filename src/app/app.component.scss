@@ -5,12 +5,12 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
+  transition: 0.2s ease;
   &_rooterMain {
     height: 100%;
     width: $gameSize;
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 30px;
   }
 }

@@ -3,7 +3,9 @@
   <div class="postTheme_form">
     <form [formGroup]="postThemeForm" (submit)="onSubmit($event)">
       <div class="postTheme_titleInput">
-        <label for="post_image">Entrez le nom du theme</label>
+        <label class="postTheme_firstLabel" for="post_image"
+          >Entrez le nom du theme</label
+        >
         <div class="postTheme_regComps">
           <reg-input
             id="post_image"
@@ -40,49 +42,52 @@
             [multiMax]="10"
           ></reg-file>
         </div>
+        <div class="postTheme_vallidationEye">
+          <reg-button
+            id="clickOutside_sideMenu_button"
+            [width]="40"
+            *ngIf="
+              postThemeForm.value.pictures.length > 0 ||
+              postThemeForm.value.cardBack.length > 0
+            "
+            (click)="displaySideMenu = !displaySideMenu"
+          >
+            <i class="fas fa-eye"></i
+          ></reg-button>
+          <reg-button
+            [type]="'submit'"
+            [label]="'Valider'"
+            [disabled]="!postThemeForm.valid"
+            [width]="200"
+          ></reg-button>
+        </div>
       </div>
-      <reg-button
-        id="clickOutside_sideMenu_button"
-        [width]="200"
-        *ngIf="
-          postThemeForm.value.pictures.length > 0 ||
-          postThemeForm.value.cardBack.length > 0
-        "
-        [label]="'Previsualiser les images'"
-        (click)="displaySideMenu = !displaySideMenu"
-      ></reg-button>
-      <reg-button
-        [type]="'submit'"
-        [label]="'Valider'"
-        [disabled]="!postThemeForm.valid"
-        [width]="200"
-      ></reg-button>
     </form>
     <div class="postTheme_preview"></div>
   </div>
+  <side-menu
+    clickOutside
+    [exceptions]="['sideMenu_button']"
+    (clickOutside)="displaySideMenu = false"
+    [display]="displaySideMenu"
+  >
+    <div background>
+      <pictures-preview
+        *ngFor="let back of postThemeForm.value.cardBack; let index = index"
+        [index]="index"
+        [picture]="back"
+        [size]="100"
+        (fileDelete)="pictureDelete($event, 'cardBack')"
+      ></pictures-preview>
+    </div>
+    <div card>
+      <pictures-preview
+        *ngFor="let picture of postThemeForm.value.pictures; let index = index"
+        [index]="index"
+        [picture]="picture"
+        [size]="100"
+        (fileDelete)="pictureDelete($event, 'pictures')"
+      ></pictures-preview>
+    </div>
+  </side-menu>
 </div>
-<side-menu
-  clickOutside
-  [exceptions]="['sideMenu_button']"
-  (clickOutside)="displaySideMenu = false"
-  [display]="displaySideMenu"
->
-  <div background>
-    <pictures-preview
-      *ngFor="let back of postThemeForm.value.cardBack; let index = index"
-      [index]="index"
-      [picture]="back"
-      [size]="100"
-      (fileDelete)="pictureDelete($event, 'cardBack')"
-    ></pictures-preview>
-  </div>
-  <div card>
-    <pictures-preview
-      *ngFor="let picture of postThemeForm.value.pictures; let index = index"
-      [index]="index"
-      [picture]="picture"
-      [size]="100"
-      (fileDelete)="pictureDelete($event, 'pictures')"
-    ></pictures-preview>
-  </div>
-</side-menu>
