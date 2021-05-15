@@ -84,6 +84,12 @@ export class SelectThemesComponent implements OnInit {
         });
         this.getSavedValue();
       },
+      error: (err) => {
+        this.userTheme.forEach((theme: any) => {
+          this.themesName.push(theme.name);
+        });
+        this.getSavedValue();
+      },
     });
   }
 

@@ -1,5 +1,5 @@
 <div class="playerName">
-  <form (ngSubmit)="onSubmit($event)" [formGroup]="userForm">
+  <form [formGroup]="userForm">
     <div formArrayName="aliases" class="playerName_inputsWrapper">
       <div
         *ngFor="let alias of aliases.controls; let i = index"
@@ -16,6 +16,8 @@
             [solo]="false"
           ></reg-input>
           <reg-button
+            (click)="onSubmit(i)"
+            class="playerName_submiter"
             [id]="i"
             type="submit"
             [disabled]="!formValidation[i].isMinlength"
@@ -24,7 +26,9 @@
             [confirmation]="btnValidation"
           ></reg-button>
           <div class="playerName_connect" *ngIf="i === 0 && !isAuth">
-            <reg-button [routerLink]="['/user/login']" ><i class="fas fa-sign-in-alt"></i></reg-button>
+            <reg-button [routerLink]="['/user/login']"
+              ><i class="fas fa-sign-in-alt"></i
+            ></reg-button>
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 $regularFont: "Questrial", sans-serif;
 $kidFont: "Leckerli One", cursive;
 
-
 $greenMedium: #ffe66d;
 $greenLight: #ffe66d;
 $greenDark: #ffe66d;
@@ -9,8 +8,8 @@ $orangeLight: #4ecdc4;
 $orangeMedium: #4bc0b8;
 $orangeDark: #47bdb5;
 $textColor: white;
-$backgroundColor : #f7fff7;
-$disabled : #e6f7e6;
+$backgroundColor: #f7fff7;
+$disabled: #e6f7e6;
 
 $borderRadius: 5px;
 $borderRadiusBtnRight: 0 $borderRadius $borderRadius 0;
@@ -28,7 +27,18 @@ $fontSizeS: small;
 $fontSizeM: medium;
 $fontSizeL: 22px;
 
-
-$gameSize: 100%;
 $cardSize: 80px;
 $headerSize: $fontSizeM;
+$centerHeight : 300px;
+
+:root {
+  --game-size: 400px;
+}
+
+
+@media screen and (max-width : 800px ) {
+    :root {
+        --game-size: 100%;
+      }
+      
+}

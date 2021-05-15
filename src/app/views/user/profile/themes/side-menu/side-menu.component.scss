@@ -7,7 +7,7 @@
   left: 0;
   background-color: $greenLight;
   font-size: $fontSizeS;
-  border-right: $orangeDark 3px solid;
+
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -24,11 +24,12 @@
     font-weight: bold;
     width: 100%;
     padding: $paddingMedium 0 $paddingMedium 0;
-    background-color: $orangeDark;
+    background-color: $orangeLight;
     text-align: center;
   }
 
   &_displayed {
+    border-right: $orangeLight 2px solid;
     width: 150px;
   }
 }

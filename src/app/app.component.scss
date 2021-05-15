@@ -1,16 +1,18 @@
 @import "variables";
 
 .root {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   transition: 0.2s ease;
   &_rooterMain {
-    height: 100%;
-    width: $gameSize;
+    height: calc(100% - 55px);
+    width: var(--game-size);
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    justify-content: center;
   }
 }

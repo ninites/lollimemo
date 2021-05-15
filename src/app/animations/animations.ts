@@ -46,7 +46,8 @@ export const slideInAnimation = trigger('routeAnimations', [
           right: '-50%',
           width: '100vw',
           transform: 'translate(-50%,-50%)',
-          transition: 'all 0.4s ease-in-out',
+          transition: 'all 0.2s ease-in-out',
+         
         }),
       ],
       { optional: true }
@@ -58,7 +59,7 @@ export const slideInAnimation = trigger('routeAnimations', [
         ':leave',
         [
           animate(
-            '500ms',
+            '200ms',
             keyframes([style({ opacity: 1 }), style({ opacity: 0 })])
           ),
         ],
@@ -68,7 +69,7 @@ export const slideInAnimation = trigger('routeAnimations', [
         ':enter',
         [
           animate(
-            '500ms',
+            '200ms',
             keyframes([style({ opacity: 0 }), style({ opacity: 1 })])
           ),
         ],
@@ -138,7 +139,9 @@ export const routeMain = trigger('routeMain', [
           position: 'absolute',
           left: 0,
           right: 0,
-          transition: 'all 0.4s ease-in-out',
+          top: '50%',
+          transform: 'translate(0,-50%)',
+          transition: 'all 0.2s ease-in-out',          
         }),
       ],
       { optional: true }
@@ -150,7 +153,7 @@ export const routeMain = trigger('routeMain', [
         ':leave',
         [
           animate(
-            '500ms',
+            '200ms',
             keyframes([style({ opacity: 1 }), style({ opacity: 0 })])
           ),
         ],
@@ -160,7 +163,7 @@ export const routeMain = trigger('routeMain', [
         ':enter',
         [
           animate(
-            '500ms',
+            '200ms',
             keyframes([style({ opacity: 0 }), style({ opacity: 1 })])
           ),
         ],

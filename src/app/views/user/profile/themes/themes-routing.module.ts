@@ -7,12 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ThemeLandingComponent,
-    data: { animation: 'ThemesLanding' },
+    // data: { animation: 'ThemesLanding' },
   },
   {
     path: 'post',
     component: PostThemeComponent,
-    data: { animation: 'ThemesPost' },
+    // data: { animation: 'ThemesPost' },
   },
 ];
 

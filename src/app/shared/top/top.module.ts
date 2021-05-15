@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared.module';
 import { AlertComponent } from './alert/alert.component';
-import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
-  declarations: [AlertComponent, HeaderComponent, NavBarComponent],
+  declarations: [AlertComponent,  NavBarComponent],
   imports: [SharedModule, RouterModule],
-  exports: [AlertComponent, HeaderComponent],
+  exports: [AlertComponent, NavBarComponent],
 })
 export class TopModule {}

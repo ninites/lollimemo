@@ -1,12 +1,11 @@
 @import "variables";
 
 .regSelect {
-  background-color: $orangeLight;
   border: none;
   padding: $paddingMedium;
   position: relative;
+  background-color: $orangeLight;
   border-radius: $borderRadius;
-  position: relative;
   cursor: pointer;
 
   option {
@@ -20,11 +19,11 @@
   &_optionsWrapper {
     position: absolute;
     top: 40px;
-    border-radius: $borderRadius;
-    background-color: $orangeLight;
+    left: 0;
   }
-
+  
   &_options {
+    background-color: $orangeLight;
     width: 100%;
     padding: $paddingMedium;
     font-weight: bold;
@@ -32,6 +31,7 @@
 
     &:hover {
       background-color: $greenMedium;
+      color: $orangeLight;
     }
   }
 }

@@ -2,6 +2,9 @@
 
 .card {
   &_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: $cardSize;
     height: $cardSize;
     cursor: pointer;
@@ -39,6 +42,8 @@
     color: black;
     background-color: $orangeDark;
     border-radius: 15px;
+    background-size: cover;
+    background-position: center;
   }
 
   /* Style the back side */

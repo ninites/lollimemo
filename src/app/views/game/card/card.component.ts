@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'card',
@@ -15,6 +16,9 @@ export class CardComponent implements OnInit {
   back: any = {};
 
   ngOnInit(): void {
+   
+    
+
     if (this.card) {
       this.backroungImg = {
         'background-image': `url('${

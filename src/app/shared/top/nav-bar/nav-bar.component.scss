@@ -3,11 +3,15 @@
 .navBar {
   transition: 0.2s ease;
   position: fixed;
+  z-index: 1000;
   bottom: 0;
-  left: 0;
+  left:50%;
   width: 100%;
   display: flex;
-  height: 50px;
+  justify-content: center;
+  transform: translate(-50%);
+  display: flex;
+  height: 45px;
 
   &_iconText {
     display: flex;
@@ -23,7 +27,7 @@
 
   &_list {
     display: flex;
-    width: $gameSize;
+    width: var(--game-size);
     background-color: $greenLight;
     padding: $paddingLow;
   }
@@ -52,5 +56,36 @@
     & > * {
       margin: $marginLow;
     }
+  }
+
+  h1 {
+    padding: 0 $paddingMedium 0 $paddingMedium;
+    text-shadow: $textShadowFill;
+    font-size: medium;
+  }
+
+  &_star {
+    display: flex;
+  }
+
+
+  .fa-star {
+    transition: 0.5s;
+    animation: shake infinite 0.5s;
+    color: $backgroundColor;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+
+  100% {
+    transform: rotate(-5deg);
   }
 }

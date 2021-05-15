@@ -16,7 +16,7 @@ export class GameParametersService {
   setDifficulty(diff: string) {
     this.selectedDifficultyString = diff;
     if (diff === 'facile') {
-      this.selectedDifficulty = 5;
+      this.selectedDifficulty = 6;
       return;
     }
     if (diff === 'normal') {

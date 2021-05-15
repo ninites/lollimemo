@@ -14,6 +14,7 @@ export class InfoPopComponent implements OnInit {
   @Input() width: number = 0;
   @Input() type: string = 'text';
   @Input() image: string = '';
+  @Input() parentSize : number = 0
 
   constructor() {}
 
@@ -25,7 +26,7 @@ export class InfoPopComponent implements OnInit {
   ngOnChanges(): void {
     this.style = {
       width: this.width + 'px',
-      left: ((this.width - 25) / 2) * -1 + 'px',
+      left: ((this.width - this.parentSize) / 2) * -1 + 'px',
     };
 
     this.imgMess.backgroundImage = `url('${environment.proxy + this.image}')`;

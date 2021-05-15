@@ -15,16 +15,16 @@ export class ProfileComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   userOptions: { [key: string]: any }[] = [
-    { value: 'Mes dernieres parties', link: ['/user/profile/games'] },
-    { value: 'Mon profile', link: ['/user/profile/modify'] },
-    { value: 'Mes themes', link: ['/user/profile/themes'] },
+    { value: 'Profile', link: ['/user/profile/modify'] },
+    { value: 'Themes', link: ['/user/profile/themes'] },
+    { value: 'Parties', link: ['/user/profile/games'] },
   ];
 
   ngOnInit(): void {
     SwiperCore.use([Pagination]);
     this.document.documentElement.style.setProperty(
       '--swiper-theme-color',
-      '#ffd7ba'
+      '#ffe66d'
     );
   }
 

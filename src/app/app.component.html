@@ -1,7 +1,7 @@
 <div class="root">
-  <app-header></app-header>
   <div [@routeMain]="prepareRoute(outlet)" class="root_rooterMain">
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
+  <nav-bar></nav-bar>
+  <alert></alert>
 </div>
-<alert></alert>

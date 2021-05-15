@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
@@ -15,6 +16,7 @@ import { SetupService } from '../setup-service/setup.service';
 })
 export class PlayersNameComponent implements OnInit {
   constructor(
+    @Inject(DOCUMENT) private readonly document: Document,
     private fb: FormBuilder,
     private gameParams: GameParametersService,
     private setupServ: SetupService,
@@ -51,7 +53,7 @@ export class PlayersNameComponent implements OnInit {
     this.auth.isAuth$.subscribe((isAuth) => {
       this.isAuth = isAuth;
       if (isAuth) {
-        this.request.get('users/info').subscribe((response) => {          
+        this.request.get('users/info').subscribe((response) => {
           this.aliases.patchValue([response.username]);
         });
       }
@@ -59,12 +61,11 @@ export class PlayersNameComponent implements OnInit {
   }
 
   useEffectForValidation(): void {
-  
     this.validate$.subscribe({
-      next: (resp) => {        
+      next: (resp) => {
         const allFormValid = this.formValidationVerification(resp);
         if (allFormValid) {
-          this.setupServ.displayPathButton()
+          this.setupServ.displayPathButton();
           this.setupServ.setDisableDots();
         } else {
           this.setupServ.setDisableButtons([false, true]);
@@ -87,10 +88,9 @@ export class PlayersNameComponent implements OnInit {
     });
   }
 
-  onSubmit(e: any): void {
-    const options = e.submitter.value;
-    if (options === 'Valider') this.sendUserName();
-    if (options === 'Modifier') this.modifyUserName(e.submitter.id);
+  onSubmit(index: number): void {
+    const checkState = this.formValidation[index].isSubmited;
+    checkState ? this.modifyUserName(index) : this.sendUserName();
   }
 
   modifyUserName(userToModifyIndex: number) {
