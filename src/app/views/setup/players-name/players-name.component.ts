@@ -49,6 +49,10 @@ export class PlayersNameComponent implements OnInit {
     this.getUserInfo();
   }
 
+  ngOnDestroy() : void {
+    this.validate$.unsubscribe()
+  }
+
   getUserInfo(): void {
     this.auth.isAuth$.subscribe((isAuth) => {
       this.isAuth = isAuth;

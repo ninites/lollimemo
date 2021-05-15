@@ -44,6 +44,10 @@ export class SelectThemesComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() : void {
+    this.validation$.unsubscribe()
+  }
+
   setSelection(): void {
     this.userSelection = this.choosenTheme;
     const themeChoice = this.userTheme.find(
