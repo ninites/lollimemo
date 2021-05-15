@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { routeMain } from 'src/app/animations/animations';
 
-import SwiperCore, { Pagination } from 'swiper/core';
+import SwiperCore, { Pagination, Swiper } from 'swiper/core';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    SwiperCore.use([Pagination]);
     this.document.documentElement.style.setProperty(
       '--swiper-theme-color',
       '#ffe66d'

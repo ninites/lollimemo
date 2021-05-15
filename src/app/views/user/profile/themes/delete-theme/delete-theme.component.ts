@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
-import SwiperCore, { Navigation } from 'swiper/core';
 @Component({
   selector: 'delete-theme',
   templateUrl: './delete-theme.component.html',
@@ -9,12 +8,22 @@ import SwiperCore, { Navigation } from 'swiper/core';
 })
 export class DeleteThemeComponent implements OnInit {
   constructor(private request: RequestService, private alert: AlertService) {}
+  @Input() themeIndex: any;
+  @Output() themeIndexChange = new EventEmitter<number>();
+  @Output() themeLength = new EventEmitter<number>();
 
   userThemes: { [key: string]: any }[] = [];
 
   ngOnInit(): void {
-    SwiperCore.use([Navigation]);
     this.getThemes();
+  }
+
+  onSwiper(event: any): void {
+    this.themeIndexChange.emit(event.realIndex + 1);
+  }
+
+  onSwiperStart(event: any): void {
+    this.themeIndexChange.emit(event.realIndex + 1);
   }
 
   delete(themeId: string): void {
@@ -37,6 +46,7 @@ export class DeleteThemeComponent implements OnInit {
     this.request.get('themes/all').subscribe({
       next: (resp) => {
         this.userThemes = resp;
+        this.themeLength.emit(resp.length);
       },
       error: (err) => {
         console.log(err);

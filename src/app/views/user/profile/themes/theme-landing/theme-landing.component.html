@@ -1,5 +1,6 @@
 <div class="themeLanding">
   <div class="themeLanding_wrapper">
+    <p>{{ themePosition }} / {{ themeSize }}</p>
     <reg-button
       *ngFor="let choice of themesCrud"
       [height]="30"
@@ -9,5 +10,9 @@
       {{ choice.value }}
     </reg-button>
   </div>
-  <delete-theme></delete-theme>
+  <delete-theme
+    (themeIndexChange)="forceIndexChange($event)"
+    [themeIndex]="themePosition"
+    (themeLength)="getThemeLength($event)"
+  ></delete-theme>
 </div>

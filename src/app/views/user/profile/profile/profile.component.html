@@ -1,10 +1,8 @@
 <div class="userProfile">
   <swiper
-    [slidesPerView]="2"
-    [pagination]="{
-      clickable: true
-    }"
-    [spaceBetween]="0"
+    [slidesPerView]="2.2"
+    [centerInsufficientSlides]="true"
+    [spaceBetween]="10"
   >
     <ng-template swiperSlide *ngFor="let option of userOptions">
       <div class="userProfile_optionsBloc" [routerLink]="option.link">

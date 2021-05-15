@@ -6,10 +6,19 @@
   &_wrapper {
     align-self: center;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     width: 90%;
     & > * {
       margin-bottom: $marginMedium;
+    }
+
+    p {
+      font-weight: bold;
+      color: $orangeLight;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

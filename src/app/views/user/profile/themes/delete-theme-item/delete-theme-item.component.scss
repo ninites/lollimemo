@@ -3,7 +3,6 @@
 .deleteThemeItem {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
 
   h2 {
@@ -15,16 +14,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 100%;
+    z-index: 2;
     background-color: $greenLight;
+    box-shadow: $shadowUnder;
     & > * {
       margin: $marginMedium;
     }
   }
 
   &_pictureContainer {
-    margin-top: $marginMedium;
-    width: 90%;
+    margin-top: -5px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,16 +33,19 @@
 
   &_picture {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: flex-end;
     width: 100px;
     height: 100px;
-    margin: $marginMedium;
+    margin: $marginLow 0 0 0;
     background-size: cover;
     border-radius: $borderRadius;
     box-shadow: $shadowFill;
+    padding: $paddingLow;
   }
 
   &_cardBack {
+    z-index: 1;
     border-radius: $borderRadius;
     background-color: $orangeLight;
     padding: $paddingMedium;
@@ -50,9 +54,9 @@
   &_previewSolo {
     position: relative;
     display: flex;
-    align-items: center;
-    width: 30px;
-    height: 30px;
+   
+    width: 40px;
+    height: 40px;
     margin: $marginLow;
     background-size: cover;
     border-radius: $borderRadius;
@@ -65,16 +69,22 @@
     background-color: $orangeLight;
     border-radius: $borderRadius;
     padding: $paddingMedium;
-    margin-top: $marginMedium;
+    margin-top: -5px;
   }
 
   &_previewSoloContainer {
     display: flex;
-    
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 
   p {
-    margin-left: $marginMedium;
-    font-weight: bold;
+    color: $orangeLight;
+    font-size: small;
+    padding: $paddingLow;
+    border-radius: $borderRadius;
+    // box-shadow: $shadowFill;
+    background-color: $greenLight;
   }
 }
