@@ -20,9 +20,7 @@
       <div class="postTheme_inputPictures">
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
-          <reg-button [width]="200" (click)="displayCrop()"
-            >Ajouter</reg-button
-          >
+          <reg-button [width]="200" (click)="displayCrop()">Ajouter</reg-button>
         </div>
 
         <div class="postTheme_picturesButtonsinputBox">
@@ -48,10 +46,7 @@
           <reg-button
             id="clickOutside_sideMenu_button"
             [width]="40"
-            *ngIf="
-              postThemeForm.value.pictures.length > 0 ||
-              postThemeForm.value.cardBack.length > 0
-            "
+            *ngIf="postThemeForm.value.pictures.length > 0"
             (click)="displaySideMenu = !displaySideMenu"
           >
             <i class="fas fa-eye"></i

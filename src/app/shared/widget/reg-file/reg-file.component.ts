@@ -43,7 +43,6 @@ export class RegFileComponent implements OnInit {
   }
 
   onChange(event: any): void {
-    
     if (this.multiMax) {
       const tooMuchPictures =
         event.target.files.length +
@@ -61,7 +60,6 @@ export class RegFileComponent implements OnInit {
     }
 
     if (event.target.files && event.target.files.length > 0) {
-
       if (this.multiple) {
         this.parentForm.patchValue({
           [this.controlName]: [
@@ -74,7 +72,6 @@ export class RegFileComponent implements OnInit {
           [this.controlName]: event.target.files,
         });
       }
-
     }
   }
 }

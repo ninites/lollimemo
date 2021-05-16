@@ -21,12 +21,15 @@ export class PostThemeComponent implements OnInit {
   postThemeForm = this.fb.group({
     name: ['', [Validators.minLength(2), Validators.required]],
     pictures: [[], [Validators.required, Validators.minLength(10)]],
-    cardBack: [[], Validators.required],
   });
 
   buttonLabel: string = 'Valider';
   displaySideMenu: boolean = false;
   pictureLengthTest: number = 0;
+
+  ngOnInit(): void {
+    this.pictureChangeHandler();
+  }
 
   pictureChangeHandler(): void {
     this.postThemeForm.valueChanges
@@ -38,9 +41,20 @@ export class PostThemeComponent implements OnInit {
       .subscribe(() => {
         this.checkSame();
       });
+
+    this.cropModal.results$.subscribe((result: any) => {});
   }
 
   displayCrop(): void {
+    this.cropModal.setInfo({
+      parentForm: {
+        cardBack: [[], Validators.required],
+      },
+      props: {
+        opacity: 0.6,
+        closeOnClick: false,
+      },
+    });
     this.cropModal.switch();
   }
 
@@ -93,9 +107,5 @@ export class PostThemeComponent implements OnInit {
         this.alert.switchAlert();
       },
     });
-  }
-
-  ngOnInit(): void {
-    this.pictureChangeHandler();
   }
 }

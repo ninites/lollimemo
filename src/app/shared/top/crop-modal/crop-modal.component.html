@@ -4,20 +4,33 @@
   (click)="closeModal()"
   [ngStyle]="style"
   [@opacityAnim]
-  stopPropagation
 >
-  <input type="file" (change)="fileChangeEvent($event)" />
+  <div class="cropModal_container" stopPropagation>
+    <div class="cropModal_doAndPreview">
+      <image-cropper
+        class="cropModal_cropper"
+        [imageFile]="imageFile"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+      <ng-container *ngIf="croppedImage">
+        <img [src]="croppedImage" />
+      </ng-container>
+    </div>
 
-  <image-cropper
-    [imageChangedEvent]="imageChangedEvent"
-    [maintainAspectRatio]="true"
-    [aspectRatio]="1 / 1"
-    format="png"
-    (imageCropped)="imageCropped($event)"
-    (imageLoaded)="imageLoaded()"
-    (cropperReady)="cropperReady()"
-    (loadImageFailed)="loadImageFailed()"
-  ></image-cropper>
-
-  <img [src]="croppedImage" />
+    <ng-container *ngIf="controlName">
+      <form [formGroup]="cropForm">
+        <reg-file
+          [width]="200"
+          [parentForm]="cropForm"
+          [controlName]="controlName"
+        ></reg-file>
+      </form>
+    </ng-container>
+  </div>
 </div>

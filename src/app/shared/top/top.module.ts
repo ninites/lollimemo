@@ -6,10 +6,18 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CropModalComponent } from './crop-modal/crop-modal.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AlertComponent, NavBarComponent, CropModalComponent],
-  imports: [CommonModule, SharedModule, RouterModule, ImageCropperModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    SharedModule,
+    RouterModule,
+    ImageCropperModule,
+  ],
   exports: [AlertComponent, NavBarComponent, CropModalComponent],
 })
 export class TopModule {}

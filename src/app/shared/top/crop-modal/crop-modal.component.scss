@@ -1,12 +1,38 @@
+@import "variables.scss";
+
 .cropModal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: black;
-    height: 100%;
-    z-index: 1000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  height: 100%;
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_container {
+    background-color: $backgroundColor;
+    width: 90%;
+    height: 90%;
+    padding: $paddingMedium;
+    border-radius: $borderRadius;
+  }
+
+  &_doAndPreview {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  &_cropper {
+    width: 100%;
+    max-height: 300px;
+  }
 }
