@@ -20,18 +20,20 @@
       <div class="postTheme_inputPictures">
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
-          <reg-file
-            id="post_cardBack_button"
-            [width]="200"
-            [controlName]="'cardBack'"
-            [parentForm]="postThemeForm"
-          ></reg-file>
+          <reg-button [width]="200" (click)="displayCrop()"
+            >Ajouter</reg-button
+          >
         </div>
 
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_image_button"
-            >Ajoutez {{ 10 - postThemeForm.value.pictures.length }} images pour
-            creer un theme</label
+            >Ajoutez au minimum
+            {{
+              10 - postThemeForm.value.pictures.length > 0
+                ? 10 - postThemeForm.value.pictures.length
+                : 0
+            }}
+            images pour creer un theme</label
           >
           <reg-file
             id="post_img_button"
@@ -39,7 +41,7 @@
             [parentForm]="postThemeForm"
             [controlName]="'pictures'"
             [multiple]="true"
-            [multiMax]="10"
+            [multiMax]="100"
           ></reg-file>
         </div>
         <div class="postTheme_vallidationEye">

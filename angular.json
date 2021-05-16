@@ -31,7 +31,7 @@
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": [],
+            "scripts": ["node_modules/hammerjs/hammer.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": ["src/stylings"]
             }

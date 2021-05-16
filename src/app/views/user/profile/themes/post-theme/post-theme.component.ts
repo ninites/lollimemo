@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
+import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 
 @Component({
   selector: 'app-post-theme',
@@ -13,7 +14,8 @@ export class PostThemeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private alert: AlertService,
-    private request: RequestService
+    private request: RequestService,
+    private cropModal: CropModalService
   ) {}
 
   postThemeForm = this.fb.group({
@@ -36,6 +38,10 @@ export class PostThemeComponent implements OnInit {
       .subscribe(() => {
         this.checkSame();
       });
+  }
+
+  displayCrop(): void {
+    this.cropModal.switch();
   }
 
   checkSame(): void {
