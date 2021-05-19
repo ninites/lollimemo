@@ -4,6 +4,7 @@
   display: flex;
   margin: $marginMedium;
   transition: 0.2s;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);

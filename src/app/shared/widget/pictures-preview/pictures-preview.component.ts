@@ -18,6 +18,7 @@ export class PicturesPreviewComponent implements OnInit {
   @Input() picture: any;
   @Input() index: number = 0;
   @Input() size: number = 0;
+  @Input() crossButton: boolean = true;
   @Output() fileDelete = new EventEmitter<any>();
 
   style: { [key: string]: any } = {};

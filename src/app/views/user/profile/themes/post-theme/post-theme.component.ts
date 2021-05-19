@@ -20,6 +20,7 @@ export class PostThemeComponent implements OnInit {
 
   postThemeForm = this.fb.group({
     name: ['', [Validators.minLength(2), Validators.required]],
+    cardBack: [[], Validators.required],
     pictures: [[], [Validators.required, Validators.minLength(10)]],
   });
 
@@ -45,12 +46,11 @@ export class PostThemeComponent implements OnInit {
     this.cropModal.results$.subscribe((result: any) => {});
   }
 
-  displayCrop(): void {
+  displayCrop(incoming: string): void {
     this.cropModal.setInfo({
-      parentForm: {
-        cardBack: [[], Validators.required],
-      },
       props: {
+        type: incoming,
+        pictures: this.postThemeForm.value[incoming],
         opacity: 0.6,
         closeOnClick: false,
       },

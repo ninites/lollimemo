@@ -7,6 +7,16 @@
 >
   <div class="cropModal_container" stopPropagation>
     <div class="cropModal_doAndPreview">
+      <div class="cropModal_picturesPreview">
+        <pictures-preview
+          *ngFor="let picture of picturesPreview; let index = index"
+          [index]="index"
+          [picture]="picture"
+          [size]="50"
+          [crossButton]="false"
+          (click)="setImageToCrop(index)"
+        ></pictures-preview>
+      </div>
       <image-cropper
         class="cropModal_cropper"
         [imageFile]="imageFile"
@@ -21,16 +31,7 @@
       <ng-container *ngIf="croppedImage">
         <img [src]="croppedImage" />
       </ng-container>
+      <reg-button [width]="100" (click)="exit()">Quitter</reg-button>
     </div>
-
-    <ng-container *ngIf="controlName">
-      <form [formGroup]="cropForm">
-        <reg-file
-          [width]="200"
-          [parentForm]="cropForm"
-          [controlName]="controlName"
-        ></reg-file>
-      </form>
-    </ng-container>
   </div>
 </div>

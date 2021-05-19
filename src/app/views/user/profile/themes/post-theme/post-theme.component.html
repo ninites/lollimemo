@@ -20,9 +20,18 @@
       <div class="postTheme_inputPictures">
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
-          <reg-button [width]="200" (click)="displayCrop()">Ajouter</reg-button>
+          <reg-file
+            id="post_cardBack_button"
+            [width]="200"
+            [parentForm]="postThemeForm"
+            [controlName]="'cardBack'"
+          ></reg-file>
+          <ng-container *ngIf="postThemeForm.value.cardBack.length > 0">
+            <reg-button [width]="50" (click)="displayCrop('cardBack')"
+              >Resize</reg-button
+            >
+          </ng-container>
         </div>
-
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_image_button"
             >Ajoutez au minimum
@@ -41,12 +50,20 @@
             [multiple]="true"
             [multiMax]="100"
           ></reg-file>
+          <ng-container *ngIf="postThemeForm.value.pictures.length > 0">
+            <reg-button [width]="50" (click)="displayCrop('pictures')"
+              >Resize</reg-button
+            >
+          </ng-container>
         </div>
         <div class="postTheme_vallidationEye">
           <reg-button
             id="clickOutside_sideMenu_button"
             [width]="40"
-            *ngIf="postThemeForm.value.pictures.length > 0"
+            *ngIf="
+              postThemeForm.value.pictures.length > 0 ||
+              postThemeForm.value.cardBack.length > 0
+            "
             (click)="displaySideMenu = !displaySideMenu"
           >
             <i class="fas fa-eye"></i

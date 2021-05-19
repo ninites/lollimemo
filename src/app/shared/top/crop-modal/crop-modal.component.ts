@@ -12,13 +12,12 @@ import { CropModalService } from './crop-modal.service';
   animations: [opacityAnim],
 })
 export class CropModalComponent implements OnInit {
-  constructor(private cropModal: CropModalService, private fb: FormBuilder) {}
+  constructor(private cropModal: CropModalService) {}
 
   style: { [key: string]: any } = {};
   isDisplayed: boolean = false;
   props: { [key: string]: any } = {};
-  cropForm = this.fb.group({});
-  controlName: string = '';
+  picturesPreview: any[] = [];
 
   imageFile: any = '';
   croppedImage: any = '';
@@ -38,7 +37,6 @@ export class CropModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfos();
-    this.pictureHandler();
     this.cropModal.isDisplayed$.subscribe((state) => {
       this.isDisplayed = state;
     });
@@ -55,30 +53,21 @@ export class CropModalComponent implements OnInit {
     };
   }
 
-  pictureHandler(): void {
-    this.cropForm.valueChanges
-      .pipe(
-        filter((data: any) => {
-          return data[this.controlName];
-        })
-      )
-      .subscribe((result: any) => {
-        this.imageFile = result[this.controlName][0];
-        this.cropModal.results$.next(result);
-      });
+  setImageToCrop(index: number): void {
+    this.imageFile = this.props.pictures[index];
   }
 
   getInfos(): void {
     this.cropModal.info$.subscribe((infos: any) => {
-      const { parentForm, props } = infos;
+      const { props } = infos;
       this.props = { ...props };
-      for (const key in parentForm) {
-        const [value, validator] = parentForm[key];
-        this.cropForm.addControl(key, new FormControl(value, validator));
-        this.controlName = key;
-      }
+      this.picturesPreview = props ? props.pictures : [];
       this.setStyle();
     });
+  }
+
+  exit(): void {
+    this.cropModal.switch();
   }
 
   closeModal(): void {

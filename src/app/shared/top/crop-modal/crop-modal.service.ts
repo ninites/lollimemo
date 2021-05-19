@@ -22,9 +22,8 @@ export class CropModalService {
   }
 
   setInfo(data: any): void {
-    const { parentForm, props } = data;
+    const { props } = data;
     this.info$.next({
-      parentForm: { ...parentForm },
       props: { ...this.props, ...props },
     });
   }

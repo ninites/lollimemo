@@ -12,11 +12,21 @@
   align-items: center;
   justify-content: center;
 
+  &_picturesPreview {
+    width: 100%;
+    background-color: $orangeLight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: $paddingMedium;
+    border-radius: $borderRadius  $borderRadius 0 0 ;
+  }
+
   &_container {
     background-color: $backgroundColor;
     width: 90%;
     height: 90%;
-    padding: $paddingMedium;
     border-radius: $borderRadius;
   }
 
