@@ -7,6 +7,7 @@ import { CropModalComponent } from './crop-modal/crop-modal.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [AlertComponent, NavBarComponent, CropModalComponent],
@@ -17,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     RouterModule,
     ImageCropperModule,
+    SwiperModule,
   ],
   exports: [AlertComponent, NavBarComponent, CropModalComponent],
 })

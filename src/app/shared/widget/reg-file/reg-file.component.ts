@@ -37,8 +37,10 @@ export class RegFileComponent implements OnInit {
     this.parentForm.valueChanges
       .pipe(map((values: any) => values[this.controlName]))
       .subscribe((value: any) => {
-        this.labelValue =
-          value.length > 0 ? 'Fichier(s) Ajouté(s)' : 'Ajouter des images';
+        if (value) {
+          this.labelValue =
+            value.length > 0 ? 'Fichier(s) Ajouté(s)' : 'Ajouter des images';
+        }
       });
   }
 

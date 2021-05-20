@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  proxy : "http://192.168.1.100:5000/"
+  proxy : "http://localhost:5000/"
 };
 
 /*
