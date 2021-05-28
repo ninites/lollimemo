@@ -15,11 +15,6 @@
   &_picturesPreview {
     width: 100%;
     background-color: $orangeLight;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: $paddingMedium;
     border-radius: $borderRadius  $borderRadius 0 0 ;
   }
 

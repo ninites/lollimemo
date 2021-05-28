@@ -8,14 +8,20 @@
   <div class="cropModal_container" stopPropagation>
     <div class="cropModal_doAndPreview">
       <div class="cropModal_picturesPreview">
-        <pictures-preview
-          *ngFor="let picture of picturesPreview; let index = index"
-          [index]="index"
-          [picture]="picture"
-          [size]="50"
-          [crossButton]="false"
-          (click)="setImageToCrop(index)"
-        ></pictures-preview>
+        <swiper [slidesPerView]="3.2">
+          <ng-template
+            swiperSlide
+            *ngFor="let picture of picturesPreview; let index = index"
+          >
+            <pictures-preview
+              [index]="index"
+              [picture]="picture"
+              [size]="50"
+              [crossButton]="false"
+              (click)="setImageToCrop(index)"
+            ></pictures-preview>
+          </ng-template>
+        </swiper>
       </div>
       <image-cropper
         class="cropModal_cropper"
@@ -24,14 +30,14 @@
         [aspectRatio]="1 / 1"
         format="png"
         (imageCropped)="imageCropped($event)"
-        (imageLoaded)="imageLoaded()"
-        (cropperReady)="cropperReady()"
-        (loadImageFailed)="loadImageFailed()"
       ></image-cropper>
       <ng-container *ngIf="croppedImage">
         <img [src]="croppedImage" />
       </ng-container>
-      <reg-button [width]="100" (click)="exit()">Quitter</reg-button>
+      <div class="cropModal_bottomButtons">
+        <reg-button [width]="50" (click)="saveChanges()">Save</reg-button>
+        <reg-button [width]="50" (click)="exit()">Quitter</reg-button>
+      </div>
     </div>
   </div>
 </div>

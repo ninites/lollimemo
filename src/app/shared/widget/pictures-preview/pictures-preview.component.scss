@@ -5,11 +5,10 @@
   margin: $marginMedium;
   transition: 0.2s;
   cursor: pointer;
-
+  width: fit-content;
   &:hover {
     transform: scale(1.1);
   }
-
 
   &_preview {
     background-position: center;

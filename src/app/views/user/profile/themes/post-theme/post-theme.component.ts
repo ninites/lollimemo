@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
@@ -27,23 +27,36 @@ export class PostThemeComponent implements OnInit {
   buttonLabel: string = 'Valider';
   displaySideMenu: boolean = false;
   pictureLengthTest: number = 0;
+  pictureLengthPreviousValue: number = 0;
 
   ngOnInit(): void {
     this.pictureChangeHandler();
   }
 
+  ngOnDestroy(): void {
+    this.postThemeForm.reset();
+  }
+
   pictureChangeHandler(): void {
     this.postThemeForm.valueChanges
       .pipe(
+        map((result) => result.pictures),
         filter((type) => {
-          return type.pictures.length !== this.pictureLengthTest && true;
+          if (!type) return false;
+          if (type.length === this.pictureLengthPreviousValue) return false;
+          this.pictureLengthPreviousValue = type.length;
+          return type.length !== this.pictureLengthTest && true;
         })
       )
       .subscribe(() => {
         this.checkSame();
       });
 
-    this.cropModal.results$.subscribe((result: any) => {});
+    this.cropModal.cropResults$
+      .pipe(filter((result) => result.payload))
+      .subscribe((result: any) => {
+        this.postThemeForm.patchValue({ [result.type]: result.payload });
+      });
   }
 
   displayCrop(incoming: string): void {
@@ -60,6 +73,7 @@ export class PostThemeComponent implements OnInit {
 
   checkSame(): void {
     const allPics = this.postThemeForm.value.pictures;
+    if (!allPics) return;
     let dupli = [];
     dupli = allPics.map((picture: any, index: number, array: []) => {
       let duplicate = 0;
@@ -101,6 +115,7 @@ export class PostThemeComponent implements OnInit {
       next: (resp) => {
         this.alert.message = 'Theme correctement ajouté';
         this.alert.switchAlert();
+        this.postThemeForm.reset();
       },
       error: (err) => {
         this.alert.message = err.error;
