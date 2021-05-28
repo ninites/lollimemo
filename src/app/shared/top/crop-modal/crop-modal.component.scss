@@ -18,6 +18,20 @@
     border-radius: $borderRadius  $borderRadius 0 0 ;
   }
 
+  &_bottomButtons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: $marginMedium 0 $marginMedium 0 ;
+    width: 100%;
+  }
+
+  &_cropperContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
   &_container {
     background-color: $backgroundColor;
     width: 90%;
@@ -28,8 +42,10 @@
   &_doAndPreview {
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     flex-wrap: wrap;
+    height: 100%;
     img {
       width: 150px;
       height: 150px;

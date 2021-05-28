@@ -23,11 +23,13 @@ export class CropModalComponent implements OnInit {
   props: { [key: string]: any } = {};
   picturesPreview: any[] = [];
   imgCroppedIndex: number = 0;
+  confirmChange = true;
 
   imageFile: any = '';
   croppedImage: any = '';
 
   imageCropped(event: ImageCroppedEvent) {
+    this.confirmChange = true;
     this.croppedImage = event.base64;
   }
 
@@ -61,6 +63,7 @@ export class CropModalComponent implements OnInit {
     const name = this.picturesPreview[this.imgCroppedIndex].name;
     const file = new File([blob], name, { type: 'image/png' });
     this.picturesPreview[this.imgCroppedIndex] = file;
+    this.confirmChange = false;
   }
 
   getInfos(): void {

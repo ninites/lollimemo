@@ -23,20 +23,27 @@
           </ng-template>
         </swiper>
       </div>
-      <image-cropper
-        class="cropModal_cropper"
-        [imageFile]="imageFile"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="1 / 1"
-        format="png"
-        (imageCropped)="imageCropped($event)"
-      ></image-cropper>
-      <ng-container *ngIf="croppedImage">
-        <img [src]="croppedImage" />
-      </ng-container>
+      <div class="cropModal_cropperContainer">
+        <image-cropper
+          class="cropModal_cropper"
+          [imageFile]="imageFile"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1 / 1"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+        ></image-cropper>
+        <ng-container *ngIf="croppedImage">
+          <img [src]="croppedImage" />
+        </ng-container>
+      </div>
       <div class="cropModal_bottomButtons">
-        <reg-button [width]="50" (click)="saveChanges()">Save</reg-button>
-        <reg-button [width]="50" (click)="exit()">Quitter</reg-button>
+        <reg-button
+          [width]="130"
+          [confirmation]="confirmChange"
+          (click)="saveChanges()"
+          >Sauvegarder</reg-button
+        >
+        <reg-button [width]="100" (click)="exit()">Quitter</reg-button>
       </div>
     </div>
   </div>
