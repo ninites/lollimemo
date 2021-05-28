@@ -20,17 +20,19 @@
       <div class="postTheme_inputPictures">
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
-          <reg-file
-            id="post_cardBack_button"
-            [width]="200"
-            [parentForm]="postThemeForm"
-            [controlName]="'cardBack'"
-          ></reg-file>
-          <ng-container *ngIf="postThemeForm.value.cardBack.length > 0">
-            <reg-button [width]="50" (click)="displayCrop('cardBack')"
-              >Resize</reg-button
-            >
-          </ng-container>
+          <div class="postTheme_picturesButtonsClick">
+            <reg-file
+              id="post_cardBack_button"
+              [width]="130"
+              [parentForm]="postThemeForm"
+              [controlName]="'cardBack'"
+            ></reg-file>
+            <ng-container *ngIf="postThemeForm.value.cardBack.length > 0">
+              <reg-button [width]="50" (click)="displayCrop('cardBack')"
+                ><i class="fas fa-crop-alt"></i></reg-button
+              >
+            </ng-container>
+          </div>
         </div>
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_image_button"
@@ -42,19 +44,21 @@
             }}
             images pour creer un theme</label
           >
-          <reg-file
-            id="post_img_button"
-            [width]="200"
-            [parentForm]="postThemeForm"
-            [controlName]="'pictures'"
-            [multiple]="true"
-            [multiMax]="100"
-          ></reg-file>
-          <ng-container *ngIf="postThemeForm.value.pictures.length > 0">
-            <reg-button [width]="50" (click)="displayCrop('pictures')"
-              >Resize</reg-button
-            >
-          </ng-container>
+          <div class="postTheme_picturesButtonsClick">
+            <reg-file
+              id="post_img_button"
+              [width]="130"
+              [parentForm]="postThemeForm"
+              [controlName]="'pictures'"
+              [multiple]="true"
+              [multiMax]="100"
+            ></reg-file>
+            <ng-container *ngIf="postThemeForm.value.pictures.length > 0">
+              <reg-button [width]="50" (click)="displayCrop('pictures')"
+                ><i class="fas fa-crop-alt"></i></reg-button
+              >
+            </ng-container>
+          </div>
         </div>
         <div class="postTheme_vallidationEye">
           <reg-button
@@ -72,7 +76,7 @@
             [type]="'submit'"
             [label]="'Valider'"
             [disabled]="!postThemeForm.valid"
-            [width]="200"
+            [width]="130"
           ></reg-button>
         </div>
       </div>
