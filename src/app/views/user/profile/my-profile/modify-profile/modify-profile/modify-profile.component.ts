@@ -21,7 +21,6 @@ export class ModifyProfileComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
   });
 
-
   label = ["Nom d'utilisateur", 'Email'];
 
   ngOnInit(): void {
@@ -44,7 +43,8 @@ export class ModifyProfileComponent implements OnInit {
         this.alert.switchAlert();
       },
       error: (err) => {
-        this.alert.message = 'Un probleme à eu lieu lors de la modification';
+        this.alert.message =
+          err.error || 'Un probleme à eu lieu lors de la modification';
         this.alert.switchAlert();
       },
     });

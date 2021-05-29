@@ -29,7 +29,7 @@ class Users {
   };
 
   static postOne = async (req, res, next) => {
-    const hashPass = await this.createHashpass(req.body.password)
+    const hashPass = await this.createHashpass(req.body.password);
     req.body.password = hashPass;
     const postUser = await model.postOne(req.body);
     res.status(200).json(postUser);
@@ -72,18 +72,20 @@ class Users {
   };
 
   static changePass = async (req, res, next) => {
-    const newPassword = await this.createHashpass(req.body.password)
-    req.body.password = newPassword
+    const newPassword = await this.createHashpass(req.body.password);
+    req.body.password = newPassword;
     try {
-      const modifiedPass = await model.putOne(req.body)
-      res.status(200).json(modifiedPass)
+      const modifiedPass = await model.putOne(req.body);
+      res.status(200).json(modifiedPass);
     } catch (err) {
-      next(ApiError.internal('Probleme lors de la modification du mot de passe'))
+      next(
+        ApiError.internal("Probleme lors de la modification du mot de passe")
+      );
     }
-  }
+  };
 
   static createHashpass = async (password) => {
-    let result
+    let result;
     try {
       result = await new Promise((resolve, reject) => {
         bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -96,15 +98,32 @@ class Users {
     } catch (err) {
       next(ApiError.internal("Probleme de bcrypt"));
     }
-    return result
-  }
+    return result;
+  };
 
   static putInfo = async (req, res, next) => {
+    const users = await model.getAll();
+    const { id } = req.body.userInfo;
+    const othersUsers = users.filter((user) => {
+      return user._id.toString() !== id;
+    });
+    const canPut = [];
+    othersUsers.forEach((otherUser) => {
+      for (const key in req.body) {
+        if (req.body[key] === otherUser[key]) {
+          canPut.push(false);
+        }
+      }
+    });
+    if (canPut.includes(false)) {
+      next(ApiError.badRequest("Nom d utilisateur ou mail deja utilise"));
+      return;
+    }
     try {
       const modifiedUser = await model.putOne(req.body);
-      res.status(200).json(modifiedUser)
+      res.status(200).json(modifiedUser);
     } catch (err) {
-      next(ApiError.internal('Probleme modification'))
+      next(ApiError.internal("Probleme modification"));
     }
   };
 }
