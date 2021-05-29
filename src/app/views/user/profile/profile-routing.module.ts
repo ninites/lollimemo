@@ -10,12 +10,24 @@ const routes: Routes = [
     component: ProfileComponent,
     data: { animation: 'Profile' },
     children: [
-      { path: '', redirectTo: 'themes', pathMatch: 'full' },
+      { path: '', redirectTo: 'my-profile', pathMatch: 'full' },
       {
         path: 'themes',
         loadChildren: async () => {
           const module = await import('./themes/themes.module');
           return module.ThemesModule;
+        },
+        canActivate: [AuthGuard],
+        data: { animation: 'Themes' },
+        resolve: {
+          isAth: IsAuthResolver,
+        },
+      },
+      {
+        path: 'my-profile',
+        loadChildren: async () => {
+          const module = await import('./my-profile/my-profile.module');
+          return module.MyProfileModule;
         },
         canActivate: [AuthGuard],
         data: { animation: 'Themes' },

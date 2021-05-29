@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   userOptions: { [key: string]: any }[] = [
-    { value: 'Profile', link: ['/user/profile/modify'] },
+    { value: 'Profile', link: ['/user/profile/my-profile'] },
     { value: 'Themes', link: ['/user/profile/themes'] },
     { value: 'Parties', link: ['/user/profile/games'] },
   ];
