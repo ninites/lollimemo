@@ -1,7 +1,6 @@
 const { User } = require("./schema/schema");
 class Users {
   static getOne = async (filter) => {
-
     const wording = filter.id;
     delete filter.id;
     filter._id = wording;
@@ -16,7 +15,7 @@ class Users {
     } catch (err) {
       console.log(err);
     }
-    
+
     return result;
   };
 
@@ -28,6 +27,15 @@ class Users {
       console.log(err);
     }
     return newUser;
+  };
+
+  static putOne = async (body) => {
+    const { id } = body.userInfo;
+    delete body.userInfo;
+    return await User.findOneAndUpdate({ _id: id }, body, {
+      new: true,
+      useFindAndModify: false,
+    });
   };
 
   static getAll = async () => {

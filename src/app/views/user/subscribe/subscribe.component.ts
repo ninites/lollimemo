@@ -1,3 +1,4 @@
+import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,7 +24,13 @@ export class SubscribeComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
+  label = ["Nom d'utilisateur", 'Email', 'Mot de passe'];
+
   formList = {};
+
+  unsorted() {
+    return 0;
+  }
 
   onSubmit(): void {
     this.request.post('users', this.subForm.value).subscribe({

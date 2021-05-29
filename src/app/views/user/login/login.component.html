@@ -1,8 +1,14 @@
 <div class="user">
   <h2>Se connecter</h2>
   <form [formGroup]="loginForm" (submit)="onSubmit()">
-    <div class="user_formRepeat" *ngFor="let value of htmlLoginForm | keyvalue">
-      <label [attr.for]="value.key">{{ value.key }}</label>
+    <div
+      class="user_formRepeat"
+      *ngFor="
+        let value of htmlLoginForm | keyvalue: notSorted;
+        let index = index
+      "
+    >
+      <label [attr.for]="value.key">{{ label[index] }}</label>
       <reg-input
         [attr.id]="value.key"
         [parentForm]="loginForm"

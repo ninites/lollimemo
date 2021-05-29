@@ -3,9 +3,12 @@
   <form [formGroup]="subForm" (submit)="onSubmit()">
     <div
       class="subscribe_formRepeat"
-      *ngFor="let inputField of formList | keyvalue"
+      *ngFor="
+        let inputField of formList | keyvalue: unsorted;
+        let index = index
+      "
     >
-      <label [attr.for]="inputField.key">{{ inputField.key }}</label>
+      <label [attr.for]="inputField.key">{{ label[index] }}</label>
       <reg-input
         [attr.id]="inputField.key"
         [parentForm]="subForm"

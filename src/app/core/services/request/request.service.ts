@@ -1,14 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import {
-  catchError,
-  concatAll,
-  filter,
-  map,
-  mergeMap,
-  toArray,
-} from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, concatAll, map, mergeMap, toArray } from 'rxjs/operators';
 import { Picture } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { environment } from 'src/environments/environment';
@@ -125,7 +118,17 @@ export class RequestService {
     return result;
   }
 
-  errorHandler(err: any): void {
+  put(endpoint: string, payload: { [key: string]: any }): Observable<any> {
+    const result = this.http.put(environment.proxy + endpoint, payload).pipe(
+      catchError((err) => {
+        this.errorHandler(err);
+        return throwError(err);
+      })
+    );
+    return result;
+  }
+
+  private errorHandler(err: any): void {
     this.alert.message = 'Erreur au niveau de la requete';
     // this.alert.switchAlert();
   }

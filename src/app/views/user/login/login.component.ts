@@ -24,6 +24,11 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
   htmlLoginForm = {};
+  label: string[] = ["Nom d'utilisateur", 'Mot de passe'];
+
+  notSorted() {
+    return 0;
+  }
 
   onSubmit(): void {
     this.request.post('users/login', this.loginForm.value).subscribe({

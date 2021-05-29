@@ -1,11 +1,27 @@
-<div class="plop">
-  <h2>
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque
-    voluptates quis, voluptatibus provident ipsam repudiandae ducimus ad, iure
-    possimus illo magni dolorum, praesentium aliquid culpa! Distinctio
-    laudantium numquam quisquam dicta? Lorem ipsum dolor sit amet consectetur
-    adipisicing elit. Nostrum porro eum, officiis fugit deleniti mollitia
-    inventore rem saepe adipisci doloremque quod aut nesciunt assumenda nulla
-    ratione eaque est magni! Quia?
-  </h2>
+<div class="modifyProfile">
+    <h2>Modifier son compte</h2>
+    <form [formGroup]="modifyProfileForm" (submit)="onSubmit()">
+        <div
+          class="modifyProfile_formRepeat"
+          *ngFor="
+            let inputField of modifyProfileForm.value | keyvalue: unsorted;
+            let i = index
+          "
+        >
+          <label [attr.for]="inputField.key">{{ label[i] }}</label>
+          <reg-input
+            [attr.id]="inputField.key"
+            [parentForm]="modifyProfileForm"
+            [parentControlName]="inputField.key"
+            [width]="200"
+            [type]="inputField.key === 'password' ? 'password' : 'text'"
+            [solo]="inputField.key !== 'password'"
+          ></reg-input>
+        </div>
+        <reg-button
+          [label]="'Modifier'"
+          [disabled]="!modifyProfileForm.valid"
+          [type]="'submit'"
+        ></reg-button>
+      </form>
 </div>

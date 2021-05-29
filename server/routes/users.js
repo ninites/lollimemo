@@ -10,5 +10,6 @@ users.post("/login", checkFields, userCtrl.login);
 users.get("/info", authToken, userCtrl.getInfo);
 users.get("/auth", authToken, userCtrl.auth);
 users.get("/", userCtrl.getOne);
+users.put('/',authToken,userCtrl.putInfo)
 
 module.exports = users;
