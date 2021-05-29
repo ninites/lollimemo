@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { passwordConfirming } from 'src/app/shared/functions/passwordCheck';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 
 @Component({
@@ -18,13 +19,22 @@ export class SubscribeComponent implements OnInit {
     private alert: AlertService
   ) {}
 
-  subForm = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(2)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-  });
+  subForm = this.fb.group(
+    {
+      username: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+    },
+    { validator: passwordConfirming }
+  );
 
-  label = ["Nom d'utilisateur", 'Email', 'Mot de passe'];
+  label = [
+    "Nom d'utilisateur",
+    'Email',
+    'Mot de passe',
+    'Confirmation mot de passe',
+  ];
 
   formList = {};
 

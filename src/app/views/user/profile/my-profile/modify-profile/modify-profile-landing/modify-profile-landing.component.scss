@@ -1,0 +1,13 @@
+@import "variables.scss";
+
+.modifyProfileLanding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &_nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+  }
+}

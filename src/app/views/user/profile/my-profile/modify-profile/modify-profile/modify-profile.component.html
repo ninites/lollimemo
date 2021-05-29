@@ -1,27 +1,26 @@
 <div class="modifyProfile">
-    <h2>Modifier son compte</h2>
-    <form [formGroup]="modifyProfileForm" (submit)="onSubmit()">
-        <div
-          class="modifyProfile_formRepeat"
-          *ngFor="
-            let inputField of modifyProfileForm.value | keyvalue: unsorted;
-            let i = index
-          "
-        >
-          <label [attr.for]="inputField.key">{{ label[i] }}</label>
-          <reg-input
-            [attr.id]="inputField.key"
-            [parentForm]="modifyProfileForm"
-            [parentControlName]="inputField.key"
-            [width]="200"
-            [type]="inputField.key === 'password' ? 'password' : 'text'"
-            [solo]="inputField.key !== 'password'"
-          ></reg-input>
-        </div>
-        <reg-button
-          [label]="'Modifier'"
-          [disabled]="!modifyProfileForm.valid"
-          [type]="'submit'"
-        ></reg-button>
-      </form>
+  <h2>Modifier mes informations</h2>
+  <form [formGroup]="modifyProfileForm" (submit)="onSubmit()">
+    <div
+      class="modifyProfile_formRepeat"
+      *ngFor="
+        let inputField of modifyProfileForm.value | keyvalue: unsorted;
+        let i = index;
+        trackBy: trackByFn
+      "
+    >
+      <label [attr.for]="inputField.key">{{ label[i] }}</label>
+      <reg-input
+        [attr.id]="inputField.key"
+        [parentForm]="modifyProfileForm"
+        [parentControlName]="inputField.key"
+        [width]="200"
+      ></reg-input>
+    </div>
+    <reg-button
+      [label]="'Modifier'"
+      [disabled]="!modifyProfileForm.valid"
+      [type]="'submit'"
+    ></reg-button>
+  </form>
 </div>

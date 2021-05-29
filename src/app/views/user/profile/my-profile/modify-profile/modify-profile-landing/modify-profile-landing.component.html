@@ -1,0 +1,10 @@
+<div class="modifyProfileLanding">
+  <div class="modifyProfileLanding_nav">
+    <reg-button *ngFor="let link of linkList" [routerLink]="link.href">{{
+      link.value
+    }}</reg-button>
+  </div>
+  <div class="root_rooterMain">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</div>

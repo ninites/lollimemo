@@ -29,19 +29,7 @@ class Users {
   };
 
   static postOne = async (req, res, next) => {
-    let hashPass;
-    try {
-      hashPass = await new Promise((resolve, reject) => {
-        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-          if (err) reject(err);
-          resolve(hash);
-        });
-      }).catch((err) => {
-        return err;
-      });
-    } catch (err) {
-      next(ApiError.internal("Probleme de bcrypt"));
-    }
+    const hashPass = await this.createHashpass(req.body.password)
     req.body.password = hashPass;
     const postUser = await model.postOne(req.body);
     res.status(200).json(postUser);
@@ -83,9 +71,41 @@ class Users {
     res.status(200).json({ accesToken: token });
   };
 
+  static changePass = async (req, res, next) => {
+    const newPassword = await this.createHashpass(req.body.password)
+    req.body.password = newPassword
+    try {
+      const modifiedPass = await model.putOne(req.body)
+      res.status(200).json(modifiedPass)
+    } catch (err) {
+      next(ApiError.internal('Probleme lors de la modification du mot de passe'))
+    }
+  }
+
+  static createHashpass = async (password) => {
+    let result
+    try {
+      result = await new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+          if (err) reject(err);
+          resolve(hash);
+        });
+      }).catch((err) => {
+        return err;
+      });
+    } catch (err) {
+      next(ApiError.internal("Probleme de bcrypt"));
+    }
+    return result
+  }
+
   static putInfo = async (req, res, next) => {
-    const modifiedUser = await model.putOne(req.body);
-    res.status(200).json(modifiedUser)
+    try {
+      const modifiedUser = await model.putOne(req.body);
+      res.status(200).json(modifiedUser)
+    } catch (err) {
+      next(ApiError.internal('Probleme modification'))
+    }
   };
 }
 

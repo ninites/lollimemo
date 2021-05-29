@@ -14,8 +14,14 @@
         [parentForm]="subForm"
         [parentControlName]="inputField.key"
         [width]="200"
-        [type]="inputField.key === 'password' ? 'password' : 'text'"
-        [solo]="inputField.key !== 'password'"
+        [type]="
+          inputField.key === 'password' || inputField.key === 'confirmPassword'
+            ? 'password'
+            : 'text'
+        "
+        [solo]="
+          inputField.key !== 'password' && inputField.key !== 'confirmPassword'
+        "
       ></reg-input>
     </div>
     <reg-button
