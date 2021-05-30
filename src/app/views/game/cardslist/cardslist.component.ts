@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game-services/game.service';
 import { Picture, Player } from '../../../interface/interface';
-import { ModalService } from '../../../shared/widget/modal/modal.service';
+import { RegPopService } from '../../../shared/widget/reg-pop/reg-pop.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
@@ -17,7 +17,7 @@ export class CardslistComponent implements OnInit {
     private request: RequestService,
     private game: GameService,
     private gameParams: GameParametersService,
-    public modalSrv: ModalService,
+    public regPopService: RegPopService,
     private timer: TimerService
   ) {}
 
@@ -28,6 +28,8 @@ export class CardslistComponent implements OnInit {
   interval: any;
   themeName: string = '';
   cardBack: string = '';
+  winner: { [key: string]: any } = {};
+  draw: boolean = false;
 
   ngOnInit(): void {
     this.startGame();
@@ -65,6 +67,8 @@ export class CardslistComponent implements OnInit {
     this.game.hardReset();
     this.closeCards();
     this.startGame();
+    this.winner = {};
+    this.draw = false;
   }
 
   closeCards(): void {
@@ -90,7 +94,10 @@ export class CardslistComponent implements OnInit {
     this.openCard(ids.unique);
     const gameStatus = this.game.addTurnTry(ids);
     if (gameStatus === 'win')
-      this.interval = setTimeout(() => this.modalSrv.switchModal(), 800);
+      this.interval = setTimeout(() => {
+        this.setWinner();
+        this.regPopService.switchModal();
+      }, 800);
     if (gameStatus === 'close') {
       this.isFlipping = true;
       await new Promise((resolve, reject) => {
@@ -100,6 +107,19 @@ export class CardslistComponent implements OnInit {
       });
       this.isFlipping = false;
     }
+  }
+
+  setWinner() {
+    const score = this.gameParams.players.map((player) => {
+      const { totalPoints } = player;
+      return totalPoints;
+    });
+
+    this.draw = score.every((value) => value === score[0]);
+    const winner = this.gameParams.players.reduce((max: any, val: any) => {
+      return max.totalPoints > val.totalPoints ? max : val;
+    });
+    this.winner = winner;
   }
 
   ngOnDestroy() {
