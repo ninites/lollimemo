@@ -42,6 +42,8 @@ export class DeleteThemeComponent implements OnInit {
     });
   }
 
+ 
+
   getThemes(): void {
     this.request.get('themes/all').subscribe({
       next: (resp) => {
@@ -52,5 +54,9 @@ export class DeleteThemeComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  trackByFn(index: number, element: any) {
+    return element._id;
   }
 }

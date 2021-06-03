@@ -13,11 +13,11 @@
             [width]="50"
             [parentForm]="cardBackFrom"
             labelValue="Modifier le dos de carte"
-            controlName="cardBack"
+            [controlName]="'cardBackPreview'"
           ></reg-file>
         </form>
       </div>
-      <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange" >
+      <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange">
         <reg-button>Redimensionner</reg-button>
       </div>
     </div>

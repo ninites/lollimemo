@@ -17,7 +17,7 @@ export class DeleteThemeItemComponent implements OnInit {
   cardBackStyle: { [key: string]: any } = {};
   cardsPreview: { [key: string]: any }[] = [];
   cardBackFrom = this.fb.group({
-    cardBack: [''],
+    cardBackPreview: [''],
   });
   cardBackChange: boolean = false;
 
@@ -28,14 +28,16 @@ export class DeleteThemeItemComponent implements OnInit {
   }
 
   formHander(): void {
+    console.log(this.cardBackFrom);
     this.cardBackFrom.valueChanges.subscribe((resp) => {
-      this.cardBackChange = resp.cardBack.length > 0 && true;
-      if (this.cardBackChange) {
-        const data$ = this.readData(resp.cardBack[0]);
-        data$.subscribe((resp) => {
-          this.changeCardBackPreview(resp.target.result)
-        });
-      }
+
+      // this.cardBackChange = resp.cardBack.length > 0 && true;
+      // if (this.cardBackChange) {
+      //   const data$ = this.readData(resp.cardBack[0]);
+      //   data$.subscribe((resp) => {
+      //     this.changeCardBackPreview(resp.target.result);
+      //   });
+      // }
     });
   }
 

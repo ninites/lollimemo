@@ -8,7 +8,7 @@
       (slideChange)="onSwiper($event)"
 
     >
-      <ng-template swiperSlide *ngFor="let theme of userThemes">
+      <ng-template swiperSlide *ngFor="let theme of userThemes trackBy: trackByFn">
         <delete-theme-item
           [theme]="theme"
           class="deleteTheme_itemContainer"
