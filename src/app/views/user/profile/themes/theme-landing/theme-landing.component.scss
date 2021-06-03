@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     width: 90%;
+
     & > * {
       margin-bottom: $marginMedium;
     }
@@ -20,5 +21,15 @@
       align-items: center;
       justify-content: center;
     }
+  }
+
+  &_number {
+    background-color: $greenLight;
+    height: 30px;
+    border-radius: $borderRadius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
   }
 }

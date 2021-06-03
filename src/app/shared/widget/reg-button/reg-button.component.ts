@@ -19,6 +19,7 @@ export class RegButtonComponent implements OnInit {
   @Input() solo: boolean = true;
   @Input() confirmation: boolean = false;
   @Input() noPadding: boolean = false;
+  @Input() danger : boolean = false
 
   style: { [key: string]: any } = {};
 

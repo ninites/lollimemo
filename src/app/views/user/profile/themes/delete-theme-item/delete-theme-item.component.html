@@ -1,12 +1,24 @@
 <div class="deleteThemeItem">
   <div class="deleteThemeItem_bar">
     <h2>{{ theme.name }}</h2>
-    <reg-button [height]="30" (click)="delete()">supprimer</reg-button>
+    <reg-button [height]="30" (click)="delete()" [danger]="true"
+      >supprimer</reg-button
+    >
   </div>
   <div class="deleteThemeItem_pictureContainer">
     <div class="deleteThemeItem_cardBack">
       <div class="deleteThemeItem_picture" [ngStyle]="cardBackStyle">
-        <p>Dos de carte</p>
+        <form [formGroup]="cardBackFrom">
+          <reg-file
+            [width]="50"
+            [parentForm]="cardBackFrom"
+            labelValue="Modifier le dos de carte"
+            controlName="cardBack"
+          ></reg-file>
+        </form>
+      </div>
+      <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange" >
+        <reg-button>Redimensionner</reg-button>
       </div>
     </div>
     <div class="deleteThemeItem_setPreview">

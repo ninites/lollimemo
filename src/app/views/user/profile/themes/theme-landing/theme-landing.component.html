@@ -1,6 +1,10 @@
 <div class="themeLanding">
   <div class="themeLanding_wrapper">
-    <p>{{ themePosition }} / {{ themeSize }}</p>
+    
+    <div class="themeLanding_number">
+      <p>{{ themePosition }} / {{ themeSize }}</p>
+    </div>
+
     <reg-button
       *ngFor="let choice of themesCrud"
       [height]="30"
