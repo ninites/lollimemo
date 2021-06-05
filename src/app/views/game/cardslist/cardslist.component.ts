@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game-services/game.service';
 import { Picture, Player } from '../../../interface/interface';
-import { ModalService } from '../../../shared/widget/modal/modal.service';
+import { ModalService } from '../../../shared/widget/reg-pop/modal.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 import { RequestService } from 'src/app/core/services/request/request.service';

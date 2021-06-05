@@ -28,6 +28,10 @@ export class PostThemeComponent implements OnInit {
   displaySideMenu: boolean = false;
   pictureLengthTest: number = 0;
   pictureLengthPreviousValue: number = 0;
+  gotFiles: { [cardBack: string]: number; pictures: number } = {
+    cardBack: 0,
+    pictures: 0,
+  };
 
   ngOnInit(): void {
     this.pictureChangeHandler();
@@ -40,7 +44,14 @@ export class PostThemeComponent implements OnInit {
   pictureChangeHandler(): void {
     this.postThemeForm.valueChanges
       .pipe(
-        map((result) => result.pictures),
+        map((result) => {
+          for (const key in this.gotFiles) {
+            if (result[key]) {
+              this.gotFiles[key] = result[key].length || 0;
+            }
+          }
+          return result.pictures;
+        }),
         filter((type) => {
           if (!type) return false;
           if (type.length === this.pictureLengthPreviousValue) return false;

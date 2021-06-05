@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from 'src/app/animations/animations';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
-import { ModalService } from 'src/app/shared/widget/modal/modal.service';
+import { ModalService } from 'src/app/shared/widget/reg-pop/modal.service';
 import { SetupService } from '../setup-service/setup.service';
 
 @Component({

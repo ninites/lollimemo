@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { GameService } from '../game-services/game.service';
-import { ModalService } from '../../../shared/widget/modal/modal.service';
+import { ModalService } from '../../../shared/widget/reg-pop/modal.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { Player } from 'src/app/interface/interface';
 import { Router } from '@angular/router';

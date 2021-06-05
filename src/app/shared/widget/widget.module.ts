@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegButtonComponent } from './reg-button/reg-button.component';
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from './reg-pop/modal.component';
 import { TimerComponent } from './timer/timer.component';
 import { DotsComponent } from './dots/dots.component';
 import { InfoPopComponent } from './info-pop/info-pop.component';

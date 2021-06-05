@@ -27,21 +27,17 @@
               [parentForm]="postThemeForm"
               [controlName]="'cardBack'"
             ></reg-file>
-            <ng-container *ngIf="postThemeForm.value.cardBack.length > 0">
+            <ng-container *ngIf="gotFiles.cardBack > 0">
               <reg-button [width]="50" (click)="displayCrop('cardBack')"
-                ><i class="fas fa-crop-alt"></i></reg-button
-              >
+                ><i class="fas fa-crop-alt"></i
+              ></reg-button>
             </ng-container>
           </div>
         </div>
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_image_button"
             >Ajoutez au minimum
-            {{
-              10 - postThemeForm.value.pictures.length > 0
-                ? 10 - postThemeForm.value.pictures.length
-                : 0
-            }}
+            {{ 10 - gotFiles.pictures }}
             images pour creer un theme</label
           >
           <div class="postTheme_picturesButtonsClick">
@@ -53,10 +49,10 @@
               [multiple]="true"
               [multiMax]="100"
             ></reg-file>
-            <ng-container *ngIf="postThemeForm.value.pictures.length > 0">
+            <ng-container *ngIf="gotFiles.pictures > 0">
               <reg-button [width]="50" (click)="displayCrop('pictures')"
-                ><i class="fas fa-crop-alt"></i></reg-button
-              >
+                ><i class="fas fa-crop-alt"></i
+              ></reg-button>
             </ng-container>
           </div>
         </div>
@@ -64,10 +60,7 @@
           <reg-button
             id="clickOutside_sideMenu_button"
             [width]="40"
-            *ngIf="
-              postThemeForm.value.pictures.length > 0 ||
-              postThemeForm.value.cardBack.length > 0
-            "
+            *ngIf="gotFiles.cardBack > 0 || gotFiles.pictures > 0"
             (click)="displaySideMenu = !displaySideMenu"
           >
             <i class="fas fa-eye"></i
@@ -89,7 +82,7 @@
     (clickOutside)="displaySideMenu = false"
     [display]="displaySideMenu"
   >
-    <div background>
+    <div *ngIf="gotFiles.cardBack > 0" background>
       <pictures-preview
         *ngFor="let back of postThemeForm.value.cardBack; let index = index"
         [index]="index"
@@ -98,7 +91,7 @@
         (fileDelete)="pictureDelete($event, 'cardBack')"
       ></pictures-preview>
     </div>
-    <div card>
+    <div *ngIf="gotFiles.pictures > 0" card>
       <pictures-preview
         *ngFor="let picture of postThemeForm.value.pictures; let index = index"
         [index]="index"

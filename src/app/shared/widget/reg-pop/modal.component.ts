@@ -10,7 +10,7 @@ import { ModalService } from './modal.service';
 })
 export class ModalComponent implements OnInit {
   @Input() closeOnClick: boolean = true;
-  @Input() opacity: number = 0.3;
+  @Input() opacity: number = 0;
 
   style: { [key: string]: any } = {};
 
