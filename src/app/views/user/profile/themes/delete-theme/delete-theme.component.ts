@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 @Component({
@@ -7,12 +8,17 @@ import { AlertService } from 'src/app/shared/top/alert/alert.service';
   styleUrls: ['./delete-theme.component.scss'],
 })
 export class DeleteThemeComponent implements OnInit {
-  constructor(private request: RequestService, private alert: AlertService) {}
+  constructor(
+    private request: RequestService,
+    private alert: AlertService,
+    private fb: FormBuilder
+  ) {}
   @Input() themeIndex: any;
   @Output() themeIndexChange = new EventEmitter<number>();
   @Output() themeLength = new EventEmitter<number>();
 
   userThemes: { [key: string]: any }[] = [];
+  userThemesForm: { [key: string]: any }[] = [];
 
   ngOnInit(): void {
     this.getThemes();
@@ -47,10 +53,13 @@ export class DeleteThemeComponent implements OnInit {
       next: (resp) => {
         this.userThemes = resp;
         this.themeLength.emit(resp.length);
+        this.createFormForThemes(resp);
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
+
+  createFormForThemes(themes: { [key: string]: any }[]): void {}
 }
