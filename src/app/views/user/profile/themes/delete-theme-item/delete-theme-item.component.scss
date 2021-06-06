@@ -49,6 +49,7 @@
     border-radius: $borderRadius;
     background-color: $orangeLight;
     padding: $paddingMedium;
+    display: flex;
   }
 
   &_previewSolo {

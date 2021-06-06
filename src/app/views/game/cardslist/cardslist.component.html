@@ -22,6 +22,6 @@
   </div>
 </div>
 
-<modal *ngIf="modalSrv.isDisplayed" [closeOnClick]="false" [opacity]="0.05">
-  <win-box (restartChange)="reset()"></win-box>
-</modal>
+<reg-pop [closeOnClick]="false">
+  <win-box (restartChange)="reset()" [winner]="winner" [draw]="draw"></win-box>
+</reg-pop>

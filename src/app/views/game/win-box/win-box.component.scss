@@ -1,5 +1,30 @@
-.winbox_all {
-  background-color: red;
-  padding: 20px;
-  border-radius: 10px;
+@import "variables.scss";
+
+.winbox {
+  background-color: $greenLight;
+  box-shadow: $shadowFill;
+  padding: $paddingMedium;
+  border-radius: $borderRadius;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  &_text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: $marginMedium;
+  }
+
+  h2 {
+    color: $orangeLight;
+  }
+
+  &_buttons {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+  }
 }

@@ -1,18 +1,20 @@
-<div class="winbox_all" [@popIn]>
-  <div *ngIf="multi && winner">
-    <h2>{{ winner.username }} a gagné !</h2>
+<div class="winbox" [@popIn]>
+  <div *ngIf="multi && winner" class="winbox_text">
+    <h2>{{ draw ? "Egalite" : winner.username + " a gagné !" }}</h2>
   </div>
 
-  <div *ngIf="!multi">
+  <div class="winbox_text" *ngIf="!multi">
     <h2>Tu as gagné ! en {{ game.numberOftries }} coups !</h2>
-    <p>
+    <h2>
       Tu as mis
       {{ timer.minutes === "00" ? "" : timer.minutes + "minutes et" }}
       {{ timer.seconds }} secondes
-    </p>
+    </h2>
   </div>
 
-  <reg-button [label]="'Rejouer'" (click)="restart()"></reg-button>
-  <reg-button [label]="'Parametres'" (click)="restartAndChangeParams()">
-  </reg-button>
+  <div class="winbox_buttons">
+    <reg-button [label]="'Rejouer'" (click)="restart()"></reg-button>
+    <reg-button [label]="'Parametres'" (click)="restartAndChangeParams()">
+    </reg-button>
+  </div>
 </div>

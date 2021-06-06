@@ -18,8 +18,7 @@ export class RegFileComponent implements OnInit {
   @Input() width: number = 0;
   @Input() multiple: boolean = false;
   @Input() multiMax: number | undefined = undefined;
-
-  labelValue: string = 'Ajouter des images';
+  @Input() labelValue: string = 'Ajouter des images';
   style: { [key: string]: any } = {};
 
   ngOnInit(): void {

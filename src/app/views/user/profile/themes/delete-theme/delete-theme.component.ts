@@ -18,7 +18,7 @@ export class DeleteThemeComponent implements OnInit {
   @Output() themeLength = new EventEmitter<number>();
 
   userThemes: { [key: string]: any }[] = [];
-  userThemesForm: { [key: string]: any }[] = [];
+  themesPutForm = this.fb.group({});
 
   ngOnInit(): void {
     this.getThemes();
@@ -53,7 +53,7 @@ export class DeleteThemeComponent implements OnInit {
       next: (resp) => {
         this.userThemes = resp;
         this.themeLength.emit(resp.length);
-        this.createFormForThemes(resp);
+        this.createForms(resp);
       },
       error: (err) => {
         console.log(err);
@@ -61,5 +61,18 @@ export class DeleteThemeComponent implements OnInit {
     });
   }
 
-  createFormForThemes(themes: { [key: string]: any }[]): void {}
+  createForms(themes: any): void {
+    let themesObject = {};
+    themes.forEach((theme: any, index: number) => {
+      themesObject = {
+        ...themesObject,
+        ['theme' + index]: this.fb.group({ ['cardBack' + index]: [''] }),
+      };
+    });
+    this.themesPutForm = this.fb.group(themesObject);
+  }
+
+  trackByFn(index: number, element: any) {
+    return element._id;
+  }
 }

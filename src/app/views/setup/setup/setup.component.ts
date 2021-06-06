@@ -2,8 +2,9 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from 'src/app/animations/animations';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
-import { ModalService } from 'src/app/shared/widget/reg-pop/modal.service';
+import { RegPopService } from 'src/app/shared/widget/reg-pop/reg-pop.service';
 import { SetupService } from '../setup-service/setup.service';
+
 
 @Component({
   selector: 'app-setup',
@@ -16,7 +17,7 @@ export class SetupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public setupServ: SetupService,
-    public modal: ModalService,
+    public regPopService: RegPopService ,
     public gameParams: GameParametersService,
     private cdref: ChangeDetectorRef
   ) {}

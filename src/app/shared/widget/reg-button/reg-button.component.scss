@@ -46,6 +46,10 @@
     color: $orangeLight;
   }
 
+  &_danger {
+    background-color: red !important;
+  }
+
   &_bindToInput {
     border-radius: $borderRadiusBtnRight !important;
   }

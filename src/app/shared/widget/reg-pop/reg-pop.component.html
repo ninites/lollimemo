@@ -2,9 +2,9 @@
   class="modal_all"
   (click)="removeModal($event)"
   [ngStyle]="style"
-  [@opacityAnim]
+  *ngIf="isDisplayed"
 >
-  <div class="modal_content" stopPropagation>
+  <div class="modal_content" [@popIn] *ngIf="isDisplayed" stopPropagation>
     <ng-content></ng-content>
   </div>
 </div>

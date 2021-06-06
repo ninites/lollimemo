@@ -6,11 +6,15 @@
       [roundLengths]="true"
       (swiper)="onSwiperStart($event)"
       (slideChange)="onSwiper($event)"
-
     >
-      <ng-template swiperSlide *ngFor="let theme of userThemes">
+      <ng-template
+        swiperSlide
+        *ngFor="let theme of userThemes; trackBy: trackByFn; let index = index"
+      >
         <delete-theme-item
           [theme]="theme"
+          [themeIndex]="index"
+          [themePutForm]="themesPutForm.controls['theme' + index]"
           class="deleteTheme_itemContainer"
           (onDelete)="delete($event)"
         ></delete-theme-item>
