@@ -37,7 +37,6 @@
     justify-content: flex-end;
     width: 100px;
     height: 100px;
-    margin: $marginLow 0 0 0;
     background-size: cover;
     border-radius: $borderRadius;
     box-shadow: $shadowFill;
@@ -50,6 +49,14 @@
     background-color: $orangeLight;
     padding: $paddingMedium;
     display: flex;
+  }
+
+  &_cardBackContainer {
+    width: 100%;
+    background-color: $greenLight;
+    display: flex;
+    align-items: center;
+    border-radius: $borderRadius;
   }
 
   &_previewSolo {

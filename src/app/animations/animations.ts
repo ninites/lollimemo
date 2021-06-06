@@ -47,7 +47,6 @@ export const slideInAnimation = trigger('routeAnimations', [
           width: '100vw',
           transform: 'translate(-50%,-50%)',
           transition: 'all 0.2s ease-in-out',
-         
         }),
       ],
       { optional: true }
@@ -137,11 +136,10 @@ export const routeMain = trigger('routeMain', [
       [
         style({
           position: 'absolute',
-          left: 0,
-          right: 0,
-          top: '50%',
-          transform: 'translate(0,-50%)',
-          transition: 'all 0.2s ease-in-out',          
+          left: '50%',
+          transform: 'translate(-50%)',
+          width:'100%',
+          transition: 'all 0.2s ease-in-out',
         }),
       ],
       { optional: true }

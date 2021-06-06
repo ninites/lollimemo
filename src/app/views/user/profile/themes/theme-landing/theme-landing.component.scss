@@ -23,6 +23,12 @@
     }
   }
 
+  &_addButton {
+    i {
+      margin-left: $marginLow;
+    }
+  }
+
   &_number {
     background-color: $greenLight;
     height: 30px;

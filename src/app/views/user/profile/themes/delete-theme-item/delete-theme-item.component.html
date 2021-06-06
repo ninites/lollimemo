@@ -7,6 +7,8 @@
   </div>
   <div class="deleteThemeItem_pictureContainer">
     <div class="deleteThemeItem_cardBack">
+    <div class="deleteThemeItem_cardBackContainer">
+
       <div class="deleteThemeItem_picture" [ngStyle]="cardBackStyle">
         <form [formGroup]="themePutForm">
           <reg-file
@@ -17,10 +19,15 @@
           ></reg-file>
         </form>
       </div>
+
       <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange">
         <reg-button>Redimensionner</reg-button>
       </div>
+
     </div>
+     
+    </div>
+
     <div class="deleteThemeItem_setPreview">
       <p>Apercu</p>
       <div class="deleteThemeItem_previewSoloContainer">
@@ -31,5 +38,6 @@
         ></div>
       </div>
     </div>
+    
   </div>
 </div>
