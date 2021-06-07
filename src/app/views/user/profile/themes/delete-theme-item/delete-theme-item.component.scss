@@ -65,7 +65,7 @@
     width: calc(100% - 80px);
     display: flex;
     flex-direction: column;
-    & >* {
+    & > * {
       margin-top: $marginLow;
     }
   }
@@ -98,13 +98,15 @@
   }
 
   &_cardTop {
-    color: $orangeLight;
-    font-size: small;
     padding: $paddingLow;
     border-radius: $borderRadius;
     background-color: $greenLight;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    p {
+      color: $orangeLight;
+      font-size: small;
+    }
   }
 }
