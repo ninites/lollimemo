@@ -56,13 +56,23 @@
     background-color: $greenLight;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-radius: $borderRadius;
+  }
+
+  &_cardBackModify {
+    height: 100%;
+    width: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    & >* {
+      margin-top: $marginLow;
+    }
   }
 
   &_previewSolo {
     position: relative;
     display: flex;
-   
     width: 40px;
     height: 40px;
     margin: $marginLow;
@@ -87,12 +97,14 @@
     justify-content: center;
   }
 
-  p {
+  &_cardTop {
     color: $orangeLight;
     font-size: small;
     padding: $paddingLow;
     border-radius: $borderRadius;
-    // box-shadow: $shadowFill;
     background-color: $greenLight;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }

@@ -7,29 +7,34 @@
   </div>
   <div class="deleteThemeItem_pictureContainer">
     <div class="deleteThemeItem_cardBack">
-    <div class="deleteThemeItem_cardBackContainer">
+      <div class="deleteThemeItem_cardBackContainer">
+        <div class="deleteThemeItem_picture" [ngStyle]="cardBackStyle">
+          <form [formGroup]="themePutForm">
+            <reg-file
+              [parentForm]="themePutForm"
+              [controlName]="'cardBack' + themeIndex"
+              [width]="50"
+              labelValue="Modifier le dos de carte"
+            ></reg-file>
+          </form>
+        </div>
 
-      <div class="deleteThemeItem_picture" [ngStyle]="cardBackStyle">
-        <form [formGroup]="themePutForm">
-          <reg-file
-            [parentForm]="themePutForm"
-            [controlName]="'cardBack' + themeIndex"            
-            [width]="50"
-            labelValue="Modifier le dos de carte"
-          ></reg-file>
-        </form>
+        <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange">
+          <reg-button [width]="50" [solo]="false">
+            <i class="fas fa-crop-alt"></i
+          ></reg-button>
+          <reg-button [width]="50" [solo]="false"> Valider</reg-button>
+        </div>
       </div>
-
-      <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange">
-        <reg-button>Redimensionner</reg-button>
-      </div>
-
-    </div>
-     
     </div>
 
     <div class="deleteThemeItem_setPreview">
-      <p>Apercu</p>
+      <div class="deleteThemeItem_cardTop">
+        <p>Cartes</p>
+        <reg-button [width]="50" [height]="20">
+          <i class="fas fa-plus"></i
+        ></reg-button>
+      </div>
       <div class="deleteThemeItem_previewSoloContainer">
         <div
           class="deleteThemeItem_previewSolo"
@@ -38,6 +43,5 @@
         ></div>
       </div>
     </div>
-    
   </div>
 </div>
