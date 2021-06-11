@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { fromEvent, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,7 +16,7 @@ export class DeleteThemeItemComponent implements OnInit {
   @Input() themeIndex: number = 0;
   @Output() onDelete = new EventEmitter();
 
-  constructor() {}
+  constructor(private cropModal: CropModalService) {}
 
   cardBackStyle: { [key: string]: any } = {};
   cardsPreview: { [key: string]: any }[] = [];
@@ -25,16 +26,37 @@ export class DeleteThemeItemComponent implements OnInit {
     this.getCardBack();
     this.getPreview();
     this.formHandler();
+    this.cropHandler();
   }
 
   formHandler(): void {
-    this.themePutForm.valueChanges.subscribe((file: any) => {
-      const urlFile$ = this.readData(file['cardBack' + this.themeIndex][0]);
-      urlFile$.subscribe((file: any) => {
+    this.cardBackFormHandler();
+  }
+
+  cardBackFormHandler(): void {
+    this.themePutForm.valueChanges
+      .pipe(
+        filter((response: any) => response['cardBack' + this.themeIndex]),
+        switchMap((file: any) => {
+          return this.readData(file['cardBack' + this.themeIndex][0]);
+        })
+      )
+      .subscribe((file: any) => {
         this.changeCardBackPreview(file.target.result);
         this.cardBackChange = true;
       });
-    });
+  }
+
+  cropHandler(): void {
+    this.cropModal.cropResults$
+      .pipe(
+        filter((result) => result.payload),
+        switchMap((result) => this.readData(result.payload[0]))
+      )
+      .subscribe((result: any) => {
+        this.changeCardBackPreview(result.target.result);
+        this.cardBackChange = true;
+      });
   }
 
   getCardBack(): void {
@@ -68,5 +90,18 @@ export class DeleteThemeItemComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     return fromEvent(reader, 'load');
+  }
+
+  displayCrop(incoming: string): void {
+    const finalIncoming = incoming + this.themeIndex;
+    this.cropModal.setInfo({
+      props: {
+        type: finalIncoming,
+        pictures: this.themePutForm.value[finalIncoming],
+        opacity: 0.6,
+        closeOnClick: false,
+      },
+    });
+    this.cropModal.switch();
   }
 }

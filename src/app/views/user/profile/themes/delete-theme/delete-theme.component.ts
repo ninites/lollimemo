@@ -66,7 +66,10 @@ export class DeleteThemeComponent implements OnInit {
     themes.forEach((theme: any, index: number) => {
       themesObject = {
         ...themesObject,
-        ['theme' + index]: this.fb.group({ ['cardBack' + index]: [''] }),
+        ['theme' + index]: this.fb.group({
+          ['cardBack' + index]: [],
+          ['pictures' + index]: [[]],
+        }),
       };
     });
     this.themesPutForm = this.fb.group(themesObject);

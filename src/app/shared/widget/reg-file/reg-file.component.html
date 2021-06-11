@@ -1,6 +1,7 @@
 <div class="regFile" [formGroup]="parentForm">
   <label [attr.for]="controlName" class="regFile_label" [ngStyle]="style"
     >{{ labelValue }}
+    <ng-content></ng-content>
   </label>
   <input
     [attr.id]="controlName"
