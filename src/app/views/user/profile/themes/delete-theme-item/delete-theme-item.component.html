@@ -52,7 +52,9 @@
           class="deleteThemeItem_previewSolo"
           *ngFor="let image of cardsPreview; let index = index"
           [ngStyle]="image"
-        ></div>
+        >
+          <div *ngIf="image.notPost">PLOP</div>
+        </div>
       </div>
     </div>
   </div>

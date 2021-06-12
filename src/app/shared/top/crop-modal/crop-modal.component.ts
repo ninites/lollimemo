@@ -3,7 +3,6 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { filter } from 'rxjs/operators';
 import { opacityAnim } from 'src/app/animations/animations';
-import { RequestService } from 'src/app/core/services/request/request.service';
 import { CropModalService } from './crop-modal.service';
 
 @Component({
@@ -13,10 +12,7 @@ import { CropModalService } from './crop-modal.service';
   animations: [opacityAnim],
 })
 export class CropModalComponent implements OnInit {
-  constructor(
-    private cropModal: CropModalService,
-    private request: RequestService
-  ) {}
+  constructor(private cropModal: CropModalService) {}
 
   style: { [key: string]: any } = {};
   isDisplayed: boolean = false;
@@ -37,12 +33,8 @@ export class CropModalComponent implements OnInit {
     this.getInfos();
     this.cropModal.isDisplayed$.subscribe((state) => {
       this.isDisplayed = state;
+      if (state) this.imageFile = this.props.pictures && this.props.pictures[0];
     });
-  }
-
-  ngOnDestroy(): void {
-    this.cropModal.isDisplayed$.unsubscribe();
-    this.cropModal.info$.unsubscribe();
   }
 
   setStyle(): void {
@@ -76,11 +68,19 @@ export class CropModalComponent implements OnInit {
   }
 
   exit(): void {
-    this.cropModal.cropResults$.next({
+    this.props.result({
       type: this.props.type,
       payload: this.picturesPreview,
     });
     this.cropModal.switch();
+    this.reset();
+  }
+
+  reset(): void {
+    this.croppedImage = '';
+    this.props = {};
+    this.cropModal.info$.next({});
+    this.imageFile = '';
   }
 
   closeModal(): void {

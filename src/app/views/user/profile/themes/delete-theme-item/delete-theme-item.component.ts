@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { fromEvent, Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { combineLatest, fromEvent, Observable } from 'rxjs';
+import { concatAll, filter, map, switchMap } from 'rxjs/operators';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 import { environment } from 'src/environments/environment';
 
@@ -26,19 +26,20 @@ export class DeleteThemeItemComponent implements OnInit {
     this.getCardBack();
     this.getPreview();
     this.formHandler();
-    this.cropHandler();
   }
 
   formHandler(): void {
     this.cardBackFormHandler();
+    this.picturesFormHandler();
   }
 
   cardBackFormHandler(): void {
     this.themePutForm.valueChanges
       .pipe(
-        filter((response: any) => response['cardBack' + this.themeIndex]),
+        map((response: any) => response['cardBack' + this.themeIndex]),
+        filter((response: any) => response.length > 0),
         switchMap((file: any) => {
-          return this.readData(file['cardBack' + this.themeIndex][0]);
+          return this.readData(file[0]);
         })
       )
       .subscribe((file: any) => {
@@ -47,16 +48,44 @@ export class DeleteThemeItemComponent implements OnInit {
       });
   }
 
-  cropHandler(): void {
-    this.cropModal.cropResults$
+  picturesFormHandler(): void {
+    this.themePutForm.valueChanges
       .pipe(
-        filter((result) => result.payload),
-        switchMap((result) => this.readData(result.payload[0]))
+        map((response: any) => response['pictures' + this.themeIndex]),
+        filter((response: any) => response.length > 0),
+        map((files: any) => {
+          const filesToUrl: any = [];
+          files.forEach((file: any) => {
+            const fileToURL$ = this.readData(file);
+            filesToUrl.push(fileToURL$);
+          });
+          return combineLatest(filesToUrl);
+        }),
+        concatAll(),
+        map((progresses: ProgressEvent[]) => {
+          const result: string[] = [];
+          progresses.forEach((progress: any) => {
+            result.push(progress.target.result);
+          });
+          return result;
+        })
       )
-      .subscribe((result: any) => {
-        this.changeCardBackPreview(result.target.result);
-        this.cardBackChange = true;
+      .subscribe((picturesUrl: string[]) => {
+        picturesUrl.forEach((url: string) => {
+          this.cardsPreview = [
+            ...this.cardsPreview,
+            { backgroundImage: `url('${url}')`, notPost: true },
+          ];
+        });
       });
+  }
+
+  cardBackCropHandler(result: { [key: string]: any }): void {
+    const picToURL$ = this.readData(result.payload[0]);
+    picToURL$.subscribe((reader: any) => {
+      this.changeCardBackPreview(reader.target.result);
+      this.cardBackChange = true;
+    });
   }
 
   getCardBack(): void {
@@ -100,8 +129,15 @@ export class DeleteThemeItemComponent implements OnInit {
         pictures: this.themePutForm.value[finalIncoming],
         opacity: 0.6,
         closeOnClick: false,
+        result: (result: { [key: string]: any }) => {
+          if (result.type === 'cardBack' + this.themeIndex) {
+            this.cardBackCropHandler(result);
+          }
+          if (result.type === 'pictures' + this.themeIndex) {
+            console.log(result);
+          }
+        },
       },
     });
-    this.cropModal.switch();
   }
 }

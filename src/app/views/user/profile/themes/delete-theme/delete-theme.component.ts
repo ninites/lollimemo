@@ -67,7 +67,7 @@ export class DeleteThemeComponent implements OnInit {
       themesObject = {
         ...themesObject,
         ['theme' + index]: this.fb.group({
-          ['cardBack' + index]: [],
+          ['cardBack' + index]: [[]],
           ['pictures' + index]: [[]],
         }),
       };

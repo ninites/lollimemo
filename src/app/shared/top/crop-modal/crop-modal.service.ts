@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CropProps } from './interface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +10,13 @@ export class CropModalService {
 
   isDisplayed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   info$: BehaviorSubject<{ [key: string]: any }> = new BehaviorSubject({});
-  cropResults$: BehaviorSubject<any> = new BehaviorSubject({});
 
-  private props: { [key: string]: any } = {
+  private props: CropProps = {
+    type: '',
+    result: () => {
+      return { type: '', payload: {} };
+    },
+    pictures: [],
     opacity: 0.9,
     closeOnClick: true,
   };
@@ -25,5 +30,6 @@ export class CropModalService {
     this.info$.next({
       props: { ...this.props, ...props },
     });
+    this.switch();
   }
 }

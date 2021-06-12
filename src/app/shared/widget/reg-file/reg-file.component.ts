@@ -38,7 +38,7 @@ export class RegFileComponent implements OnInit {
       .subscribe((value: any) => {
         if (value) {
           this.labelValue =
-            value.length > 0 ? 'Fichier(s) Ajouté(s)' : 'Ajouter des images';
+            value.length > 0 ? 'Fichier(s) Ajouté(s)' : this.labelValue;
         }
       });
   }

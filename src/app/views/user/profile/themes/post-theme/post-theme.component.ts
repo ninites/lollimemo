@@ -62,12 +62,6 @@ export class PostThemeComponent implements OnInit {
       .subscribe(() => {
         this.checkSame();
       });
-
-    this.cropModal.cropResults$
-      .pipe(filter((result) => result.payload))
-      .subscribe((result: any) => {
-        this.postThemeForm.patchValue({ [result.type]: result.payload });
-      });
   }
 
   displayCrop(incoming: string): void {
@@ -77,9 +71,10 @@ export class PostThemeComponent implements OnInit {
         pictures: this.postThemeForm.value[incoming],
         opacity: 0.6,
         closeOnClick: false,
+        result: (result: { [key: string]: any }) =>
+          this.postThemeForm.patchValue({ [result.type]: result.payload }),
       },
     });
-    this.cropModal.switch();
   }
 
   checkSame(): void {
