@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { combineLatest, fromEvent, Observable } from 'rxjs';
-import { concatAll, filter, map, switchMap } from 'rxjs/operators';
+import { concatAll, filter, map, mergeAll, switchMap } from 'rxjs/operators';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 import { environment } from 'src/environments/environment';
 
@@ -20,7 +20,9 @@ export class DeleteThemeItemComponent implements OnInit {
 
   cardBackStyle: { [key: string]: any } = {};
   cardsPreview: { [key: string]: any }[] = [];
+  cardsPreviewNotPosted: { [key: string]: any }[] = [];
   cardBackChange: boolean = false;
+  picturesChange: boolean = false;
 
   ngOnInit(): void {
     this.getCardBack();
@@ -43,7 +45,7 @@ export class DeleteThemeItemComponent implements OnInit {
         })
       )
       .subscribe((file: any) => {
-        this.changeCardBackPreview(file.target.result);
+        this.changeCardBackPreview(file);
         this.cardBackChange = true;
       });
   }
@@ -54,38 +56,42 @@ export class DeleteThemeItemComponent implements OnInit {
         map((response: any) => response['pictures' + this.themeIndex]),
         filter((response: any) => response.length > 0),
         map((files: any) => {
-          const filesToUrl: any = [];
-          files.forEach((file: any) => {
-            const fileToURL$ = this.readData(file);
-            filesToUrl.push(fileToURL$);
+          const filesToUrl = files.map((file: any) => {
+            return this.readData(file);
           });
           return combineLatest(filesToUrl);
         }),
-        concatAll(),
-        map((progresses: ProgressEvent[]) => {
-          const result: string[] = [];
-          progresses.forEach((progress: any) => {
-            result.push(progress.target.result);
+        mergeAll(),
+        map((urls: ProgressEvent[]) => {
+          const result = urls.map((url: any) => {
+            return url;
           });
           return result;
         })
       )
       .subscribe((picturesUrl: string[]) => {
-        picturesUrl.forEach((url: string) => {
-          this.cardsPreview = [
-            ...this.cardsPreview,
-            { backgroundImage: `url('${url}')`, notPost: true },
-          ];
+        this.cardsPreviewNotPosted = picturesUrl.map((url: string) => {
+          return {
+            backgroundImage: `url('${url}')`,
+            notPost: true,
+            id: this.uuidv4(),
+          };
         });
+        this.picturesChange = true;
       });
   }
 
   cardBackCropHandler(result: { [key: string]: any }): void {
     const picToURL$ = this.readData(result.payload[0]);
-    picToURL$.subscribe((reader: any) => {
-      this.changeCardBackPreview(reader.target.result);
+    picToURL$.subscribe((url: string) => {
+      this.changeCardBackPreview(url);
       this.cardBackChange = true;
     });
+  }
+
+  picturesCropHandler(result: { [key: string]: any }): void {
+    const { payload } = result;
+    this.themePutForm.patchValue({ ['pictures' + this.themeIndex]: payload });
   }
 
   getCardBack(): void {
@@ -118,7 +124,11 @@ export class DeleteThemeItemComponent implements OnInit {
   readData(file: any): Observable<any> {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    return fromEvent(reader, 'load');
+    return fromEvent(reader, 'load').pipe(
+      map((resp: any) => {
+        return resp.target.result;
+      })
+    );
   }
 
   displayCrop(incoming: string): void {
@@ -134,10 +144,18 @@ export class DeleteThemeItemComponent implements OnInit {
             this.cardBackCropHandler(result);
           }
           if (result.type === 'pictures' + this.themeIndex) {
-            console.log(result);
+            this.picturesCropHandler(result);
           }
         },
       },
+    });
+  }
+
+  uuidv4(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0,
+        v = c == 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
     });
   }
 }

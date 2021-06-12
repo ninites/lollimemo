@@ -45,7 +45,6 @@
 
   &_cardBack {
     z-index: 1;
-    border-radius: $borderRadius;
     background-color: $orangeLight;
     padding: $paddingMedium;
     display: flex;
@@ -58,6 +57,17 @@
     align-items: center;
     justify-content: space-between;
     border-radius: $borderRadius;
+  }
+
+  &_picturesButtons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 0 0 $borderRadius $borderRadius;
+    background-color: $greenLight;
+    & > * {
+      margin: $marginMedium;
+    }
   }
 
   &_cardBackModify {
@@ -73,8 +83,8 @@
   &_previewSolo {
     position: relative;
     display: flex;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     margin: $marginLow;
     background-size: cover;
     border-radius: $borderRadius;
@@ -85,9 +95,8 @@
     display: flex;
     flex-direction: column;
     background-color: $orangeLight;
-    border-radius: $borderRadius;
+    border-radius: 0 0 $borderRadius $borderRadius;
     padding: $paddingMedium;
-    margin-top: -5px;
   }
 
   &_previewSoloContainer {
@@ -98,9 +107,11 @@
   }
 
   &_cardTop {
+    z-index: 2;
     padding: $paddingLow;
     border-radius: $borderRadius;
     background-color: $greenLight;
+    box-shadow: $shadowUnder;
     display: flex;
     align-items: center;
     justify-content: space-between;

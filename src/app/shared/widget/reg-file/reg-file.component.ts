@@ -19,6 +19,7 @@ export class RegFileComponent implements OnInit {
   @Input() multiple: boolean = false;
   @Input() multiMax: number | undefined = undefined;
   @Input() labelValue: string = 'Ajouter des images';
+  @Input() filesAddText: string = 'Fichier(s) Ajouté(s)';
   style: { [key: string]: any } = {};
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class RegFileComponent implements OnInit {
       .subscribe((value: any) => {
         if (value) {
           this.labelValue =
-            value.length > 0 ? 'Fichier(s) Ajouté(s)' : this.labelValue;
+            value.length > 0 ? this.filesAddText : this.labelValue;
         }
       });
   }
