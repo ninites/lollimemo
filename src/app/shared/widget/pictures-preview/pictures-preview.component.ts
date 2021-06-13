@@ -19,6 +19,7 @@ export class PicturesPreviewComponent implements OnInit {
   @Input() index: number = 0;
   @Input() size: number = 0;
   @Input() crossButton: boolean = true;
+  @Input() pictureType: string = 'blob';
   @Output() fileDelete = new EventEmitter<any>();
 
   style: { [key: string]: any } = {};
@@ -26,11 +27,11 @@ export class PicturesPreviewComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.createPreview();
     this.style = {
       width: this.size + 'px',
       height: this.size + 'px',
     };
+    this.createPreview();
   }
 
   delete(): void {
@@ -38,6 +39,11 @@ export class PicturesPreviewComponent implements OnInit {
   }
 
   createPreview(): void {
+    if (this.pictureType === 'blob') this.createBlobPreview();
+    if (this.pictureType === 'path') this.createPathPreview();
+  }
+
+  createBlobPreview(): void {
     const preview = new FileReader();
     preview.onload = (event) => {
       if (event.target) {
@@ -50,5 +56,10 @@ export class PicturesPreviewComponent implements OnInit {
     preview.readAsDataURL(this.picture);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  createPathPreview(): void {
+    this.style = {
+      ...this.style,
+      backgroundImage: `url('${this.picture}')`,
+    };
+  }
 }

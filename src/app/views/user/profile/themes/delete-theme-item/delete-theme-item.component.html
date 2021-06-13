@@ -62,18 +62,24 @@
       </div>
 
       <div class="deleteThemeItem_previewSoloContainer">
-        <div
-          class="deleteThemeItem_previewSolo"
+        <pictures-preview
           *ngFor="let image of cardsPreview; let index = index"
-          [ngStyle]="image"
-        ></div>
-        <div
-          class="deleteThemeItem_previewSolo"
+          [picture]="image.file"
+          [size]="60"
+          pictureType="path"
+          (fileDelete)="deleteCard('posted',$event)"
+          [index]="index"
+        ></pictures-preview>
+        <pictures-preview
           *ngFor="let image of cardsPreviewNotPosted; let index = index"
-          [ngStyle]="image"
+          [picture]="image"
+          [size]="60"
+          pictureType="blob"
+          (fileDelete)="deleteCard('notPosted',$event)"
+          [index]="index"
         >
           plop
-        </div>
+        </pictures-preview>
       </div>
     </div>
   </div>

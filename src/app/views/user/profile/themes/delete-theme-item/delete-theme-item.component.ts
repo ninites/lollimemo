@@ -54,28 +54,10 @@ export class DeleteThemeItemComponent implements OnInit {
     this.themePutForm.valueChanges
       .pipe(
         map((response: any) => response['pictures' + this.themeIndex]),
-        filter((response: any) => response.length > 0),
-        map((files: any) => {
-          const filesToUrl = files.map((file: any) => {
-            return this.readData(file);
-          });
-          return combineLatest(filesToUrl);
-        }),
-        mergeAll(),
-        map((urls: any) => {
-          const result = urls.map((url: any) => {
-            return url;
-          });
-          return result;
-        })
+        filter((response: any) => response.length > 0)
       )
-      .subscribe((picturesUrl: string[]) => {
-        this.cardsPreviewNotPosted = picturesUrl.map((url: string) => {
-          return {
-            backgroundImage: `url('${url}')`,
-            notPost: true,
-          };
-        });
+      .subscribe((files: any) => {
+        this.cardsPreviewNotPosted = [...files];
         this.picturesChange = true;
       });
   }
@@ -94,13 +76,26 @@ export class DeleteThemeItemComponent implements OnInit {
     cardsPreview.forEach((preview: { [key: string]: string }) => {
       this.cardsPreview = [
         ...this.cardsPreview,
-        { backgroundImage: `url('${environment.proxy + preview.path}')` },
+        { file: environment.proxy + preview.path },
       ];
     });
   }
 
   delete(): void {
     this.onDelete.emit(this.theme._id);
+  }
+
+  deleteCard(type: string, index: number) {
+    if (type === 'notPosted') this.deleteNotPostedPrev(index);
+  }
+
+  deleteNotPostedPrev(index: number) {
+    this.cardsPreviewNotPosted = this.cardsPreviewNotPosted.filter(
+      (card, i) => i !== index
+    );
+    this.themePutForm.patchValue({
+      ['pictures' + this.themeIndex]: this.cardsPreviewNotPosted,
+    });
   }
 
   changeCardBackPreview(path: string): void {
