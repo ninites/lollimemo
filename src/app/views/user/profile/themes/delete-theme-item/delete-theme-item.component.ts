@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { combineLatest, fromEvent, Observable } from 'rxjs';
 import { concatAll, filter, map, mergeAll, switchMap } from 'rxjs/operators';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
@@ -62,7 +62,7 @@ export class DeleteThemeItemComponent implements OnInit {
           return combineLatest(filesToUrl);
         }),
         mergeAll(),
-        map((urls: ProgressEvent[]) => {
+        map((urls: any) => {
           const result = urls.map((url: any) => {
             return url;
           });
@@ -74,24 +74,10 @@ export class DeleteThemeItemComponent implements OnInit {
           return {
             backgroundImage: `url('${url}')`,
             notPost: true,
-            id: this.uuidv4(),
           };
         });
         this.picturesChange = true;
       });
-  }
-
-  cardBackCropHandler(result: { [key: string]: any }): void {
-    const picToURL$ = this.readData(result.payload[0]);
-    picToURL$.subscribe((url: string) => {
-      this.changeCardBackPreview(url);
-      this.cardBackChange = true;
-    });
-  }
-
-  picturesCropHandler(result: { [key: string]: any }): void {
-    const { payload } = result;
-    this.themePutForm.patchValue({ ['pictures' + this.themeIndex]: payload });
   }
 
   getCardBack(): void {
@@ -140,22 +126,17 @@ export class DeleteThemeItemComponent implements OnInit {
         opacity: 0.6,
         closeOnClick: false,
         result: (result: { [key: string]: any }) => {
-          if (result.type === 'cardBack' + this.themeIndex) {
-            this.cardBackCropHandler(result);
-          }
-          if (result.type === 'pictures' + this.themeIndex) {
-            this.picturesCropHandler(result);
-          }
+          const { payload } = result;
+          const type =
+            result.type === 'cardBack' + this.themeIndex
+              ? 'cardBack'
+              : 'pictures';
+
+          this.themePutForm.patchValue({
+            [type + this.themeIndex]: payload,
+          });
         },
       },
-    });
-  }
-
-  uuidv4(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      const r = (Math.random() * 16) | 0,
-        v = c == 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
     });
   }
 }
