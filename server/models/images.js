@@ -14,6 +14,7 @@ class Images {
     static getOne = async (imgId) => {
         return await Image.findById(imgId)
     }
+
 }
 
 module.exports = Images

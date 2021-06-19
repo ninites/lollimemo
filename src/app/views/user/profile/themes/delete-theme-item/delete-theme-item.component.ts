@@ -32,7 +32,7 @@ export class DeleteThemeItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCardBack();
-    this.getPreview();
+    this.cardsPreview = this.getPreview(this.theme.images);
     this.formHandler();
   }
 
@@ -75,16 +75,15 @@ export class DeleteThemeItemComponent implements OnInit {
     this.changeCardBackPreview(environment.proxy + cardback[0].path);
   }
 
-  getPreview(): void {
-    const cardsPreview = this.theme.images.filter(
+  getPreview(array: any): { [key: string]: any }[] {
+    const result: any = [];
+    const cardsPreview = array.filter(
       (images: { [key: string]: string }) => images.type === 'themePic'
     );
     cardsPreview.forEach((preview: { [key: string]: string }) => {
-      this.cardsPreview = [
-        ...this.cardsPreview,
-        { file: environment.proxy + preview.path, id: preview._id },
-      ];
+      result.push({ file: environment.proxy + preview.path, id: preview._id });
     });
+    return result;
   }
 
   delete(): void {
@@ -97,20 +96,23 @@ export class DeleteThemeItemComponent implements OnInit {
   }
 
   deletePostedCard(id: number): void {
-    if (this.theme.images.length <= 11) {
+    if (this.cardsPreview.length <= 10) {
       this.alert.message = 'Vous ne pouvez pas avoir moins de 10 cartes';
       this.alert.switchAlert();
       return;
     }
 
     this.request.delete('uploads/' + this.theme._id + '/' + id).subscribe({
-      next: (response) => {        
+      next: (response) => {
         this.cardsPreview = this.cardsPreview.filter((card) => card.id !== id);
-        this.alert.message = "Carte correctement retirée"
-        this.alert.switchAlert()
+        this.alert.message = 'Carte correctement retirée';
+        this.alert.switchAlert();
       },
       error: (err) => {
-        console.log(err);
+        if (err.error) {
+          this.alert.message = err.error;
+          this.alert.switchAlert();
+        }
       },
     });
   }
@@ -158,6 +160,24 @@ export class DeleteThemeItemComponent implements OnInit {
           });
         },
       },
+    });
+  }
+
+  postNewCards(): void {
+    const newPics = this.themePutForm.value['pictures' + this.themeIndex];
+    const payload = new FormData();
+    newPics.forEach((pic: any) => {
+      payload.append('pictures', pic);
+    });
+    this.request.put('themes/' + this.theme._id, payload).subscribe({
+      next: (resp) => {
+        this.cardsPreviewNotPosted = [];
+        this.themePutForm.patchValue({
+          ['pictures' + this.themeIndex]: [],
+        });
+        this.cardsPreview = this.getPreview(resp.images);
+      },
+      error: (err) => {},
     });
   }
 }

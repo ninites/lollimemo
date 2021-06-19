@@ -1,5 +1,6 @@
 const themesModel = require("../models/themes");
 const userModel = require("../models/users");
+const ApiError = require('../error/ApiError')
 
 class Themes {
   static postOne = async (req, res) => {
@@ -21,6 +22,13 @@ class Themes {
     const deleteTheme = await themesModel.deleteOne(req.params, id);
     res.status(200).json(deleteTheme);
   };
+
+  static editOne = async (req, res, next) => {
+
+    const editTheme = await themesModel.editOne(req.params.id, req.files.pictures)
+    const newTheme = await themesModel.getOne(req.params.id)
+    res.status(200).json(newTheme)
+  }
 
 
 }

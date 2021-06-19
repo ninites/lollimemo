@@ -10,11 +10,7 @@ class Themes {
       type: "cardBack",
     });
 
-    const newPictures = await Promise.all(
-      info.pictures.map(async (picture) => {
-        return await Image.create({ type: "themePic", path: picture.path });
-      })
-    );
+    const newPictures = await this.postPics(info.pictures)
 
     const fullSet = [newCardBack, ...newPictures];
 
@@ -37,9 +33,9 @@ class Themes {
 
 
   static getOne = async (id) => {
-    return await Theme.findById(id)
+    return await Theme.findById(id).populate({ path: "images", model: "Image" })
   }
-  
+
   static deleteOne = async (filter, userId) => {
     const { id } = filter;
 
@@ -68,6 +64,26 @@ class Themes {
     const themeRemoved = await themeToDelete.deleteOne();
     return themeRemoved;
   };
+
+  static postPics = async (pictures) => {
+    const newPictures = await Promise.all(
+      pictures.map(async (picture) => {
+        return await Image.create({ type: "themePic", path: picture.path });
+      })
+    );
+    return newPictures
+  }
+
+  static editOne = async (themeId, pictures) => {
+    const picturesPosted = await this.postPics(pictures)
+    const updateTheme = Theme.updateOne(
+      { _id: themeId },
+      { $push: { images: { $each: picturesPosted } } },
+      { new: true, useFindAndModify: false }
+    )
+    return updateTheme
+  }
+
 }
 
 module.exports = Themes;
