@@ -1,6 +1,5 @@
 const { Theme, User, Image } = require("./schema/schema");
 const fs = require("fs");
-const { ObjectId } = require("bson");
 
 class Themes {
   static postOne = async (info) => {
@@ -36,6 +35,11 @@ class Themes {
     return newTheme;
   };
 
+
+  static getOne = async (id) => {
+    return await Theme.findById(id)
+  }
+  
   static deleteOne = async (filter, userId) => {
     const { id } = filter;
 

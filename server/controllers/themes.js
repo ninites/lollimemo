@@ -18,9 +18,11 @@ class Themes {
 
   static deleteOne = async (req, res) => {
     const { id } = req.body.userInfo;
-    const deleteTheme = await themesModel.deleteOne(req.params,id);
+    const deleteTheme = await themesModel.deleteOne(req.params, id);
     res.status(200).json(deleteTheme);
   };
+
+
 }
 
 module.exports = Themes;

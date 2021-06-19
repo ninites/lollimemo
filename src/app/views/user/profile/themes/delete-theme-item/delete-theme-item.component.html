@@ -67,7 +67,7 @@
           [picture]="image.file"
           [size]="60"
           pictureType="path"
-          (fileDelete)="deleteCard('posted',$event)"
+          (fileDelete)="deleteCard('posted',image.id)"
           [index]="index"
         ></pictures-preview>
         <pictures-preview

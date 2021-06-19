@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { combineLatest, fromEvent, Observable } from 'rxjs';
 import { concatAll, filter, map, mergeAll, switchMap } from 'rxjs/operators';
+import { RequestService } from 'src/app/core/services/request/request.service';
+import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +18,11 @@ export class DeleteThemeItemComponent implements OnInit {
   @Input() themeIndex: number = 0;
   @Output() onDelete = new EventEmitter();
 
-  constructor(private cropModal: CropModalService) {}
+  constructor(
+    private cropModal: CropModalService,
+    private readonly alert: AlertService,
+    private request: RequestService
+  ) {}
 
   cardBackStyle: { [key: string]: any } = {};
   cardsPreview: { [key: string]: any }[] = [];
@@ -76,7 +82,7 @@ export class DeleteThemeItemComponent implements OnInit {
     cardsPreview.forEach((preview: { [key: string]: string }) => {
       this.cardsPreview = [
         ...this.cardsPreview,
-        { file: environment.proxy + preview.path },
+        { file: environment.proxy + preview.path, id: preview._id },
       ];
     });
   }
@@ -87,9 +93,29 @@ export class DeleteThemeItemComponent implements OnInit {
 
   deleteCard(type: string, index: number) {
     if (type === 'notPosted') this.deleteNotPostedPrev(index);
+    if (type === 'posted') this.deletePostedCard(index);
   }
 
-  deleteNotPostedPrev(index: number) {
+  deletePostedCard(id: number): void {
+    if (this.theme.images.length <= 11) {
+      this.alert.message = 'Vous ne pouvez pas avoir moins de 10 cartes';
+      this.alert.switchAlert();
+      return;
+    }
+
+    this.request.delete('uploads/' + this.theme._id + '/' + id).subscribe({
+      next: (response) => {        
+        this.cardsPreview = this.cardsPreview.filter((card) => card.id !== id);
+        this.alert.message = "Carte correctement retirée"
+        this.alert.switchAlert()
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  deleteNotPostedPrev(index: number): void {
     this.cardsPreviewNotPosted = this.cardsPreviewNotPosted.filter(
       (card, i) => i !== index
     );
