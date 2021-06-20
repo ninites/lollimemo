@@ -11,7 +11,15 @@ import { AlertService } from './alert.service';
 export class AlertComponent implements OnInit {
   constructor(public alert: AlertService) {}
 
-  ngOnInit(): void {}
+  style = {};
+
+  ngOnInit(): void {
+    this.alert.topValue$.subscribe((value) => {
+      this.style = {
+        top: value + 10 + 'px',
+      };
+    });
+  }
 
   closeAlert() {
     this.alert.isDisplayed = false;

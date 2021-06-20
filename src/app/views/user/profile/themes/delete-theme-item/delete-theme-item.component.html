@@ -27,7 +27,12 @@
           >
             <i class="fas fa-crop-alt"></i
           ></reg-button>
-          <reg-button [width]="50" [solo]="false">Valider</reg-button>
+          <reg-button
+            [width]="50"
+            [solo]="false"
+            (click)="postNewCards('posted')"
+            >Valider</reg-button
+          >
         </div>
       </div>
     </div>
@@ -50,7 +55,10 @@
         </form>
       </div>
 
-      <div class="deleteThemeItem_picturesButtons" *ngIf="cardsPreviewNotPosted.length > 0">
+      <div
+        class="deleteThemeItem_picturesButtons"
+        *ngIf="cardsPreviewNotPosted.length > 0"
+      >
         <reg-button
           [width]="50"
           [height]="20"
@@ -58,7 +66,12 @@
         >
           <i class="fas fa-crop-alt"></i
         ></reg-button>
-        <reg-button [width]="100" [height]="20" (click)="postNewCards()"  >Valider</reg-button>
+        <reg-button
+          [width]="100"
+          [height]="20"
+          (click)="postNewCards('notPosted')"
+          >Valider</reg-button
+        >
       </div>
 
       <div class="deleteThemeItem_previewSoloContainer">
@@ -67,7 +80,7 @@
           [picture]="image.file"
           [size]="60"
           pictureType="path"
-          (fileDelete)="deleteCard('posted',image.id)"
+          (fileDelete)="deleteCard('posted', image.id)"
           [index]="index"
         ></pictures-preview>
         <pictures-preview
@@ -75,7 +88,7 @@
           [picture]="image"
           [size]="60"
           pictureType="blob"
-          (fileDelete)="deleteCard('notPosted',$event)"
+          (fileDelete)="deleteCard('notPosted', $event)"
           [index]="index"
         >
           plop

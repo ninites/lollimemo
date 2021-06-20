@@ -1,5 +1,5 @@
-<div class="alert" *ngIf="alert.isDisplayed" [@translateLeft]>
-  <div class="alert_button">
+<div class="alert" *ngIf="alert.isDisplayed" [@translateLeft] [ngStyle]="style">
+  <div class="alert_button" >
     <reg-button
       label="X"
       (click)="closeAlert()"

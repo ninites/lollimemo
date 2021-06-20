@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { filter } from 'rxjs/operators';
 import { opacityAnim } from 'src/app/animations/animations';
 import { CropModalService } from './crop-modal.service';
 
@@ -12,7 +11,10 @@ import { CropModalService } from './crop-modal.service';
   animations: [opacityAnim],
 })
 export class CropModalComponent implements OnInit {
-  constructor(private cropModal: CropModalService) {}
+  constructor(
+    private cropModal: CropModalService,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   style: { [key: string]: any } = {};
   isDisplayed: boolean = false;
@@ -20,6 +22,7 @@ export class CropModalComponent implements OnInit {
   picturesPreview: any[] = [];
   imgCroppedIndex: number = 0;
   confirmChange = true;
+  topValue: number = 0;
 
   imageFile: any = '';
   croppedImage: any = '';
@@ -33,13 +36,19 @@ export class CropModalComponent implements OnInit {
     this.getInfos();
     this.cropModal.isDisplayed$.subscribe((state) => {
       this.isDisplayed = state;
-      if (state) this.imageFile = this.props.pictures && this.props.pictures[0];
+      if (state) {
+        this.document.body.style.overflow = 'hidden';
+        this.imageFile = this.props.pictures && this.props.pictures[0];
+      } else {
+        this.document.body.style.overflow = '';
+      }
     });
   }
 
   setStyle(): void {
     this.style = {
       'background-color': `rgba(0, 0, 0, ${this.props.opacity})`,
+      top: this.topValue + 'px',
     };
   }
 
@@ -63,6 +72,7 @@ export class CropModalComponent implements OnInit {
       const { props } = infos;
       this.props = { ...props };
       this.picturesPreview = props ? [...props.pictures] : [];
+      this.topValue = this.document.body.scrollTop;
       this.setStyle();
     });
   }

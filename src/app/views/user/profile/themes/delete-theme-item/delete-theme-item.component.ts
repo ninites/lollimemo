@@ -72,7 +72,8 @@ export class DeleteThemeItemComponent implements OnInit {
     const cardback = this.theme.images.filter(
       (images: { [key: string]: string }) => images.type === 'cardBack'
     );
-    this.changeCardBackPreview(environment.proxy + cardback[0].path);
+    if (cardback.length !== 0)
+      this.changeCardBackPreview(environment.proxy + cardback[0].path);
   }
 
   getPreview(array: any): { [key: string]: any }[] {
@@ -163,7 +164,28 @@ export class DeleteThemeItemComponent implements OnInit {
     });
   }
 
-  postNewCards(): void {
+  postNewCards(type: string): void {
+    if (type === 'notPosted') this.addNotPosted();
+    if (type === 'posted') this.editPosted();
+  }
+
+  editPosted(): void {
+    const newPic = this.themePutForm.value['cardBack' + this.themeIndex];
+    const payload = new FormData();
+    payload.append('cardBack', newPic[0]);
+
+    this.request.put('themes/' + this.theme._id, payload).subscribe({
+      next: (resp) => {
+        this.cardBackChange = false;
+        this.themePutForm.patchValue({
+          ['cardBack' + this.themeIndex]: [],
+        });
+      },
+      error: (err) => {},
+    });
+  }
+
+  addNotPosted(): void {
     const newPics = this.themePutForm.value['pictures' + this.themeIndex];
     const payload = new FormData();
     newPics.forEach((pic: any) => {

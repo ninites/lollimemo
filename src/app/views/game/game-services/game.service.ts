@@ -67,8 +67,6 @@ export class GameService {
 
     if (this.playerIndexTurn === this.gameParams.players.length)
       this.playerIndexTurn = 0;
-
-    this.messageToPlayer();
   }
 
   reset() {

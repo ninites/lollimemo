@@ -16,6 +16,11 @@ themes.post(
 );
 themes.delete("/:id", authToken, themesCtrl.deleteOne);
 themes.get("/all", authToken, themesCtrl.getAllByUser);
-themes.put("/:id", upload.fields([{ name: "pictures" }]), authToken, themesCtrl.editOne)
+themes.put(
+  "/:id",
+  upload.fields([{ name: "pictures" }, { name: "cardBack" }]),
+  authToken,
+  themesCtrl.editOne
+);
 
 module.exports = themes;

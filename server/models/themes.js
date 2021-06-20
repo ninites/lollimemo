@@ -4,16 +4,9 @@ const fs = require("fs");
 class Themes {
   static postOne = async (info) => {
     const userId = info.userInfo.id;
-
-    const newCardBack = await Image.create({
-      path: info.cardBack[0].path,
-      type: "cardBack",
-    });
-
-    const newPictures = await this.postPics(info.pictures)
-
-    const fullSet = [newCardBack, ...newPictures];
-
+    const newCardBack = await this.postPics(info.cardBack, "cardBack");
+    const newPictures = await this.postPics(info.pictures, "themePic");
+    const fullSet = [...newCardBack, ...newPictures];
     const newTheme = await Theme.create({ name: info.name });
 
     await Theme.findOneAndUpdate(
@@ -31,10 +24,12 @@ class Themes {
     return newTheme;
   };
 
-
   static getOne = async (id) => {
-    return await Theme.findById(id).populate({ path: "images", model: "Image" })
-  }
+    return await Theme.findById(id).populate({
+      path: "images",
+      model: "Image",
+    });
+  };
 
   static deleteOne = async (filter, userId) => {
     const { id } = filter;
@@ -65,25 +60,32 @@ class Themes {
     return themeRemoved;
   };
 
-  static postPics = async (pictures) => {
+  static postPics = async (pictures, type) => {
     const newPictures = await Promise.all(
       pictures.map(async (picture) => {
-        return await Image.create({ type: "themePic", path: picture.path });
+        return await Image.create({ type: type, path: picture.path });
       })
     );
-    return newPictures
-  }
+    return newPictures;
+  };
 
-  static editOne = async (themeId, pictures) => {
-    const picturesPosted = await this.postPics(pictures)
+  static editOne = async (themeId, cardBack, pictures) => {
+    const allPics = [];
+    if (cardBack) {
+      const cardBackNew = await this.postPics(cardBack, "cardBack");
+      allPics.push(...cardBackNew);
+    }
+    if (pictures) {
+      const picturesPosted = await this.postPics(pictures, "themePic");
+      allPics.push(...picturesPosted);
+    }
     const updateTheme = Theme.updateOne(
       { _id: themeId },
-      { $push: { images: { $each: picturesPosted } } },
+      { $push: { images: { $each: allPics } } },
       { new: true, useFindAndModify: false }
-    )
-    return updateTheme
-  }
-
+    );
+    return updateTheme;
+  };
 }
 
 module.exports = Themes;
