@@ -110,9 +110,9 @@ export const menuPop = trigger('menuPop', [
     animate(
       '0.2s',
       keyframes([
-        style({ transform: ' translate(-50% , -200px)', opacity: 0 }),
-        style({ transform: ' translate(-50% ,50px)', opacity: 0.5 }),
-        style({ transform: ' translate(-50%,0)', opacity: 1 }),
+        style({ transform: ' translateY(-50px)', opacity: 0 }),
+        style({ transform: ' translateY(10px)', opacity: 0.5 }),
+        style({ transform: ' translateY(0)', opacity: 1 }),
       ])
     )
   ),
@@ -121,8 +121,8 @@ export const menuPop = trigger('menuPop', [
     animate(
       '0.2s',
       keyframes([
-        style({ transform: ' translate(-50%)', opacity: 1 }),
-        style({ transform: ' translate(-50%)', opacity: 0 }),
+        style({ transform: ' translateY(0)', opacity: 1 }),
+        style({ transform: ' translateY(-10px)', opacity: 0 }),
       ])
     )
   ),
@@ -188,3 +188,5 @@ export const opacityAnim = trigger('opacityAnim', [
     )
   ),
 ]);
+
+

@@ -1,8 +1,7 @@
 @import "variables";
 
 .regSelect {
-  border: none;
-  padding: $paddingMedium;
+  border: none;  
   position: relative;
   background-color: $orangeLight;
   border-radius: $borderRadius;
@@ -16,16 +15,22 @@
     outline: none;
   }
 
+  &_text {
+    background-color: $orangeLight;
+    padding: $paddingMedium;
+    border-radius: $borderRadius;
+  }
+
   &_optionsWrapper {
     position: absolute;
     z-index: 10;
     top: 40px;
     left: 0;
+    background-color: $orangeLight;
+    border-radius: $borderRadius;
   }
   
   &_options {
-    background-color: $orangeLight;
-    width: 100%;
     padding: $paddingMedium;
     font-weight: bold;
     color: $greenLight;
@@ -33,6 +38,7 @@
     &:hover {
       background-color: $greenMedium;
       color: $orangeLight;
+      border-radius: $borderRadius;
     }
   }
 }

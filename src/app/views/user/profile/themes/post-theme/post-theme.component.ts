@@ -32,6 +32,7 @@ export class PostThemeComponent implements OnInit {
   displaySideMenu: boolean = false;
   pictureLengthTest: number = 0;
   pictureLengthPreviousValue: number = 0;
+  pictureMinText: number = 10;
   gotFiles: { [cardBack: string]: number; pictures: number } = {
     cardBack: 0,
     pictures: 0,
@@ -58,6 +59,7 @@ export class PostThemeComponent implements OnInit {
         }),
         filter((type) => {
           if (!type) return false;
+          this.pictureMinText = this.computePictureMinText();
           if (type.length === this.pictureLengthPreviousValue) return false;
           this.pictureLengthPreviousValue = type.length;
           return type.length !== this.pictureLengthTest && true;
@@ -133,5 +135,11 @@ export class PostThemeComponent implements OnInit {
         this.alert.switchAlert();
       },
     });
+  }
+
+  computePictureMinText(): number {
+    const minValue = 10;
+    const result = minValue - this.gotFiles.pictures;
+    return result >= 0 ? result : 0;
   }
 }
