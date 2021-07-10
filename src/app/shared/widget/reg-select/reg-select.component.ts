@@ -11,6 +11,7 @@ export class RegSelectComponent implements OnInit {
   @Input() values: string[] = [];
   @Input() choice: string = '';
   @Input() width: number = 0;
+  @Input() buttons: { label: string; action: () => void }[] = [];
   @Output() choiceChange = new EventEmitter<string>();
 
   displayOptions: boolean = false;

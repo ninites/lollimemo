@@ -30,7 +30,7 @@ export class SetupComponent implements OnInit {
   infoName: string[] = [];
 
   ngOnInit(): void {
-    this.createIndexPages();
+    this.createIndexPages();  
   }
 
   ngAfterContentChecked() {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { popAnim } from 'src/app/animations/animations';
+import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { environment } from 'src/environments/environment';
@@ -16,7 +18,9 @@ export class SelectThemesComponent implements OnInit {
   constructor(
     private setupServ: SetupService,
     private request: RequestService,
-    private gameParams: GameParametersService
+    private gameParams: GameParametersService,
+    private auth: AuthentificationService,
+    private router: Router
   ) {}
 
   userTheme: { [key: string]: any }[] = [{ name: 'default', images: [] }];
@@ -24,16 +28,34 @@ export class SelectThemesComponent implements OnInit {
   choosenTheme: string = '';
   userSelection: string = '';
   validation$: BehaviorSubject<any> = new BehaviorSubject(false);
+  validationSubscription : Subscription = this.validation$.subscribe()
   style: { [key: string]: any } = {};
+  isAuth: boolean = false;
+  addThemeButton: { label: string; action: () => void }[] = [];
 
   ngOnInit(): void {
     this.setupServ.setIndexInChildren();
     this.getThemes();
     this.checkValidation();
+    this.getUserInfo();
+  }
+
+  getUserInfo(): void {
+    this.auth.isAuth$.subscribe((isAuth) => {
+      this.isAuth = isAuth;
+      if (this.themesName) {
+        this.addThemeButton.push({
+          label: '+ Ajouter un theme ',
+          action: () => {
+            this.router.navigateByUrl('user/profile/themes/post');
+          },
+        });
+      }
+    });
   }
 
   checkValidation(): void {
-    this.validation$.subscribe((valid) => {
+    this.validationSubscription = this.validation$.subscribe((valid) => {      
       if (valid) {
         this.setupServ.displayPathButton();
         this.setupServ.setDisableDots();
@@ -44,8 +66,8 @@ export class SelectThemesComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() : void {
-    this.validation$.unsubscribe()
+  ngOnDestroy(): void {
+    this.validationSubscription.unsubscribe();
   }
 
   setSelection(): void {
@@ -106,7 +128,10 @@ export class SelectThemesComponent implements OnInit {
       (theme) => theme.name === paramsValue
     );
 
-    if (checkIfExists.length === 0) return;
+    if (checkIfExists.length === 0) {        
+      this.validation$.next(false);
+      return;
+    }
 
     this.userSelection = paramsValue;
     this.choosenTheme = paramsValue;

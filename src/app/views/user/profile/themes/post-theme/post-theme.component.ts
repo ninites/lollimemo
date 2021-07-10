@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { RouteHistoryService } from 'src/app/core/services/route-history/route-history.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 
@@ -15,7 +17,9 @@ export class PostThemeComponent implements OnInit {
     private fb: FormBuilder,
     private alert: AlertService,
     private request: RequestService,
-    private cropModal: CropModalService
+    private cropModal: CropModalService,
+    private routerHistory: RouteHistoryService,
+    private router: Router
   ) {}
 
   postThemeForm = this.fb.group({
@@ -122,6 +126,7 @@ export class PostThemeComponent implements OnInit {
         this.alert.message = 'Theme correctement ajouté';
         this.alert.switchAlert();
         this.postThemeForm.reset();
+        this.router.navigate([this.routerHistory.getPrevious()]);
       },
       error: (err) => {
         this.alert.message = err.error;

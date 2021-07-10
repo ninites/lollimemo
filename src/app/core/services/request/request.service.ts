@@ -12,7 +12,7 @@ export interface Token {
 }
 
 @Injectable({
-  providedIn: CoreModule,
+  providedIn: 'root',
 })
 export class RequestService {
   constructor(private alert: AlertService, private http: HttpClient) {}

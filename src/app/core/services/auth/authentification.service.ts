@@ -6,7 +6,7 @@ import { CoreModule } from '../../core.module';
 import { RequestService } from '../request/request.service';
 
 @Injectable({
-  providedIn: CoreModule,
+  providedIn: 'root',
 })
 export class AuthentificationService {
   constructor(private requestAx: RequestService, private router: Router) {}

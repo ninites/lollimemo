@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
@@ -36,6 +36,7 @@ export class PlayersNameComponent implements OnInit {
     },
   ];
   validate$ = new BehaviorSubject(this.formValidation);
+  validationSubscription : Subscription = this.validate$.subscribe()
   btnValidation: boolean = true;
   isAuth: boolean = false;
 
@@ -50,7 +51,7 @@ export class PlayersNameComponent implements OnInit {
   }
 
   ngOnDestroy() : void {
-    this.validate$.unsubscribe()
+    this.validationSubscription.unsubscribe()
   }
 
   getUserInfo(): void {
@@ -65,7 +66,7 @@ export class PlayersNameComponent implements OnInit {
   }
 
   useEffectForValidation(): void {
-    this.validate$.subscribe({
+    this.validationSubscription = this.validate$.subscribe({
       next: (resp) => {
         const allFormValid = this.formValidationVerification(resp);
         if (allFormValid) {

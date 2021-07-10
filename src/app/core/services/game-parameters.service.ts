@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../../interface/interface';
-import { CoreModule } from '../core.module';
 
 @Injectable({
-  providedIn: CoreModule,
+  providedIn: 'root',
 })
 export class GameParametersService {
   selectedDifficulty: number = 0;
@@ -30,8 +29,8 @@ export class GameParametersService {
     this.numberOfPlayer = number;
   }
 
-  setTheme(theme: {}): void {
-    this.selectedTheme = theme;
+  setTheme(theme: {}): void {    
+    this.selectedTheme = {...theme};    
   }
 
   modifyUserName(index: number, newName: string): void {
@@ -48,16 +47,16 @@ export class GameParametersService {
 
   gameParamsValidation(): { [key: string]: string } {
     this.players = this.players.slice(0, this.numberOfPlayer);
-
+    
     const gameParameters = {
       difficulty: this.selectedDifficulty,
       names: this.players,
       players: this.numberOfPlayer,
       themes: this.selectedTheme,
     };
-
+    
     const errors: { [key: string]: string } = {};
-
+   
     for (const key in gameParameters) {
       const message = 'Merci de renseigner ';
       switch (key) {

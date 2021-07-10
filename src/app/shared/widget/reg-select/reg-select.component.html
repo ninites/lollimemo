@@ -20,5 +20,13 @@
     >
       {{ value }}
     </div>
+    <div *ngFor="let button of buttons">
+      <reg-button
+        [label]="button.label"
+        (click)="button.action()"
+        [width]="width"
+        [height]="15"
+      ></reg-button>
+    </div>
   </div>
 </div>
