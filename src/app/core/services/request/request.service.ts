@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, concatAll, map, mergeMap, toArray } from 'rxjs/operators';
+import {
+  catchError,
+  concatAll,
+  delay,
+  map,
+  mergeMap,
+  toArray,
+} from 'rxjs/operators';
 import { Picture } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { environment } from 'src/environments/environment';
@@ -62,6 +69,7 @@ export class RequestService {
     const picturesObs = this.http
       .get<Picture[]>(`${this.apiUrl}?page=${pages}&limit=${picturesNumber}`)
       .pipe(
+        delay(2000),
         mergeMap((data) => data),
         map((pic: Picture) => {
           const picCopy = { ...pic };
@@ -108,8 +116,9 @@ export class RequestService {
     return result;
   }
 
-  get(endpoint: string): Observable<any> {
+  get(endpoint: string): Observable<any> {    
     const result = this.http.get(environment.proxy + endpoint).pipe(
+      delay(2000),
       catchError((err) => {
         this.errorHandler(err);
         return throwError(err);

@@ -8,9 +8,15 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
+import { BigSpinnerComponent } from './big-spinner/big-spinner.component';
 
 @NgModule({
-  declarations: [AlertComponent, NavBarComponent, CropModalComponent],
+  declarations: [
+    AlertComponent,
+    NavBarComponent,
+    CropModalComponent,
+    BigSpinnerComponent,
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -20,6 +26,11 @@ import { SwiperModule } from 'swiper/angular';
     ImageCropperModule,
     SwiperModule,
   ],
-  exports: [AlertComponent, NavBarComponent, CropModalComponent],
+  exports: [
+    AlertComponent,
+    NavBarComponent,
+    CropModalComponent,
+    BigSpinnerComponent,
+  ],
 })
 export class TopModule {}
