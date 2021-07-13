@@ -6,6 +6,7 @@ import { GameParametersService } from 'src/app/core/services/game-parameters.ser
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { environment } from 'src/environments/environment';
+import { BigSpinnerService } from 'src/app/shared/top/big-spinner/big-spinner.service';
 
 @Component({
   selector: 'app-cardslist',
@@ -18,7 +19,8 @@ export class CardslistComponent implements OnInit {
     private game: GameService,
     private gameParams: GameParametersService,
     public regPopService: RegPopService,
-    private timer: TimerService
+    private timer: TimerService,
+    private bigSpinner : BigSpinnerService
   ) {}
 
   cardsList: Picture[] = [];
@@ -32,6 +34,7 @@ export class CardslistComponent implements OnInit {
   draw: boolean = false;
 
   ngOnInit(): void {
+    this.bigSpinner.show("cardsList")
     this.startGame();
     this.players = this.gameParams.players;
     this.multi = this.gameParams.players.length > 1;
@@ -47,6 +50,7 @@ export class CardslistComponent implements OnInit {
       this.request.getThemePics(diff, selectedTheme).subscribe({
         next: (resp) => {
           this.cardsList = resp;
+          this.bigSpinner.hide("cardsList")
         },
       });
 
@@ -58,6 +62,7 @@ export class CardslistComponent implements OnInit {
       this.request.getDefaultTheme(diff).subscribe({
         next: (resp): void => {
           this.cardsList = resp;
+          this.bigSpinner.hide("cardsList")
         },
       });
     }

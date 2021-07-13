@@ -22,7 +22,7 @@ export class PlayersNameComponent implements OnInit {
     private setupServ: SetupService,
     private alert: AlertService,
     private auth: AuthentificationService,
-    private request: RequestService
+    private request: RequestService,
   ) {}
 
   maxNumberOfPlayer: number = 1;

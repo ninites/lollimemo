@@ -69,7 +69,6 @@ export class RequestService {
     const picturesObs = this.http
       .get<Picture[]>(`${this.apiUrl}?page=${pages}&limit=${picturesNumber}`)
       .pipe(
-        delay(2000),
         mergeMap((data) => data),
         map((pic: Picture) => {
           const picCopy = { ...pic };
@@ -116,9 +115,8 @@ export class RequestService {
     return result;
   }
 
-  get(endpoint: string): Observable<any> {    
+  get(endpoint: string): Observable<any> {
     const result = this.http.get(environment.proxy + endpoint).pipe(
-      delay(2000),
       catchError((err) => {
         this.errorHandler(err);
         return throwError(err);

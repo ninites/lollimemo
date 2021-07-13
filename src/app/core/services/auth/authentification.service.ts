@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { BigSpinnerService } from 'src/app/shared/top/big-spinner/big-spinner.service';
 import { CoreModule } from '../../core.module';
 import { RequestService } from '../request/request.service';
 
@@ -9,7 +10,11 @@ import { RequestService } from '../request/request.service';
   providedIn: 'root',
 })
 export class AuthentificationService {
-  constructor(private requestAx: RequestService, private router: Router) {}
+  constructor(
+    private requestAx: RequestService,
+    private router: Router,
+    private bigSpinner: BigSpinnerService
+  ) {}
 
   isAuth$: BehaviorSubject<any> = new BehaviorSubject(null);
 
@@ -19,19 +24,21 @@ export class AuthentificationService {
   }
 
   resolveAuth(): Observable<any> {
+    this.bigSpinner.show('auth');
     return this.requestAx.get('users/auth').pipe(
       catchError(() => {
         return of(false);
       }),
       map((resp) => {
         this.isAuth$.next(resp && true);
+        this.bigSpinner.hide('auth');
         return resp && true;
       })
     );
   }
-  
 
   checkAuth(): Observable<any> {
+    this.bigSpinner.show('auth');
     return this.requestAx.get('users/auth').pipe(
       catchError((err) => {
         this.isAuth$.next(false);
@@ -40,6 +47,7 @@ export class AuthentificationService {
       }),
       map((resp: any) => {
         this.isAuth$.next(resp);
+        this.bigSpinner.hide('auth');
         return resp;
       })
     );

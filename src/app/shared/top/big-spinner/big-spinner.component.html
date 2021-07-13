@@ -1,4 +1,10 @@
-<div class="bigSpinner">
-  <h1>Memory</h1>
-  <div class="loader"></div>
+<div class="bigSpinner" *ngIf="isDisplayed" [@opacityAnim]>
+  <div class="sk-chase" [ngStyle]="style">
+    <div class="sk-chase-dot"></div>
+    <div class="sk-chase-dot"></div>
+    <div class="sk-chase-dot"></div>
+    <div class="sk-chase-dot"></div>
+    <div class="sk-chase-dot"></div>
+    <div class="sk-chase-dot"></div>
+  </div>
 </div>
