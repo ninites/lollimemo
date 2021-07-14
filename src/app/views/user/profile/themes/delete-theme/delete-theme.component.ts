@@ -23,6 +23,7 @@ export class DeleteThemeComponent implements OnInit {
 
   userThemes: { [key: string]: any }[] = [];
   themesPutForm = this.fb.group({});
+  isLoading : boolean = false
 
 
   ngOnInit(): void {
@@ -39,12 +40,14 @@ export class DeleteThemeComponent implements OnInit {
   }
 
   delete(themeId: string): void {
+    this.isLoading = true
     this.request.delete('themes/' + themeId).subscribe({
       next: (resp) => {
         this.userThemes = this.userThemes.filter(
           (theme) => theme._id !== resp._id
         );
         this.gameParams.setTheme({});
+        this.isLoading = false
         this.alert.message = 'Theme correctement supprimé';
         this.alert.switchAlert();
       },

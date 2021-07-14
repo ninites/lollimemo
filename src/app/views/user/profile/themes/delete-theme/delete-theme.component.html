@@ -11,6 +11,7 @@
         swiperSlide
         *ngFor="let theme of userThemes; trackBy: trackByFn; let index = index"
       >
+        <reg-spinner [size]="50" [isDisplayed]="isLoading"></reg-spinner>
         <delete-theme-item
           [theme]="theme"
           [themeIndex]="index"
