@@ -10,17 +10,24 @@
       "
     >
       <label [attr.for]="inputField.key">{{ label[i] }}</label>
+      <div class="modifyProfile_spinnerBox">
+        <reg-spinner [size]="20" [isDisplayed]="isLoading.get"></reg-spinner>
+ 
       <reg-input
         [attr.id]="inputField.key"
         [parentForm]="modifyProfileForm"
         [parentControlName]="inputField.key"
         [width]="200"
       ></reg-input>
+      </div>
     </div>
+   <div class="modifyProfile_spinnerBox">
+    <reg-spinner [size]="20" [isDisplayed]="isLoading.put"></reg-spinner>
     <reg-button
       [label]="'Modifier'"
       [disabled]="!modifyProfileForm.valid"
       [type]="'submit'"
     ></reg-button>
+   </div>
   </form>
 </div>

@@ -11,6 +11,7 @@ import { RegSelectComponent } from './reg-select/reg-select.component';
 import { RegFileComponent } from './reg-file/reg-file.component';
 import { PicturesPreviewComponent } from './pictures-preview/pictures-preview.component';
 import { DirectivesModule } from '../directives/directives.module';
+import { RegSpinnerComponent } from './reg-spinner/reg-spinner.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DirectivesModule } from '../directives/directives.module';
     RegSelectComponent,
     RegFileComponent,
     PicturesPreviewComponent,
+    RegSpinnerComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, DirectivesModule],
   exports: [
@@ -35,6 +37,7 @@ import { DirectivesModule } from '../directives/directives.module';
     RegSelectComponent,
     RegFileComponent,
     PicturesPreviewComponent,
+    RegSpinnerComponent,
   ],
 })
 export class WidgetModule {}

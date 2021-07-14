@@ -7,6 +7,11 @@
   h2 {
     margin: $marginMedium;
   }
+
+  &_spinnerBox {
+    position: relative;
+    width: fit-content;
+  }
   form {
     background-color: $orangeMedium;
     border-radius: $borderRadius;

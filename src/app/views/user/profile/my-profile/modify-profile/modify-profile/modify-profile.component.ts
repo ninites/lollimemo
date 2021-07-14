@@ -22,6 +22,10 @@ export class ModifyProfileComponent implements OnInit {
   });
 
   label = ["Nom d'utilisateur", 'Email'];
+  isLoading : {[key:string]:any} = {
+    put : false,
+    get : true
+  }
 
   ngOnInit(): void {
     this.getUserInfo();
@@ -36,8 +40,10 @@ export class ModifyProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isLoading.put = true
     this.request.put('users', this.modifyProfileForm.value).subscribe({
       next: (resp) => {
+        this.isLoading.put = false
         this.alert.message =
           'Modification de votre compte correctement enregistrée';
         this.alert.switchAlert();
@@ -58,6 +64,7 @@ export class ModifyProfileComponent implements OnInit {
         for (const key in mForm) {
           this.modifyProfileForm.patchValue({ [key]: response[key] });
         }
+        this.isLoading.get = false
       });
   }
 }

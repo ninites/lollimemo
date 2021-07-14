@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
+import { BigSpinnerService } from 'src/app/shared/top/big-spinner/big-spinner.service';
 @Component({
   selector: 'delete-theme',
   templateUrl: './delete-theme.component.html',
@@ -13,7 +14,8 @@ export class DeleteThemeComponent implements OnInit {
     private request: RequestService,
     private alert: AlertService,
     private fb: FormBuilder,
-    private gameParams: GameParametersService
+    private gameParams: GameParametersService,
+    private bigSpinner : BigSpinnerService
   ) {}
   @Input() themeIndex: any;
   @Output() themeIndexChange = new EventEmitter<number>();
@@ -22,8 +24,10 @@ export class DeleteThemeComponent implements OnInit {
   userThemes: { [key: string]: any }[] = [];
   themesPutForm = this.fb.group({});
 
+
   ngOnInit(): void {
     this.getThemes();
+    this.bigSpinner.show('getThemes')
   }
 
   onSwiper(event: any): void {
@@ -57,6 +61,7 @@ export class DeleteThemeComponent implements OnInit {
         this.userThemes = resp;
         this.themeLength.emit(resp.length);
         this.createForms(resp);
+        this.bigSpinner.hide('getThemes')
       },
       error: (err) => {
         console.log(err);

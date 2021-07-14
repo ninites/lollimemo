@@ -11,7 +11,6 @@
     margin: 10px;
   }
   &_inputsSolo {
-  
     & > * {
       margin: 10px;
     }
@@ -19,6 +18,7 @@
   &_inputsComp {
     display: flex;
     align-items: center;
+    position: relative;
   }
 
   &_connect {

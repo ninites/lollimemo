@@ -32,6 +32,7 @@ export class SelectThemesComponent implements OnInit {
   style: { [key: string]: any } = {};
   isAuth: boolean = false;
   addThemeButton: { label: string; action: () => void }[] = [];
+  isLoading : boolean = true
 
   ngOnInit(): void {
     this.setupServ.setIndexInChildren();
@@ -91,6 +92,7 @@ export class SelectThemesComponent implements OnInit {
   getThemes(): void {
     this.request.get('themes/all').subscribe({
       next: (resp) => {
+        this.isLoading = false
         const fullList = [...this.userTheme, ...resp];
         this.userTheme = fullList;
         fullList.forEach((theme: any) => {

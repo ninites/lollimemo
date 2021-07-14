@@ -22,6 +22,8 @@ export class BigSpinnerComponent implements OnInit {
     };
 
     this.bigSpinner.listen.subscribe((pendingList: string[]) => {
+      console.log(pendingList);
+      
       this.isDisplayed = pendingList.length !== 0;
     });
   }

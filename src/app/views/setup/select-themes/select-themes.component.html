@@ -1,6 +1,7 @@
 <div class="selectThemes">
   <h2>Choix du theme</h2>
   <div class="selectThemes_choice">
+    <reg-spinner [size]="20" [isDisplayed]="isLoading"></reg-spinner>
     <reg-select
       [values]="themesName"
       [width]="200"
