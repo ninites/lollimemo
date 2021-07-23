@@ -9,6 +9,14 @@
     color: $orangeLight;
   }
 
+  &_validationSpinn {
+    position: relative;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &_bar {
     border-radius: $borderRadius;
     display: flex;
@@ -104,6 +112,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
   &_cardTop {

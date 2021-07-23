@@ -8,6 +8,14 @@
     color: $textColor !important;
   }
 
+  &_validationSpinn{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+  }
+
   label {
     color: $orangeLight;
     font-size: small;

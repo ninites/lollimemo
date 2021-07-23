@@ -65,12 +65,15 @@
           >
             <i class="fas fa-eye"></i
           ></reg-button>
-          <reg-button
-            [type]="'submit'"
-            [label]="'Valider'"
-            [disabled]="!postThemeForm.valid"
-            [width]="130"
-          ></reg-button>
+          <div class="postTheme_validationSpinn">
+            <reg-spinner [size]="20" [isDisplayed]="isLoading"></reg-spinner>
+            <reg-button
+              [type]="'submit'"
+              [label]="'Valider'"
+              [disabled]="!postThemeForm.valid"
+              [width]="130"
+            ></reg-button>
+          </div>
         </div>
       </div>
     </form>

@@ -29,6 +29,11 @@ export class DeleteThemeItemComponent implements OnInit {
   cardsPreviewNotPosted: { [key: string]: any }[] = [];
   cardBackChange: boolean = false;
   picturesChange: boolean = false;
+  isLoading: { [key: string]: any } = {
+    cardBack: false,
+    pictures: false,
+    deletePicture: [],
+  };
 
   ngOnInit(): void {
     this.getCardBack();
@@ -82,6 +87,7 @@ export class DeleteThemeItemComponent implements OnInit {
       (images: { [key: string]: string }) => images.type === 'themePic'
     );
     cardsPreview.forEach((preview: { [key: string]: string }) => {
+      this.isLoading.deletePicture.push({ [preview.id]: false });
       result.push({ file: environment.proxy + preview.path, id: preview._id });
     });
     return result;
@@ -101,11 +107,12 @@ export class DeleteThemeItemComponent implements OnInit {
       this.alert.message = 'Vous ne pouvez pas avoir moins de 10 cartes';
       this.alert.switchAlert();
       return;
-    }
-
+    }    
+    this.isLoading.deletePicture[id] = true
     this.request.delete('uploads/' + this.theme._id + '/' + id).subscribe({
       next: (response) => {
         this.cardsPreview = this.cardsPreview.filter((card) => card.id !== id);
+        this.isLoading.deletePicture[id] = false
         this.alert.message = 'Carte correctement retirée';
         this.alert.switchAlert();
       },
@@ -170,6 +177,7 @@ export class DeleteThemeItemComponent implements OnInit {
   }
 
   editPosted(): void {
+    this.isLoading.cardBack = true;
     const newPic = this.themePutForm.value['cardBack' + this.themeIndex];
     const payload = new FormData();
     payload.append('cardBack', newPic[0]);
@@ -180,12 +188,14 @@ export class DeleteThemeItemComponent implements OnInit {
         this.themePutForm.patchValue({
           ['cardBack' + this.themeIndex]: [],
         });
+        this.isLoading.cardBack = false;
       },
       error: (err) => {},
     });
   }
 
   addNotPosted(): void {
+    this.isLoading.pictures = true;
     const newPics = this.themePutForm.value['pictures' + this.themeIndex];
     const payload = new FormData();
     newPics.forEach((pic: any) => {
@@ -198,6 +208,7 @@ export class DeleteThemeItemComponent implements OnInit {
           ['pictures' + this.themeIndex]: [],
         });
         this.cardsPreview = this.getPreview(resp.images);
+        this.isLoading.pictures = false;
       },
       error: (err) => {},
     });

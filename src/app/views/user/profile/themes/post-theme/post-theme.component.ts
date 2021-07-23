@@ -37,6 +37,7 @@ export class PostThemeComponent implements OnInit {
     cardBack: 0,
     pictures: 0,
   };
+  isLoading : boolean = false
 
   ngOnInit(): void {
     this.pictureChangeHandler();
@@ -115,6 +116,7 @@ export class PostThemeComponent implements OnInit {
   }
 
   onSubmit(e: any): void {
+    this.isLoading = true
     e.preventDefault();
     const { name, pictures, cardBack } = this.postThemeForm.value;
     const payload = new FormData();
@@ -125,6 +127,7 @@ export class PostThemeComponent implements OnInit {
     });
     this.request.post('themes/', payload).subscribe({
       next: (resp) => {
+        this.isLoading = false
         this.alert.message = 'Theme correctement ajouté';
         this.alert.switchAlert();
         this.postThemeForm.reset();

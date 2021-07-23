@@ -25,6 +25,7 @@ export class ModifyPasswordComponent implements OnInit {
     },
     { validator: passwordConfirming }
   );
+  isLoading : boolean = false
 
   passLabel: string[] = ['Nouveau mot de passe', 'Confirmation mot de passe'];
 
@@ -37,14 +38,17 @@ export class ModifyPasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isLoading = true
     this.request
       .post('users/password', {
         password: this.modifyPasswordForm.value.password,
       })
       .subscribe({
         next: (resp) => {
+          this.isLoading = false
           this.alert.message = 'Mot de passe correctement modifié';
           this.alert.switchAlert();
+
         },
         error: (err) => {
           this.alert.message =
