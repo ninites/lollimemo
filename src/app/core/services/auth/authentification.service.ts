@@ -27,6 +27,7 @@ export class AuthentificationService {
     this.bigSpinner.show('authResolve');
     return this.requestAx.get('users/auth').pipe(
       catchError(() => {
+        this.bigSpinner.hide('authResolve');
         return of(false);
       }),
       map((resp) => {
@@ -42,6 +43,7 @@ export class AuthentificationService {
     return this.requestAx.get('users/auth').pipe(
       catchError((err) => {
         this.isAuth$.next(false);
+        this.bigSpinner.hide('authCheck');
         this.router.navigate(['/user/login']);
         return throwError(err);
       }),
