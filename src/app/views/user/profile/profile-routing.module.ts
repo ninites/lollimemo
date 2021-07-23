@@ -17,11 +17,7 @@ const routes: Routes = [
           const module = await import('./themes/themes.module');
           return module.ThemesModule;
         },
-        canActivate: [AuthGuard],
         data: { animation: 'Themes' },
-        resolve: {
-          isAth: IsAuthResolver,
-        },
       },
       {
         path: 'my-profile',
@@ -29,11 +25,7 @@ const routes: Routes = [
           const module = await import('./my-profile/my-profile.module');
           return module.MyProfileModule;
         },
-        canActivate: [AuthGuard],
         data: { animation: 'Themes' },
-        resolve: {
-          isAth: IsAuthResolver,
-        },
       },
     ],
   },

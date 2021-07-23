@@ -39,9 +39,7 @@ const routes: Routes = [
       return module.UserModule;
     },
     data: { animation: 'User' },
-    resolve: {
-      isAth: IsAuthResolver,
-    },
+  
   },
   { path: '**', redirectTo: 'setup', pathMatch: 'full' },
 ];

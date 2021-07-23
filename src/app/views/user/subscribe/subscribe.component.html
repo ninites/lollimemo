@@ -24,10 +24,13 @@
         "
       ></reg-input>
     </div>
-    <reg-button
-      [label]="'Envoyer'"
-      [disabled]="!subForm.valid"
-      [type]="'submit'"
-    ></reg-button>
+    <div class="subscribe_validSpinn">
+      <reg-spinner [size]="20" [isDisplayed]="isLoading"></reg-spinner>
+      <reg-button
+        [label]="'Envoyer'"
+        [disabled]="!subForm.valid"
+        [type]="'submit'"
+      ></reg-button>
+    </div>
   </form>
 </div>

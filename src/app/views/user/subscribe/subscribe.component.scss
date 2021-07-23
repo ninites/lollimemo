@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 .subscribe {
   display: flex;
@@ -17,5 +17,13 @@
     & > * {
       margin: $marginMedium;
     }
+  }
+
+  &_validSpinn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
   }
 }

@@ -19,7 +19,6 @@ export class SelectThemesComponent implements OnInit {
     private setupServ: SetupService,
     private request: RequestService,
     private gameParams: GameParametersService,
-    private auth: AuthentificationService,
     private router: Router
   ) {}
 
@@ -28,23 +27,19 @@ export class SelectThemesComponent implements OnInit {
   choosenTheme: string = '';
   userSelection: string = '';
   validation$: BehaviorSubject<any> = new BehaviorSubject(false);
-  validationSubscription : Subscription = this.validation$.subscribe()
+  validationSubscription: Subscription = this.validation$.subscribe();
   style: { [key: string]: any } = {};
-  isAuth: boolean = false;
   addThemeButton: { label: string; action: () => void }[] = [];
-  isLoading : boolean = true
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.setupServ.setIndexInChildren();
     this.getThemes();
     this.checkValidation();
-    
   }
 
- 
-
   checkValidation(): void {
-    this.validationSubscription = this.validation$.subscribe((valid) => {      
+    this.validationSubscription = this.validation$.subscribe((valid) => {
       if (valid) {
         this.setupServ.displayPathButton();
         this.setupServ.setDisableDots();
@@ -90,14 +85,15 @@ export class SelectThemesComponent implements OnInit {
   }
 
   getThemes(): void {
+    this.isLoading = true;
     this.request.get('themes/all').subscribe({
       next: (resp) => {
-        this.isLoading = false
+        this.isLoading = false;
         const fullList = [...this.userTheme, ...resp];
         this.userTheme = fullList;
         fullList.forEach((theme: any) => {
           this.themesName.push(theme.name);
-        });        
+        });
         this.getSavedValue();
         this.addThemeButton.push({
           label: '+ Ajouter un theme ',
@@ -111,6 +107,7 @@ export class SelectThemesComponent implements OnInit {
           this.themesName.push(theme.name);
         });
         this.getSavedValue();
+        this.isLoading = false;
       },
     });
   }
@@ -124,7 +121,7 @@ export class SelectThemesComponent implements OnInit {
       (theme) => theme.name === paramsValue
     );
 
-    if (checkIfExists.length === 0) {        
+    if (checkIfExists.length === 0) {
       this.validation$.next(false);
       return;
     }

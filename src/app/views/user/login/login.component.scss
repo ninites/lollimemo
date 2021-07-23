@@ -7,15 +7,24 @@
   h2 {
     margin: $marginMedium;
   }
+
+  &_validSpinn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
+  }
+  
   form {
-      background-color: $orangeMedium;
-      border-radius: $borderRadius;
-      padding: $paddingMedium;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-sa;
-      & >* {
-          margin: $marginMedium;
-      }
+    background-color: $orangeMedium;
+    border-radius: $borderRadius;
+    padding: $paddingMedium;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-sa;
+    & > * {
+      margin: $marginMedium;
+    }
   }
 }

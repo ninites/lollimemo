@@ -24,21 +24,21 @@ export class AuthentificationService {
   }
 
   resolveAuth(): Observable<any> {
-    this.bigSpinner.show('auth');
+    this.bigSpinner.show('authResolve');
     return this.requestAx.get('users/auth').pipe(
       catchError(() => {
         return of(false);
       }),
       map((resp) => {
         this.isAuth$.next(resp && true);
-        this.bigSpinner.hide('auth');
+        this.bigSpinner.hide('authResolve');
         return resp && true;
       })
     );
   }
 
   checkAuth(): Observable<any> {
-    this.bigSpinner.show('auth');
+    this.bigSpinner.show('authCheck');
     return this.requestAx.get('users/auth').pipe(
       catchError((err) => {
         this.isAuth$.next(false);
@@ -47,7 +47,7 @@ export class AuthentificationService {
       }),
       map((resp: any) => {
         this.isAuth$.next(resp);
-        this.bigSpinner.hide('auth');
+        this.bigSpinner.hide('authCheck');
         return resp;
       })
     );

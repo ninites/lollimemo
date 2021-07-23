@@ -25,14 +25,17 @@ export class LoginComponent implements OnInit {
   });
   htmlLoginForm = {};
   label: string[] = ["Nom d'utilisateur", 'Mot de passe'];
+  isLoading : boolean = false
 
   notSorted() {
     return 0;
   }
 
   onSubmit(): void {
+    this.isLoading = true
     this.request.post('users/login', this.loginForm.value).subscribe({
       next: () => {
+        this.isLoading = false
         let previousUrl = this.routeHistory.getPrevious();
         const subPresence = /subscribe/;
         if (subPresence.test(previousUrl)) previousUrl = '';

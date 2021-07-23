@@ -39,7 +39,7 @@ export class PlayersNameComponent implements OnInit {
   validationSubscription : Subscription = this.validate$.subscribe()
   btnValidation: boolean = true;
   isAuth: boolean = false;
-  isLoading : boolean = true
+  isLoading : boolean = false
 
   ngOnInit(): void {
     this.maxNumberOfPlayer = this.gameParams.numberOfPlayer;
@@ -59,6 +59,7 @@ export class PlayersNameComponent implements OnInit {
     this.auth.isAuth$.subscribe((isAuth) => {
       this.isAuth = isAuth;
       if (isAuth) {
+        this.isLoading = true
         this.request.get('users/info').subscribe((response) => {
           this.isLoading = false
           this.aliases.patchValue([response.username]);

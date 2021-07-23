@@ -37,14 +37,17 @@ export class SubscribeComponent implements OnInit {
   ];
 
   formList = {};
+  isLoading : boolean = false
 
   unsorted() {
     return 0;
   }
 
   onSubmit(): void {
+    this.isLoading = true
     this.request.post('users', this.subForm.value).subscribe({
       next: () => {
+        this.isLoading = false
         this.router.navigate(['/user/login']);
       },
       error: (err) => {

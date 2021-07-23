@@ -19,8 +19,11 @@
       ></reg-input>
     </div>
     <a [routerLink]="['/']">Mot de passe oublié</a>
-    <reg-button [type]="'submit'" [disabled]="!loginForm.valid"
-      >Login</reg-button
-    >
+    <div class="user_validSpinn">
+      <reg-spinner [size]="20" [isDisplayed]="isLoading"></reg-spinner
+      ><reg-button [type]="'submit'" [disabled]="!loginForm.valid"
+        >Login</reg-button
+      >
+    </div>
   </form>
 </div>
