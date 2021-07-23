@@ -12,7 +12,6 @@ import {
 import { Picture } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { environment } from 'src/environments/environment';
-import { CoreModule } from '../../core.module';
 
 export interface Token {
   accesToken: string;
@@ -28,7 +27,6 @@ export class RequestService {
 
   getThemePics(picturesNumber: number, themeId: string): Observable<any> {
     return this.http.get(environment.proxy + 'themes/all').pipe(
-      delay(1000),
       map((themes: { [key: string]: any }) => {
         //// Select good theme
         const selectedTheme = themes.filter(
@@ -92,7 +90,6 @@ export class RequestService {
 
   post(endpoint: string, payload: { [key: string]: any }): Observable<any> {
     const result = this.http.post(environment.proxy + endpoint, payload).pipe(
-      delay(1000),
       catchError((err) => {
         this.errorHandler(err);
         return throwError(err);
@@ -109,7 +106,6 @@ export class RequestService {
 
   delete(endpoit: string): Observable<any> {
     const result = this.http.delete(environment.proxy + endpoit).pipe(
-      delay(1000),
       catchError((err) => {
         this.errorHandler(err);
         return throwError(err);
@@ -120,7 +116,6 @@ export class RequestService {
 
   get(endpoint: string): Observable<any> {
     const result = this.http.get(environment.proxy + endpoint).pipe(
-      delay(1000),
       catchError((err) => {
         this.errorHandler(err);
         return throwError(err);
@@ -131,7 +126,6 @@ export class RequestService {
 
   put(endpoint: string, payload: { [key: string]: any }): Observable<any> {
     const result = this.http.put(environment.proxy + endpoint, payload).pipe(
-      delay(1000),
       catchError((err) => {
         this.errorHandler(err);
         return throwError(err);
