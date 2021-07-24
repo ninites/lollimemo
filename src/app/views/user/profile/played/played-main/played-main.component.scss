@@ -1,0 +1,15 @@
+@import "variables.scss";
+
+.played-main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  & > * {
+    margin-bottom: $marginMedium;
+  }
+  &_games {
+    background-color: $greenLight;
+    width: 90%;
+    border-radius: $borderRadius;
+  }
+}

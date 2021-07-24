@@ -7,8 +7,21 @@
         <reg-select
           [values]="select.difficulty.choices"
           [(choice)]="select.difficulty.selected"
-          [width]="120"
+          [width]="150"
         ></reg-select>
+      </div>
+
+      <div class="filter-bar_type" *ngIf="select.type.selected === 'multi'">
+        <p>Nom de l'adversaire</p>
+        <form [formGroup]="opponentForm">
+          <div class="filter-bar_inputBack">
+            <reg-input
+              [parentForm]="opponentForm"
+              parentControlName="name"
+              [width]="130"
+            ></reg-input>
+          </div>
+        </form>
       </div>
 
       <div class="filter-bar_type">
@@ -16,15 +29,12 @@
         <reg-select
           [values]="select.type.choices"
           [(choice)]="select.type.selected"
-          [width]="120"
+          [width]="150"
         ></reg-select>
       </div>
 
-      <div class="filter-bar_type">
+      <div class="filter-bar_validation">
         <reg-button (click)="filtered(true)">Reset</reg-button>
-      </div>
-
-      <div class="filter-bar_type">
         <reg-button (click)="filtered(false)"
           ><i class="fas fa-search"></i
         ></reg-button>

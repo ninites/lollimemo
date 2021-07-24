@@ -24,6 +24,12 @@
     margin-bottom: $marginLow;
   }
 
+  &_inputBack {
+    background-color: $orangeLight;
+    border-radius: $borderRadius;
+    padding: $paddingLow;
+  }
+
   &_wrapper {
     display: flex;
     align-items: center;
@@ -33,5 +39,13 @@
 
   &_type {
     margin: $marginMedium;
+  }
+
+  &_validation {
+    margin: $marginMedium;
+    display: flex;
+    & > * {
+      margin: $marginMedium;
+    }
   }
 }

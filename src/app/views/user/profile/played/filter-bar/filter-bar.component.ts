@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'filter-bar',
@@ -9,7 +10,7 @@ export class FilterBarComponent implements OnInit {
   @Output() filteredChange = new EventEmitter<{ [key: string]: any }>();
   @Input() filters: { [key: string]: any } = {};
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   select: { [key: string]: any } = {
     difficulty: {
@@ -22,23 +23,35 @@ export class FilterBarComponent implements OnInit {
     },
   };
 
+  opponentForm = this.fb.group({
+    name: [''],
+  });
+
   ngOnInit(): void {
     this.initFilters();
   }
 
   initFilters(): void {
     for (const key in this.filters) {
-      this.select[key].selected = this.filters[key];
+      if (this.select[key]) {
+        this.select[key].selected = this.filters[key];
+      }
+
+      if (key === 'opponent') {
+        this.opponentForm.patchValue({ name: this.filters.opponent });
+      }
     }
   }
 
   filtered(reset: boolean) {
     const filteredResult: { [key: string]: any } = {};
+    const opponentName = this.opponentForm.value.name;
 
     if (reset) {
       for (const key in this.select) {
         this.select[key].selected = '';
       }
+      this.opponentForm.reset()
     }
 
     if (!reset) {
@@ -46,6 +59,9 @@ export class FilterBarComponent implements OnInit {
         if (this.select[key].selected) {
           filteredResult[key] = this.select[key].selected;
         }
+      }
+      if (opponentName) {
+        filteredResult.opponent = opponentName.trim();
       }
     }
 

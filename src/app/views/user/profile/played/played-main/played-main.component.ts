@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { GamePlayed } from '../played.interface';
+
 
 @Component({
   selector: 'app-played-main',
@@ -15,6 +17,7 @@ export class PlayedMainComponent implements OnInit {
   ) {}
 
   queryParams: { [key: string]: any } = {};
+  gamesPlayed: GamePlayed[] = [];
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((query) => {
@@ -23,7 +26,11 @@ export class PlayedMainComponent implements OnInit {
       for (const key in query) {
         queryStrings += key + '=' + query[key] + '&';
       }
-      this.request.get('games/' + queryStrings).subscribe(console.log);
+      this.request
+        .get('games/' + queryStrings)
+        .subscribe((response: GamePlayed[]) => {
+          this.gamesPlayed = [...response];
+        });
     });
   }
 

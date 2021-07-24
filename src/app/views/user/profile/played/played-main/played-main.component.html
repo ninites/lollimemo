@@ -1,4 +1,9 @@
-<filter-bar
-  (filteredChange)="searchFilter($event)"
-  [filters]="queryParams"
-></filter-bar>
+<div class="played-main">
+  <filter-bar
+    (filteredChange)="searchFilter($event)"
+    [filters]="queryParams"
+  ></filter-bar>
+  <div class="played-main_games">
+    <played-item *ngFor="let game of gamesPlayed" [game]="game"></played-item>
+  </div>
+</div>
