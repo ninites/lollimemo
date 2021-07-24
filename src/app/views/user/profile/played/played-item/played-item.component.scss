@@ -5,12 +5,33 @@
   flex-direction: column;
   align-items: center;
   padding: $paddingMedium;
-  .soloWrapper {
-  }
 
   &_box {
     background-color: $orangeLight;
     border-radius: $borderRadius;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .date {
+    margin-top: $marginLow;
+    margin-left: $marginLow;
+  }
+
+  &_infoBoxContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &_infoBox {
+    display: flex;
+    align-items: center;
+    margin: $marginLow;
+    & > * {
+      margin-left: $marginLow;
+    }
   }
 }

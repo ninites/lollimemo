@@ -15,7 +15,9 @@ class Games {
     const user = await User.findById(userId).populate({
       path: "games",
       match: filters,
+      options: { sort: { date: -1 } },
     });
+    console.log(user);
     return user.games;
   };
 }

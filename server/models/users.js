@@ -8,10 +8,15 @@ class Users {
     let result;
 
     try {
-      result = await User.findOne(filter).populate({
-        path: "themes",
-        populate: { path: "images", model: "Image" },
-      });
+      result = await User.findOne(filter)
+        .populate({
+          path: "themes",
+          populate: { path: "images", model: "Image" },
+        })
+        .populate({
+          path: "games",
+        })
+        .select("-password -email");
     } catch (err) {
       console.log(err);
     }

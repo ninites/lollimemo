@@ -21,11 +21,13 @@ const imageSchema = mongoose.Schema({
 
 const gamesSchema = mongoose.Schema({
   type: { type: String, required: true },
+  try: { type: Number, required: false },
   userScore: { type: Number, required: false },
   opponent: { type: String, required: false },
   opponentScore: { type: Number, required: false },
   time: { type: String, required: false },
-  difficulty: { type: String, required: true },  
+  date: { type: Date, required: true },
+  difficulty: { type: String, required: true },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -4,11 +4,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
+  &_all {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
 
   &_container {
     display: flex;
     background-color: $greenLight;
-    width: 90%;
     border-radius: $borderRadius;
     flex-direction: column;
   }
@@ -23,17 +29,27 @@
     color: $orangeLight;
     margin-bottom: $marginLow;
   }
+  .icon {
+    color: $orangeLight;
+  }
+  .title {
+    display: flex;
+    cursor: pointer;
+    color: $orangeLight;
+    & > * {
+      margin-bottom: $marginLow;
+    }
+  }
 
   &_inputBack {
     background-color: $orangeLight;
     border-radius: $borderRadius;
-    padding: $paddingLow;
+    padding: 1px;
   }
 
   &_wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     flex-wrap: wrap;
   }
 
@@ -42,10 +58,10 @@
   }
 
   &_validation {
-    margin: $marginMedium;
+    align-self: flex-end;
     display: flex;
     & > * {
-      margin: $marginMedium;
+      margin: $marginLow;
     }
   }
 }

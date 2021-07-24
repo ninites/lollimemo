@@ -14,7 +14,7 @@ class Users {
       return;
     }
     const { id } = req.body.userInfo;
-    const user = await model.getOne({ id: id });
+    const user = await model.getOne({ id: id });   
     res.status(200).json(user);
   };
 

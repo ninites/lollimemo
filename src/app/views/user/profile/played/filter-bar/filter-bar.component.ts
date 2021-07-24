@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { popAnim } from 'src/app/animations/animations';
 
 @Component({
   selector: 'filter-bar',
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.scss'],
+  animations: [popAnim],
 })
 export class FilterBarComponent implements OnInit {
   @Output() filteredChange = new EventEmitter<{ [key: string]: any }>();
@@ -26,6 +28,12 @@ export class FilterBarComponent implements OnInit {
   opponentForm = this.fb.group({
     name: [''],
   });
+
+  filtersDisplayed: { [key: string]: boolean } = {
+    difficulty: false,
+    type: false,
+    opponent: false,
+  };
 
   ngOnInit(): void {
     this.initFilters();
@@ -51,7 +59,11 @@ export class FilterBarComponent implements OnInit {
       for (const key in this.select) {
         this.select[key].selected = '';
       }
-      this.opponentForm.reset()
+
+      for (const key in this.filtersDisplayed) {
+        this.filtersDisplayed[key] = false;
+      }
+      this.opponentForm.reset();
     }
 
     if (!reset) {

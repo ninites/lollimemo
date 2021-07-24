@@ -1,14 +1,48 @@
 <div class="played-item">
-  <div class="played-item_box soloWrapper" *ngIf="game.type === 'solo'">
-    {{ game.difficulty }}
-    {{ game.time }}
+
+  <div class="played-item_box" *ngIf="game.type === 'solo'">
+    <p class="date">Jouée le : {{ game.date | date: "dd/MM/yy , h:mm" }}</p>
+    <div class="played-item_infoBoxContainer">
+      <div class="played-item_infoBox">
+        <i class="fas fa-gamepad"></i>
+        <p>
+          {{ game.difficulty }}
+        </p>
+      </div>
+
+      <div class="played-item_infoBox">
+        <i class="fas fa-sync"></i>
+        <p>{{ game.try }}</p>
+      </div>
+
+      <div class="played-item_infoBox">
+        <i class="far fa-clock"></i>
+        <p>{{ game.time }}</p>
+      </div>
+    </div>
   </div>
+
   <div class="played-item_box multiWrapper" *ngIf="game.type === 'multi'">
-    {{ game.opponent }}
-    {{ game.opponentScore }}
-    Vous
-    {{ game.userScore }}
-    {{ game.difficulty }}
-    {{ game.time }}
+    <p class="date">Jouée le : {{ game.date | date: "dd/MM/yy , h:mm" }}</p>
+    <div class="played-item_infoBoxContainer">
+      <div class="played-item_infoBox">
+        <i class="fas fa-gamepad"></i>
+        <p>
+          {{ game.difficulty }}
+        </p>
+      </div>
+
+      <div class="played-item_infoBox">
+        <p>{{ userInfo.username }} : {{ game.userScore }}</p>
+        <i class="fas fa-bolt"></i>
+        <p>{{ game.opponent }}: {{ game.opponentScore }}</p>
+      </div>
+
+      <div class="played-item_infoBox">
+        <i class="far fa-clock"></i>
+        <p>{{ game.time }}</p>
+      </div>
+    </div>
   </div>
+  
 </div>

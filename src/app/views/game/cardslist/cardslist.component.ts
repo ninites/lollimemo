@@ -137,11 +137,13 @@ export class CardslistComponent implements OnInit {
     const gameTime = `${minutes}:${seconds}`;
     const savedGame = {
       type: type,
+      try: this.game.numberOftries,
       userScore: players[0].totalPoints,
       opponent: isMulti ? players[1].username : '',
       opponentScore: isMulti ? players[1].totalPoints : 0,
       time: gameTime,
       difficulty: selectedDifficultyString,
+      date: new Date(),
     };
 
     this.request.post('games', savedGame).subscribe({

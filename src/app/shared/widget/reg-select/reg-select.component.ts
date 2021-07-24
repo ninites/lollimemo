@@ -12,6 +12,7 @@ export class RegSelectComponent implements OnInit {
   @Input() choice: string = '';
   @Input() width: number = 0;
   @Input() buttons: { label: string; action: () => void }[] = [];
+  @Input() placeholder: string = 'Faites votre choix';
   @Output() choiceChange = new EventEmitter<string>();
 
   displayOptions: boolean = false;
@@ -26,7 +27,7 @@ export class RegSelectComponent implements OnInit {
 
   ngOnInit(): void {
     this.style = {
-      width: (this.width + 2) + 'px',
+      width: this.width + 2 + 'px',
     };
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserInfo } from '../../../user.interface';
 import { GamePlayed } from '../played.interface';
 
 @Component({
@@ -8,11 +9,9 @@ import { GamePlayed } from '../played.interface';
 })
 export class PlayedItemComponent implements OnInit {
   @Input() game: GamePlayed = {} as GamePlayed;
+  @Input() userInfo: UserInfo = {} as UserInfo;
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.game);
-    
-  }
+  ngOnInit(): void {}
 }

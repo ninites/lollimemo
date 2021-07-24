@@ -1,9 +1,22 @@
 <div class="played-main">
-  <filter-bar
-    (filteredChange)="searchFilter($event)"
-    [filters]="queryParams"
-  ></filter-bar>
-  <div class="played-main_games">
-    <played-item *ngFor="let game of gamesPlayed" [game]="game"></played-item>
+  <div class="played-main_filterButton">
+    <div class="played-main_filterButtonMed">
+      <reg-button (click)="displayBar = !displayBar">Filtrer</reg-button>
+    </div>
+  </div>
+  <div *ngIf="displayBar" [@translateLeft]>
+    <filter-bar
+      (filteredChange)="searchFilter($event)"
+      [filters]="queryParams"
+    ></filter-bar>
+  </div>
+  <div class="played-main_items">
+    <div class="played-main_itemsWrapper">
+      <played-item
+        *ngFor="let game of gamesPlayed"
+        [game]="game"
+        [userInfo]="userInfo"
+      ></played-item>
+    </div>
   </div>
 </div>

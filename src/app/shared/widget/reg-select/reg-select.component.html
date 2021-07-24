@@ -6,7 +6,7 @@
   (click)="displayOptions = !displayOptions"
 >
   <div class="regSelect_text">
-    <p *ngIf="!choice">Faites votre choix</p>
+    <p *ngIf="!choice">{{placeholder}}</p>
     <p>{{ choice }}</p>
   </div>
   <div
