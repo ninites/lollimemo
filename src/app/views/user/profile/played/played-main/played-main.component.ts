@@ -14,8 +14,11 @@ export class PlayedMainComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  queryParams: { [key: string]: any } = {};
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((query) => {
+      this.queryParams = query;
       let queryStrings = '?';
       for (const key in query) {
         queryStrings += key + '=' + query[key] + '&';
@@ -24,11 +27,7 @@ export class PlayedMainComponent implements OnInit {
     });
   }
 
-  filter(name: string, type: string) {
-    const params = {
-      type: type,
-      opponent: name,
-    };
-    this.router.navigate(['/user/profile/played'], { queryParams: params });
+  searchFilter(filters: { [key: string]: any }): void {
+    this.router.navigate(['/user/profile/played'], { queryParams: filters });
   }
 }

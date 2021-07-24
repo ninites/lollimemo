@@ -1,0 +1,37 @@
+@import "variables.scss";
+
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &_container {
+    display: flex;
+    background-color: $greenLight;
+    width: 90%;
+    border-radius: $borderRadius;
+    flex-direction: column;
+  }
+
+  h4 {
+    margin-left: $marginMedium;
+    margin-top: $marginMedium;
+    color: $orangeLight;
+  }
+
+  p {
+    color: $orangeLight;
+    margin-bottom: $marginLow;
+  }
+
+  &_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &_type {
+    margin: $marginMedium;
+  }
+}

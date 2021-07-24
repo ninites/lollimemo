@@ -1,0 +1,34 @@
+<div class="filter-bar">
+  <div class="filter-bar_container">
+    <h4>Filtrer par :</h4>
+    <div class="filter-bar_wrapper">
+      <div class="filter-bar_type">
+        <p>Difficulté</p>
+        <reg-select
+          [values]="select.difficulty.choices"
+          [(choice)]="select.difficulty.selected"
+          [width]="120"
+        ></reg-select>
+      </div>
+
+      <div class="filter-bar_type">
+        <p>Type de partie</p>
+        <reg-select
+          [values]="select.type.choices"
+          [(choice)]="select.type.selected"
+          [width]="120"
+        ></reg-select>
+      </div>
+
+      <div class="filter-bar_type">
+        <reg-button (click)="filtered(true)">Reset</reg-button>
+      </div>
+
+      <div class="filter-bar_type">
+        <reg-button (click)="filtered(false)"
+          ><i class="fas fa-search"></i
+        ></reg-button>
+      </div>
+    </div>
+  </div>
+</div>
