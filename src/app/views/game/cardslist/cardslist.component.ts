@@ -20,7 +20,7 @@ export class CardslistComponent implements OnInit {
     private gameParams: GameParametersService,
     public regPopService: RegPopService,
     private timer: TimerService,
-    private bigSpinner : BigSpinnerService
+    private bigSpinner: BigSpinnerService
   ) {}
 
   cardsList: Picture[] = [];
@@ -34,7 +34,7 @@ export class CardslistComponent implements OnInit {
   draw: boolean = false;
 
   ngOnInit(): void {
-    this.bigSpinner.show("cardsList")
+    this.bigSpinner.show('cardsList');
     this.startGame();
     this.players = this.gameParams.players;
     this.multi = this.gameParams.players.length > 1;
@@ -50,7 +50,7 @@ export class CardslistComponent implements OnInit {
       this.request.getThemePics(diff, selectedTheme).subscribe({
         next: (resp) => {
           this.cardsList = resp;
-          this.bigSpinner.hide("cardsList")
+          this.bigSpinner.hide('cardsList');
         },
       });
 
@@ -62,7 +62,7 @@ export class CardslistComponent implements OnInit {
       this.request.getDefaultTheme(diff).subscribe({
         next: (resp): void => {
           this.cardsList = resp;
-          this.bigSpinner.hide("cardsList")
+          this.bigSpinner.hide('cardsList');
         },
       });
     }
@@ -98,11 +98,13 @@ export class CardslistComponent implements OnInit {
     if (this.isFlipping) return;
     this.openCard(ids.unique);
     const gameStatus = this.game.addTurnTry(ids);
-    if (gameStatus === 'win')
+    if (gameStatus === 'win') {
+      this.saveGame();
       this.interval = setTimeout(() => {
         this.setWinner();
         this.regPopService.switchModal();
       }, 800);
+    }
     if (gameStatus === 'close') {
       this.isFlipping = true;
       await new Promise((resolve, reject) => {
@@ -125,6 +127,29 @@ export class CardslistComponent implements OnInit {
       return max.totalPoints > val.totalPoints ? max : val;
     });
     this.winner = winner;
+  }
+
+  saveGame(): void {
+    const { players, selectedDifficultyString } = this.gameParams;
+    const type = players.length > 1 ? 'multi' : 'solo';
+    const isMulti = type === 'multi';
+    const { minutes, seconds } = this.timer;
+    const gameTime = `${minutes}:${seconds}`;
+    const savedGame = {
+      type: type,
+      userScore: players[0].totalPoints,
+      opponent: isMulti ? players[1].username : '',
+      opponentScore: isMulti ? players[1].totalPoints : 0,
+      time: gameTime,
+      difficulty: selectedDifficultyString,
+    };
+
+    this.request.post('games', savedGame).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {},
+    });
   }
 
   ngOnDestroy() {

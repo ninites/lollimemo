@@ -95,12 +95,6 @@ export class SelectThemesComponent implements OnInit {
           this.themesName.push(theme.name);
         });
         this.getSavedValue();
-        this.addThemeButton.push({
-          label: '+ Ajouter un theme ',
-          action: () => {
-            this.router.navigateByUrl('user/profile/themes/post');
-          },
-        });
       },
       error: (err) => {
         this.userTheme.forEach((theme: any) => {
@@ -110,7 +104,19 @@ export class SelectThemesComponent implements OnInit {
         this.isLoading = false;
       },
     });
+    this.pushThemeButton()
   }
+
+  pushThemeButton() {
+    this.addThemeButton.push({
+      label: '+ Ajouter un theme ',
+      action: () => {
+        this.router.navigate(['user/profile/themes/post']);
+      },
+    });
+  }
+
+
 
   getSavedValue(): void {
     const paramsValue = this.gameParams.selectedTheme.name

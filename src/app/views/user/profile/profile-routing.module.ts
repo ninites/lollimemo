@@ -27,6 +27,14 @@ const routes: Routes = [
         },
         data: { animation: 'Themes' },
       },
+      {
+        path: 'played',
+        loadChildren: async () => {
+          const module = await import('./played/played.module');
+          return module.PlayedModule;
+        },
+        data: { animation: 'Themes' },
+      },
     ],
   },
 ];

@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   userOptions: { [key: string]: any }[] = [
     { value: 'Profile', link: ['/user/profile/my-profile'] },
     { value: 'Themes', link: ['/user/profile/themes'] },
-    { value: 'Parties', link: ['/user/profile/games'] },
+    { value: 'Parties', link: ['/user/profile/played'] },
   ];
 
   ngOnInit(): void {

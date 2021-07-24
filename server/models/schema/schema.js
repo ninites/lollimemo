@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String, required: true },
   themes: [{ type: Schema.Types.ObjectId, ref: "Theme" }],
+  games: [{ type: Schema.Types.ObjectId, ref: "Game" }],
 });
 
 const themeSchema = mongoose.Schema({
@@ -18,8 +19,18 @@ const imageSchema = mongoose.Schema({
   path: { type: String, required: true },
 });
 
+const gamesSchema = mongoose.Schema({
+  type: { type: String, required: true },
+  userScore: { type: Number, required: false },
+  opponent: { type: String, required: false },
+  opponentScore: { type: Number, required: false },
+  time: { type: String, required: false },
+  difficulty: { type: String, required: true },  
+});
+
 const User = mongoose.model("User", userSchema);
 const Theme = mongoose.model("Theme", themeSchema);
 const Image = mongoose.model("Image", imageSchema);
+const Game = mongoose.model("Game", gamesSchema);
 
-module.exports = { User, Theme, Image };
+module.exports = { User, Theme, Image, Game };

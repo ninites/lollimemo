@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BigSpinnerService } from 'src/app/shared/top/big-spinner/big-spinner.service';
-import { CoreModule } from '../../core.module';
 import { RequestService } from '../request/request.service';
 
 @Injectable({
