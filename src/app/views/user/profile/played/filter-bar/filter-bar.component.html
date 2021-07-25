@@ -4,52 +4,35 @@
       <h4>Filtrer par :</h4>
       <div class="filter-bar_wrapper">
         <div class="filter-bar_type">
-          <div
-            class="title"
-            (click)="filtersDisplayed.difficulty = !filtersDisplayed.difficulty"
-          >
+          <div class="title">
             <i class="fas fa-gamepad fa-lg icon"></i>
           </div>
-          <div *ngIf="filtersDisplayed.difficulty" [@popIn]>
-            <reg-select
-              placeholder="Difficulté"
-              [values]="select.difficulty.choices"
-              [(choice)]="select.difficulty.selected"
-              [width]="145"
-            ></reg-select>
-          </div>
+          <reg-select
+            placeholder="Difficulté"
+            [values]="select.difficulty.choices"
+            [(choice)]="select.difficulty.selected"
+            [width]="145"
+          ></reg-select>
         </div>
 
         <div class="filter-bar_type">
-          <div
-            class="title"
-            (click)="filtersDisplayed.type = !filtersDisplayed.type"
-          >
+          <div class="title">
             <i class="fas fa-user-friends fa-lg icon"></i>
           </div>
-          <div *ngIf="filtersDisplayed.type" [@popIn]>
-            <reg-select
-              placeholder="Type de partie"
-              [values]="select.type.choices"
-              [(choice)]="select.type.selected"
-              [width]="145"
-            ></reg-select>
-          </div>
+          <reg-select
+            placeholder="Type de partie"
+            [values]="select.type.choices"
+            [(choice)]="select.type.selected"
+            [width]="145"
+          ></reg-select>
         </div>
 
         <div class="filter-bar_type" *ngIf="select.type.selected === 'multi'">
-          <div
-            class="title"
-            (click)="filtersDisplayed.opponent = !filtersDisplayed.opponent"
-          >
+          <div class="title">
             <i class="fas fa-file-signature fa-lg icon"></i>
           </div>
           <form [formGroup]="opponentForm">
-            <div
-              class="filter-bar_inputBack"
-              *ngIf="filtersDisplayed.opponent"
-              [@popIn]
-            >
+            <div class="filter-bar_inputBack">
               <reg-input
                 placeholder="Nom de l' adversaire"
                 [parentForm]="opponentForm"

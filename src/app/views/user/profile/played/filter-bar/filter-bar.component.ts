@@ -29,12 +29,6 @@ export class FilterBarComponent implements OnInit {
     name: [''],
   });
 
-  filtersDisplayed: { [key: string]: boolean } = {
-    difficulty: false,
-    type: false,
-    opponent: false,
-  };
-
   ngOnInit(): void {
     this.initFilters();
   }
@@ -60,9 +54,6 @@ export class FilterBarComponent implements OnInit {
         this.select[key].selected = '';
       }
 
-      for (const key in this.filtersDisplayed) {
-        this.filtersDisplayed[key] = false;
-      }
       this.opponentForm.reset();
     }
 

@@ -4,7 +4,6 @@
   height: 100%;
   width: 100%;
 
-
   &_optionsBloc {
     font-weight: bold;
     width: 130px;
@@ -17,10 +16,24 @@
     cursor: pointer;
   }
 
+  &_menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background-color: rgba(247, 255, 247, 0.1);
+    backdrop-filter: blur(5px);
+  }
+
+  &_views {
+    margin-top: 60px;
+  }
+
   .swiper-container {
     vertical-align: top;
     width: 90%;
-    padding: $paddingMedium 0 40px 0;
+    padding-top: $paddingLow;
+    padding-bottom: $paddingLow;
   }
-
 }

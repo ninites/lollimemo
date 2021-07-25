@@ -1,16 +1,22 @@
 <div class="userProfile">
-  <swiper
-    [slidesPerView]="2.2"
-    [centerInsufficientSlides]="true"
-    [spaceBetween]="10"
-  >
-    <ng-template swiperSlide *ngFor="let option of userOptions">
-      <div class="userProfile_optionsBloc" [routerLink]="option.link">
-        {{ option.value }}
-      </div>
-    </ng-template>
-  </swiper>
-  <div [@routeMain]="prepareRoute(outlet)" class="root_rooterMain">
-    <router-outlet #outlet="outlet"></router-outlet>
+  <div class="userProfile_menu">
+    <swiper
+      [slidesPerView]="2.1"
+      [centerInsufficientSlides]="true"
+      [spaceBetween]="10"
+      [roundLengths]="true"
+    >
+      <ng-template swiperSlide *ngFor="let option of userOptions">
+        <div class="userProfile_optionsBloc" [routerLink]="option.link">
+          {{ option.value }}
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+  <div class="userProfile_views">
+    <div [@routeMain]="prepareRoute(outlet)" class="root_rooterMain">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
   </div>
 </div>
