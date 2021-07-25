@@ -1,7 +1,9 @@
+require("dotenv").config();
 const model = require("../models/users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const sendMail = require("../functions/sendMail");
 const ApiError = require("../error/ApiError");
 class Users {
   static auth = async (req, res) => {
@@ -14,7 +16,7 @@ class Users {
       return;
     }
     const { id } = req.body.userInfo;
-    const user = await model.getOne({ id: id });   
+    const user = await model.getOne({ id: id });
     res.status(200).json(user);
   };
 
@@ -66,8 +68,8 @@ class Users {
       next(ApiError.unAuth("Login ou mot de passe incorrect"));
       return;
     }
-
-    const token = jwt.sign({ id: selectedUser[0].id }, "plop");
+    const secretKey = process.env.JWT.toString();
+    const token = jwt.sign({ id: selectedUser[0].id }, secretKey);
     res.status(200).json({ accesToken: token });
   };
 
@@ -125,6 +127,18 @@ class Users {
     } catch (err) {
       next(ApiError.internal("Probleme modification"));
     }
+  };
+
+  static retrievePassword = async (req, res, next) => {
+    const getUser = await model.getOne(req.body, true);
+    if (!getUser) {
+      next(ApiError.unAuth("Cet e-mail n'existe pas"));
+    }
+    const mailSent = await sendMail(getUser);
+    if (!mailSent) {
+      next(ApiError.conflict("Probléme pendant l'envoi du mail"));
+    }
+    res.status(200).json(mailSent);
   };
 }
 

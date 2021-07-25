@@ -1,12 +1,16 @@
 const { User } = require("./schema/schema");
 class Users {
-  static getOne = async (filter) => {
+  static getOne = async (filter, mail) => {
     const wording = filter.id;
-    delete filter.id;
-    filter._id = wording;
+
+    if (filter.id) {
+      delete filter.id;
+      filter._id = wording;
+    }
+
+    const toRemove = mail ? "-password" : "-password -email";
 
     let result;
-
     try {
       result = await User.findOne(filter)
         .populate({
@@ -16,7 +20,7 @@ class Users {
         .populate({
           path: "games",
         })
-        .select("-password -email");
+        .select(toRemove);
     } catch (err) {
       console.log(err);
     }

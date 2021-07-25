@@ -1,6 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 const cors = require("cors");
 const mongoose = require("mongoose");
 const url = "mongodb://127.0.0.1:27017/memory";

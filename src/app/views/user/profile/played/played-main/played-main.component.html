@@ -1,7 +1,9 @@
 <div class="played-main">
   <div class="played-main_filterButton">
     <div class="played-main_filterButtonMed">
-      <reg-button (click)="displayBar = !displayBar">Filtrer</reg-button>
+      <reg-button (click)="displayBar = !displayBar" [selected]="displayBar"
+        >Filtrer</reg-button
+      >
     </div>
   </div>
   <div *ngIf="displayBar" [@translateLeft]>

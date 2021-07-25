@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secretJWTKey = "plop";
+require("dotenv").config();
 const ApiError = require("../error/ApiError");
 
 const authToken = async (req, res, next) => {
@@ -10,8 +10,8 @@ const authToken = async (req, res, next) => {
     next(ApiError.unAuth());
     return;
   }
-
   try {
+    const secretJWTKey = process.env.JWT.toString()
     const tokenVerif = await jwt.verify(token, secretJWTKey, (err, result) => {
       if (err) {
         throw new Error(err);
@@ -21,7 +21,7 @@ const authToken = async (req, res, next) => {
     req.body.userInfo = tokenVerif;
     next();
   } catch (err) {
-    next(ApiError.unAuth());
+    next(ApiError.unAuth("invalid signature"));
   }
 };
 

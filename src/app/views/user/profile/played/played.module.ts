@@ -6,6 +6,7 @@ import { PlayedMainComponent } from './played-main/played-main.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
 import { PlayedItemComponent } from './played-item/played-item.component';
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PlayedItemComponent } from './played-item/played-item.component';
   imports: [
     CommonModule,
     SharedModule,
-    PlayedRoutingModule
+    PlayedRoutingModule,
+    DpDatePickerModule
   ]
 })
 export class PlayedModule { }
