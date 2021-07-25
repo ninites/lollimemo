@@ -12,6 +12,7 @@
   </div>
   <div class="played-main_items">
     <div class="played-main_itemsWrapper">
+      <reg-spinner [size]="50" [isDisplayed]="isLoading"></reg-spinner>
       <played-item
         *ngFor="let game of gamesPlayed"
         [game]="game"

@@ -21,7 +21,8 @@ export class PlayedMainComponent implements OnInit {
   queryParams: { [key: string]: any } = {};
   gamesPlayed: GamePlayed[] = [];
   userInfo: UserInfo = {} as UserInfo;
-  displayBar: boolean = true;
+  displayBar: boolean = false;
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.getPlayedGames();
@@ -29,13 +30,16 @@ export class PlayedMainComponent implements OnInit {
   }
 
   getUserInfo(): void {
+    this.isLoading = true;
     this.request.get('users/info').subscribe((response: UserInfo) => {
+      this.isLoading = false;
       this.userInfo = { ...response };
     });
   }
 
   getPlayedGames(): void {
     this.route.queryParams.subscribe((query) => {
+      this.isLoading = true;
       this.queryParams = query;
       let queryStrings = '?';
       for (const key in query) {
@@ -45,6 +49,7 @@ export class PlayedMainComponent implements OnInit {
         .get('games/' + queryStrings)
         .subscribe((response: GamePlayed[]) => {
           this.gamesPlayed = [...response];
+          this.isLoading = false;
         });
     });
   }
