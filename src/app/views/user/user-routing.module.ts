@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth-guard/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { ModifyPasswordComponent } from './profile/my-profile/modify-profile/modify-password/modify-password.component';
 import { RetrievePasswordComponent } from './retrieve-password/retrieve-password.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 
@@ -15,6 +16,11 @@ const routes: Routes = [
     path: 'retrieve',
     component: RetrievePasswordComponent,
     data: { animation: 'retrieve' },
+  },
+  {
+    path: 'change-password/:token',
+    component: ModifyPasswordComponent,
+    data: { animation: 'change-password' },
   },
   { path: 'login', component: LoginComponent, data: { animation: 'login' } },
   {

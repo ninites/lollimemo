@@ -146,12 +146,7 @@ export class CardslistComponent implements OnInit {
       date: new Date(),
     };
 
-    this.request.post('games', savedGame).subscribe({
-      next: (response) => {
-        console.log(response);
-      },
-      error: (err) => {},
-    });
+    this.request.post('games', savedGame).subscribe();
   }
 
   ngOnDestroy() {

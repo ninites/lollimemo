@@ -42,10 +42,15 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         let previousUrl = this.routeHistory.getPrevious();
         const subPresence = /subscribe/;
+        const changePassPresence = /change-password/
+        const retrievePresence = /retrieve/
         if (subPresence.test(previousUrl)) previousUrl = '';
+        if (changePassPresence.test(previousUrl)) previousUrl = '';
+        if (retrievePresence.test(previousUrl)) previousUrl = '';
         this.router.navigate(['/' + previousUrl]);
       },
       error: (err) => {
+        this.isLoading = false;
         this.alert.message = err.error;
         this.alert.switchAlert();
       },

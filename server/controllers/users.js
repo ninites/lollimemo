@@ -45,7 +45,6 @@ class Users {
       const checkUsername = usr.username === username;
       if (checkUsername) return usr;
     });
-
     if (selectedUser.length === 0) {
       next(ApiError.unAuth("Cet utilisateur n'existe pas"));
       return;
@@ -74,12 +73,35 @@ class Users {
   };
 
   static changePass = async (req, res, next) => {
-    const newPassword = await this.createHashpass(req.body.password);
-    req.body.password = newPassword;
+    const { password, token, id } = req.body;
+    const newPassword = await this.createHashpass(password);
+
+    const filters = {
+      password: newPassword,
+      userInfo: {
+        id: id,
+      },
+    };
+    if (!id) {
+      const secretJWTKey = process.env.JWT.toString();
+      const tokenVerif = await jwt.verify(
+        token,
+        secretJWTKey,
+        (err, result) => {
+          if (err) {
+            throw new Error(err);
+          }
+          return result;
+        }
+      );
+      filters.userInfo.id = tokenVerif.id;
+    }
+
     try {
-      const modifiedPass = await model.putOne(req.body);
+      const modifiedPass = await model.putOne(filters);
       res.status(200).json(modifiedPass);
     } catch (err) {
+      console.error(err);
       next(
         ApiError.internal("Probleme lors de la modification du mot de passe")
       );
@@ -130,13 +152,17 @@ class Users {
   };
 
   static retrievePassword = async (req, res, next) => {
-    const getUser = await model.getOne(req.body, true);
-    if (!getUser) {
+    const user = await model.getOne(req.body, true);
+    if (!user) {
       next(ApiError.unAuth("Cet e-mail n'existe pas"));
+      return;
     }
-    const mailSent = await sendMail(getUser);
+    const secretKey = process.env.JWT.toString();
+    const token = jwt.sign({ id: user._id }, secretKey);
+    const mailSent = await sendMail(user, token);
     if (!mailSent) {
       next(ApiError.conflict("Probléme pendant l'envoi du mail"));
+      return;
     }
     res.status(200).json(mailSent);
   };
