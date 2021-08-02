@@ -31,6 +31,7 @@ class Users {
   };
 
   static postOne = async (req, res, next) => {
+    console.log(req.body);
     const hashPass = await this.createHashpass(req.body.password);
     req.body.password = hashPass;
     const postUser = await model.postOne(req.body);
