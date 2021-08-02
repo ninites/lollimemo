@@ -2,7 +2,6 @@ const ApiError = require("../error/ApiError");
 const { User, Theme } = require("../models/schema/schema");
 
 const alreadyExist = async (req, res, next) => {
-  console.log(req.baseUrl.split('/').includes("users"));
   switch (req.baseUrl) {
     case req.baseUrl.split('/').includes("users"):
       checkUser(req, res, next);
@@ -16,12 +15,15 @@ const alreadyExist = async (req, res, next) => {
 };
 
 const checkUser = async (req, res, next) => {
+  console.log(req.body);
   const allUser = await User.find();
+  console.log(allUser);
   const alreadyExists = allUser.map((user) => {
     const sameUsername = req.body.username === user.username;
     const sameEmail = req.body.email === user.email;
     return sameEmail || (sameUsername && true);
   });
+  console.log(alreadyExists);
   if (alreadyExists.includes(true)) {
     next(ApiError.conflict("Ce nom d'utilisateur ou ce mail existe déja"));
     return;
