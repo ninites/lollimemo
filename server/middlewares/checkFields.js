@@ -7,12 +7,11 @@ const checkFields = async (req, res, next) => {
       missingFields[key] = "Merci de remplir " + [key];
     }
   }
-  console.log(missingFields);
+
   if (Object.keys(missingFields).length > 0) {
     next(ApiError.missFile(missingFields));
     return;
   }
-  console.log("go next !! ");
   next();
 };
 
