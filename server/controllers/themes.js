@@ -7,9 +7,12 @@ const fs = require("fs");
 class Themes {
   static postOne = async (req, res) => {
     const { cardBack, pictures } = req.files;
+    
     req.body.cardBack = cardBack;
     req.body.pictures = pictures;
+    console.log(req.body);
     const newTheme = await themesModel.postOne(req.body);
+    console.log(newTheme);
     res.status(200).json(newTheme);
   };
 
