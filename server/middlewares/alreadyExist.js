@@ -14,9 +14,9 @@ const alreadyExist = async (req, res, next) => {
 };
 
 const checkUser = async (req, res, next) => {
-  console.log(req.body);
+ 
   const allUser = await User.find();
-  console.log(allUser);
+
   const alreadyExists = allUser.map((user) => {
     const sameUsername = req.body.username === user.username;
     const sameEmail = req.body.email === user.email;
