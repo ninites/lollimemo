@@ -2,12 +2,12 @@ const ApiError = require("../error/ApiError");
 const { User, Theme } = require("../models/schema/schema");
 
 const alreadyExist = async (req, res, next) => {
-  console.log(req.baseUrl.split('/').includes("/users"));
+  console.log(req.baseUrl.split('/').includes("users"));
   switch (req.baseUrl) {
-    case req.baseUrl.split('/').includes("/users"):
+    case req.baseUrl.split('/').includes("users"):
       checkUser(req, res, next);
       break;
-    case req.baseUrl.split('/').includes('/themes'):
+    case req.baseUrl.split('/').includes('themes'):
       checkTheme(req, res, next);
       break;
     default:
