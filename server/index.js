@@ -21,10 +21,10 @@ const apiErrorHandler = require("./error/apiErroHandler");
 app.use(cors("*"));
 app.use(express.json());
 
-app.use("/users", users);
-app.use("/themes", themes);
-app.use("/uploads", images);
-app.use('/games',games)
+app.use("/api/users", users);
+app.use("/api/themes", themes);
+app.use("/api/uploads", images);
+app.use('/api/games',games)
 app.use(apiErrorHandler);
 
 app.listen(port, () => {
