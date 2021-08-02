@@ -1,7 +1,6 @@
 const ApiError = require("../error/ApiError");
 
 const checkFields = async (req, res, next) => {
-  console.log(req.body);
   const missingFields = {};
   for (const key in req.body) {
     if (!req.body[key]) {

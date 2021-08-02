@@ -30,11 +30,23 @@ class Users {
     res.status(200).json(user);
   };
 
-  static postOne = async (req, res, next) => {
-    console.log(req.body);
-    const hashPass = await this.createHashpass(req.body.password);
+  static postOne = async (req, res, next) => {   
+    console.log(req.body,"post");
+    let hashPass
+    try {
+     hashPass = await this.createHashpass(req.body.password);
+    } catch(err) {
+      next(ApiError.internal('probleme de creation de hash'))
+      return 
+    }
     req.body.password = hashPass;
-    const postUser = await model.postOne(req.body);
+    let postUser = {}
+    try {
+
+      postUser = await model.postOne(req.body);
+    } catch(err) {
+      next(ApiError.internal('probleme de creation de user'))
+    }
     res.status(200).json(postUser);
   };
 
