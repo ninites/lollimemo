@@ -4,10 +4,10 @@ const { User, Theme } = require("../models/schema/schema");
 const alreadyExist = async (req, res, next) => {
   console.log(req.baseUrl);
   switch (req.baseUrl) {
-    case "/users":
+    case req.baseUrl.includes("/users"):
       checkUser(req, res, next);
       break;
-    case "/themes":
+    case req.baseUrl.includes('/themes'):
       checkTheme(req, res, next);
       break;
     default:
