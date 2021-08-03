@@ -11,10 +11,14 @@
         ><div
           class="navBar_iconText"
           (click)="displayProfile = !displayProfile"
+          id="clickOutside_profileButton"
         >
           <i class="fas fa-user fa-lg"></i>
           <p>Profile</p>
           <profile-selection
+            clickOutside
+            (clickOutside)="displayProfile = !displayProfile"
+            [exceptions]="['profileButton']"
             *ngIf="displayProfile"
             [@opacityAnim]
           ></profile-selection></div
