@@ -3,6 +3,8 @@
 .played-main {
   margin-bottom: 75px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   & > * {
     margin-bottom: $marginMedium;
   }
@@ -11,6 +13,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+  }
+
+  h2 {
+    align-self: center;
+    margin-bottom: $marginMedium;
   }
 
   &_items {

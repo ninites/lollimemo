@@ -1,5 +1,8 @@
 <div class="postTheme">
-  <h2>Ajouter un theme</h2>
+  <div class="postTheme_topTitle">
+    <i class="fas fa-chevron-circle-left fa-2x" (click)="goPreviousPage()"></i>
+    <h2>Ajouter un theme</h2>
+  </div>
   <div class="postTheme_form">
     <form [formGroup]="postThemeForm" (submit)="onSubmit($event)">
       <div class="postTheme_titleInput">

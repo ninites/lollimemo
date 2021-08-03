@@ -131,13 +131,17 @@ export class PostThemeComponent implements OnInit {
         this.alert.message = 'Theme correctement ajouté';
         this.alert.switchAlert();
         this.postThemeForm.reset();
-        this.router.navigate([this.routerHistory.getPrevious()]);
+        this.goPreviousPage()
       },
       error: (err) => {
         this.alert.message = err.error;
         this.alert.switchAlert();
       },
     });
+  }
+
+  goPreviousPage() : void {
+    this.router.navigate([this.routerHistory.getPrevious()]);
   }
 
   computePictureMinText(): number {

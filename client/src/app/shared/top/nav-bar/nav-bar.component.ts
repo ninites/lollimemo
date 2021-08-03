@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { menuPop } from 'src/app/animations/animations';
+import { opacityAnim } from 'src/app/animations/animations';
 import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 
@@ -8,7 +8,7 @@ import { GameParametersService } from 'src/app/core/services/game-parameters.ser
   selector: 'nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
-  animations: [menuPop],
+  animations: [opacityAnim],
 })
 export class NavBarComponent implements OnInit {
   constructor(
@@ -19,6 +19,7 @@ export class NavBarComponent implements OnInit {
 
   isDisplayed: boolean = false;
   isAuth = false;
+  displayProfile: boolean = false;
 
   ngOnInit(): void {
     this.auth.isAuth$.subscribe((resp) => {

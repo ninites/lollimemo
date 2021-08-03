@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
 import { BigSpinnerComponent } from './big-spinner/big-spinner.component';
+import { ProfileSelectionComponent } from './nav-bar/profile-selection/profile-selection.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BigSpinnerComponent } from './big-spinner/big-spinner.component';
     NavBarComponent,
     CropModalComponent,
     BigSpinnerComponent,
+    ProfileSelectionComponent,
   ],
   imports: [
     FormsModule,

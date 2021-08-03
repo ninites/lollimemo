@@ -1,9 +1,6 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { routeMain } from 'src/app/animations/animations';
-
-import SwiperCore, { Pagination, Swiper } from 'swiper/core';
 
 @Component({
   selector: 'app-profile',
@@ -12,20 +9,9 @@ import SwiperCore, { Pagination, Swiper } from 'swiper/core';
   animations: [routeMain],
 })
 export class ProfileComponent implements OnInit {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor() {}
 
-  userOptions: { [key: string]: any }[] = [
-    { value: 'Profile', link: ['/user/profile/my-profile'] },
-    { value: 'Themes', link: ['/user/profile/themes'] },
-    { value: 'Parties', link: ['/user/profile/played'] },
-  ];
-
-  ngOnInit(): void {
-    this.document.documentElement.style.setProperty(
-      '--swiper-theme-color',
-      '#ffe66d'
-    );
-  }
+  ngOnInit(): void {}
 
   prepareRoute(outlet: RouterOutlet) {
     return (

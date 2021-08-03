@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+.profileSelection {
+  position: absolute;
+  top: -100px;
+  background-color: $greenLight;
+  border-radius: $borderRadius;
+  a {
+    color: $orangeDark;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  &_repeat {
+    margin: $marginMedium;
+  }
+}

@@ -8,7 +8,20 @@
     color: $textColor !important;
   }
 
-  &_validationSpinn{
+  &_topTitle {
+    display: flex;
+    width: 90%;
+    padding: $paddingMedium;
+    align-items: center;
+  }
+
+  .fa-chevron-circle-left {
+    color: $greenLight;
+    cursor: pointer;
+    margin-right: $marginMedium;
+  }
+
+  &_validationSpinn {
     position: relative;
     display: flex;
     justify-content: center;
@@ -79,7 +92,6 @@
       margin-right: $marginMedium;
     }
   }
-
 
   &_vallidationEye {
     display: flex;

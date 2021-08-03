@@ -7,12 +7,18 @@
           <p>Jouer</p>
         </div></a
       >
-      <a *ngIf="isAuth" [routerLink]="['/user/profile']"
-        ><div class="navBar_iconText">
+      <a *ngIf="isAuth"
+        ><div
+          class="navBar_iconText"
+          (click)="displayProfile = !displayProfile"
+        >
           <i class="fas fa-user fa-lg"></i>
           <p>Profile</p>
-        </div></a
-      >
+          <profile-selection
+            *ngIf="displayProfile"
+            [@opacityAnim]
+          ></profile-selection></div
+      ></a>
       <a *ngIf="isAuth" (click)="logOut()"
         ><div class="navBar_iconText">
           <i class="fas fa-sign-out-alt fa-lg"></i>

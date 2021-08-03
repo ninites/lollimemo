@@ -10,9 +10,7 @@ class Themes {
     
     req.body.cardBack = cardBack;
     req.body.pictures = pictures;
-    console.log(req.body);
     const newTheme = await themesModel.postOne(req.body);
-    console.log(newTheme);
     res.status(200).json(newTheme);
   };
 
