@@ -12,6 +12,7 @@ import { RegFileComponent } from './reg-file/reg-file.component';
 import { PicturesPreviewComponent } from './pictures-preview/pictures-preview.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { RegSpinnerComponent } from './reg-spinner/reg-spinner.component';
+import { RegCheckBoxComponent } from './reg-check-box/reg-check-box.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RegSpinnerComponent } from './reg-spinner/reg-spinner.component';
     RegFileComponent,
     PicturesPreviewComponent,
     RegSpinnerComponent,
+    RegCheckBoxComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, DirectivesModule],
   exports: [
@@ -38,6 +40,7 @@ import { RegSpinnerComponent } from './reg-spinner/reg-spinner.component';
     RegFileComponent,
     PicturesPreviewComponent,
     RegSpinnerComponent,
+    RegCheckBoxComponent
   ],
 })
 export class WidgetModule {}

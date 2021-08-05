@@ -8,6 +8,10 @@
       [noPadding]="true"
       *ngIf="crossButton"
     ></reg-button>
+    <reg-check-box
+      *ngIf="checkBox"
+      (checkChange)="sendCheck($event)"
+    ></reg-check-box>
     <ng-content></ng-content>
   </div>
 </div>

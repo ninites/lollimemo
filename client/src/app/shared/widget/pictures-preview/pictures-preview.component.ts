@@ -19,8 +19,13 @@ export class PicturesPreviewComponent implements OnInit {
   @Input() index: number = 0;
   @Input() size: number = 0;
   @Input() crossButton: boolean = true;
+  @Input() checkBox: boolean = false;
   @Input() pictureType: string = 'blob';
   @Output() fileDelete = new EventEmitter<any>();
+  @Output() checkedValue = new EventEmitter<{
+    picture: string;
+    checked: boolean;
+  }>();
 
   style: { [key: string]: any } = {};
 
@@ -41,6 +46,10 @@ export class PicturesPreviewComponent implements OnInit {
   createPreview(): void {
     if (this.pictureType === 'blob') this.createBlobPreview();
     if (this.pictureType === 'path') this.createPathPreview();
+  }
+
+  sendCheck(checked: boolean): void {
+    this.checkedValue.emit({ picture: this.picture, checked: checked });
   }
 
   createBlobPreview(): void {

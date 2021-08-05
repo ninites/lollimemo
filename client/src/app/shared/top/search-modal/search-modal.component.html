@@ -32,11 +32,20 @@
 
       <div class="cropModal_cropperContainer">
         <div *ngFor="let result of searchResult">
-          <img src="{{result.link}}" />
+          <pictures-preview
+            pictureType="path"
+            [picture]="result.image.thumbnailLink"
+            [size]="150"
+            [crossButton]="false"
+            [checkBox]="true"
+            (checkedValue)="addToUserChoice($event)"
+          ></pictures-preview>
         </div>
       </div>
       <div class="cropModal_bottomButtons">
-        <reg-button [width]="130">Sauvegarder</reg-button>
+        <reg-button [width]="130" (click)="saveResult()"
+          >Sauvegarder</reg-button
+        >
         <reg-button [width]="100" (click)="exit()">Quitter</reg-button>
       </div>
     </div>

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { RouteHistoryService } from 'src/app/core/services/route-history/route-history.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
 import { SearchModalService } from 'src/app/shared/top/search-modal/search-modal.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-theme',
@@ -41,13 +41,16 @@ export class PostThemeComponent implements OnInit {
     pictures: 0,
   };
   isLoading: boolean = false;
+  searchModalSub: Subscription = this.searchModal.userSelection$.subscribe();
 
   ngOnInit(): void {
     this.pictureChangeHandler();
+    this.searchModalHandler();
   }
 
   ngOnDestroy(): void {
     this.postThemeForm.reset();
+    this.searchModalSub.unsubscribe();
   }
 
   pictureChangeHandler(): void {
@@ -153,10 +156,20 @@ export class PostThemeComponent implements OnInit {
     return result >= 0 ? result : 0;
   }
 
-  openGsearch(): void {
+  openGsearch(type: string): void {
     this.searchModal.setInfo({
+      type: type,
+      maxChoice: 1,
       opacity: 0.6,
-      inputPlaceHolder: 'Rechercher des iamges pour votre theme',
+      inputPlaceHolder: 'Rechercher des Images',
+    });
+  }
+
+  searchModalHandler(): void {
+    this.searchModalSub = this.searchModal.userSelection$.subscribe((files) => {
+      console.log(files);
+
+      this.postThemeForm.patchValue({ [files.type]: files.payload });
     });
   }
 }

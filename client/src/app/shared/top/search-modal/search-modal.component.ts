@@ -1,9 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { from, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { opacityAnim } from 'src/app/animations/animations';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { environment } from 'src/environments/environment';
+import { AlertService } from '../alert/alert.service';
 import { SearchModalService } from './search-modal.service';
 
 @Component({
@@ -17,6 +20,7 @@ export class SearchModalComponent implements OnInit {
     private fb: FormBuilder,
     private request: RequestService,
     private searchModalService: SearchModalService,
+    private alert: AlertService,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -29,6 +33,7 @@ export class SearchModalComponent implements OnInit {
   });
   isLoading: boolean = false;
   searchResult: { [key: string]: any }[] = [];
+  userSelection: { [key: string]: any }[] = [];
 
   ngOnInit(): void {
     this.displayed();
@@ -42,6 +47,7 @@ export class SearchModalComponent implements OnInit {
         this.document.body.style.overflow = 'hidden';
       } else {
         this.document.body.style.overflow = '';
+        this.reset();
       }
     });
   }
@@ -70,17 +76,84 @@ export class SearchModalComponent implements OnInit {
     this.searchModalService.switch();
   }
 
+  saveResult(): void {
+    this.searchModalService.userSelection$.next({
+      type: this.props.type,
+      payload: this.userSelection,
+    });
+  }
+
+  reset(): void {
+    this.searchModalService.userSelection$.next({ type: '', payload: [{}] });
+    this.searchField.reset();
+    this.userSelection = [];
+    this.searchResult = [];
+  }
+
+  addToUserChoice(data: { picture: string; checked: boolean }): void {
+    const { picture, checked } = data;
+
+    if (!checked) {
+      const isHere = this.userSelection.findIndex((image) => {
+        image.name.trim() === this.createFileTitle(picture).trim();
+      });
+      console.log(isHere);
+
+      this.userSelection = this.userSelection.filter((image) => {
+        image.name !== this.createFileTitle(picture);
+      });
+      return;
+    }
+
+    if (checked) {
+      // const infinite = this.props.maxChoice === 0;
+      // const overMax = this.userSelection.length >= this.props.maxChoice;
+
+      // if (!infinite && overMax) {
+      //   this.alert.message = `Vous ne pouvez pas selectionner plus de ${this.props.maxChoice} images`;
+      //   this.alert.switchAlert();
+      //   return;
+      // }
+
+      this.getFileFromUrl(data.picture).subscribe((file) => {
+        this.userSelection = [...this.userSelection, file];
+        console.log(this.userSelection);
+      });
+    }
+  }
+
+  getFileFromUrl(url: string): Observable<any> {
+    const data$ = from(fetch(url)).pipe(
+      switchMap((response) => {
+        return response.blob();
+      }),
+      map((blob) => {
+        return new File([blob], this.createFileTitle(url), {
+          type: 'image/jpeg',
+          lastModified: Date.now(),
+        });
+      })
+    );
+    return data$;
+  }
+
+  createFileTitle(url: string): string {
+    const fullUrl = new URL(url);
+    const title =
+      fullUrl.search.split(':')[fullUrl.search.split(':').length - 1];
+    return title;
+  }
+
   onSubmit(): void {
     if (!this.searchField.controls.q.valid) {
       return;
     }
     this.isLoading = true;
+    this.searchField.reset();
     const parameters = {
       key: environment.googleSearch,
       cx: environment.googleSearchCx,
       q: this.searchField.value.q,
-      num: 10,
-      imgSize: 'medium',
       searchType: 'image',
     };
     const headers = {
@@ -93,12 +166,12 @@ export class SearchModalComponent implements OnInit {
         next: (response) => {
           this.isLoading = false;
           this.searchResult = [...response.items];
-          console.log(this.searchResult);
-          
+          console.log(response);
         },
         error: (error) => {
           this.isLoading = false;
-          console.log(error);
+          this.alert.message = 'Un probléme de requete a eu lieu';
+          this.alert.switchAlert();
         },
       });
   }

@@ -32,7 +32,7 @@
               [controlName]="'cardBack'"
             ></reg-file>
 
-            <reg-button (click)="openGsearch()"> Rechercher </reg-button>
+            <reg-button (click)="openGsearch('cardBack')"> Rechercher </reg-button>
             <ng-container *ngIf="gotFiles.cardBack > 0">
               <reg-button [width]="50" (click)="displayCrop('cardBack')"
                 ><i class="fas fa-crop-alt"></i
