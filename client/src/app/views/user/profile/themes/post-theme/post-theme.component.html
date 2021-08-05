@@ -23,6 +23,7 @@
       <div class="postTheme_inputPictures">
         <div class="postTheme_picturesButtonsinputBox">
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
+
           <div class="postTheme_picturesButtonsClick">
             <reg-file
               id="post_cardBack_button"
@@ -30,6 +31,8 @@
               [parentForm]="postThemeForm"
               [controlName]="'cardBack'"
             ></reg-file>
+
+            <reg-button (click)="openGsearch()"> Rechercher </reg-button>
             <ng-container *ngIf="gotFiles.cardBack > 0">
               <reg-button [width]="50" (click)="displayCrop('cardBack')"
                 ><i class="fas fa-crop-alt"></i

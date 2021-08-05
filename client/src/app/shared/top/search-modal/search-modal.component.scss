@@ -1,0 +1,67 @@
+@import "variables.scss";
+
+.cropModal {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  height: 100%;
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_picturesPreview {
+    width: 100%;
+    background-color: $orangeLight;
+    border-radius: $borderRadius $borderRadius 0 0;
+
+    form {
+      margin: $marginMedium;
+      display: flex;
+    }
+  }
+
+  &_validationButton {
+    position: relative;
+  }
+
+  &_bottomButtons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: $marginMedium 0 $marginMedium 0;
+    width: 100%;
+  }
+
+  &_cropperContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_container {
+    background-color: $backgroundColor;
+    width: 90%;
+    height: 90%;
+    border-radius: $borderRadius;
+  }
+
+  &_doAndPreview {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  &_cropper {
+    width: 100%;
+    max-height: 300px;
+  }
+}

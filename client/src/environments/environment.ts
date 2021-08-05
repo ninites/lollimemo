@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  proxy : "http://localhost:5000/api/"
+  proxy: 'http://localhost:5000/api/',
+  googleSearch: 'AIzaSyD9PlVsTVjgDTBL00EHLePsRJQ3EsNQBNg',
+  googleSearchCx: '0621a687ce2741caf',
+  googleSearchUrl: 'https://customsearch.googleapis.com/customsearch/v1',
 };
 
 /*

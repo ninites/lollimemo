@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
 import { BigSpinnerComponent } from './big-spinner/big-spinner.component';
 import { ProfileSelectionComponent } from './nav-bar/profile-selection/profile-selection.component';
+import { SearchModalComponent } from './search-modal/search-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ProfileSelectionComponent } from './nav-bar/profile-selection/profile-s
     CropModalComponent,
     BigSpinnerComponent,
     ProfileSelectionComponent,
+    SearchModalComponent,
   ],
   imports: [
     FormsModule,
@@ -33,6 +35,7 @@ import { ProfileSelectionComponent } from './nav-bar/profile-selection/profile-s
     NavBarComponent,
     CropModalComponent,
     BigSpinnerComponent,
+    SearchModalComponent
   ],
 })
 export class TopModule {}

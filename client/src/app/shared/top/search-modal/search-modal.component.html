@@ -1,0 +1,44 @@
+<div
+  class="cropModal"
+  *ngIf="isDisplayed"
+  (click)="closeModal()"
+  [ngStyle]="style"
+  [@opacityAnim]
+>
+  <div class="cropModal_container" stopPropagation>
+    <div class="cropModal_doAndPreview">
+      <div class="cropModal_picturesPreview">
+        <form [formGroup]="searchField" (submit)="onSubmit()">
+          <reg-input
+            [parentForm]="searchField"
+            parentControlName="q"
+            [width]="200"
+            [solo]="false"
+            [placeholder]="props.inputPlaceHolder"
+          ></reg-input>
+          <div class="cropModal_validationButton">
+            <reg-spinner [size]="20" [isDisplayed]="isLoading"></reg-spinner>
+            <reg-button
+              [solo]="false"
+              [width]="50"
+              (click)="onSubmit()"
+              [disabled]="!searchField.controls.q.valid"
+            >
+              <i class="fas fa-search"></i>
+            </reg-button>
+          </div>
+        </form>
+      </div>
+
+      <div class="cropModal_cropperContainer">
+        <div *ngFor="let result of searchResult">
+          <img src="{{result.link}}" />
+        </div>
+      </div>
+      <div class="cropModal_bottomButtons">
+        <reg-button [width]="130">Sauvegarder</reg-button>
+        <reg-button [width]="100" (click)="exit()">Quitter</reg-button>
+      </div>
+    </div>
+  </div>
+</div>

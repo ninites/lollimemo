@@ -6,6 +6,8 @@ import { RequestService } from 'src/app/core/services/request/request.service';
 import { RouteHistoryService } from 'src/app/core/services/route-history/route-history.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
+import { SearchModalService } from 'src/app/shared/top/search-modal/search-modal.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-theme',
@@ -19,7 +21,8 @@ export class PostThemeComponent implements OnInit {
     private request: RequestService,
     private cropModal: CropModalService,
     private routerHistory: RouteHistoryService,
-    private router: Router
+    private router: Router,
+    private searchModal: SearchModalService
   ) {}
 
   postThemeForm = this.fb.group({
@@ -37,7 +40,7 @@ export class PostThemeComponent implements OnInit {
     cardBack: 0,
     pictures: 0,
   };
-  isLoading : boolean = false
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.pictureChangeHandler();
@@ -116,7 +119,7 @@ export class PostThemeComponent implements OnInit {
   }
 
   onSubmit(e: any): void {
-    this.isLoading = true
+    this.isLoading = true;
     e.preventDefault();
     const { name, pictures, cardBack } = this.postThemeForm.value;
     const payload = new FormData();
@@ -127,11 +130,11 @@ export class PostThemeComponent implements OnInit {
     });
     this.request.post('themes/', payload).subscribe({
       next: (resp) => {
-        this.isLoading = false
+        this.isLoading = false;
         this.alert.message = 'Theme correctement ajouté';
         this.alert.switchAlert();
         this.postThemeForm.reset();
-        this.goPreviousPage()
+        this.goPreviousPage();
       },
       error: (err) => {
         this.alert.message = err.error;
@@ -140,7 +143,7 @@ export class PostThemeComponent implements OnInit {
     });
   }
 
-  goPreviousPage() : void {
+  goPreviousPage(): void {
     this.router.navigate([this.routerHistory.getPrevious()]);
   }
 
@@ -148,5 +151,12 @@ export class PostThemeComponent implements OnInit {
     const minValue = 10;
     const result = minValue - this.gotFiles.pictures;
     return result >= 0 ? result : 0;
+  }
+
+  openGsearch(): void {
+    this.searchModal.setInfo({
+      opacity: 0.6,
+      inputPlaceHolder: 'Rechercher des iamges pour votre theme',
+    });
   }
 }

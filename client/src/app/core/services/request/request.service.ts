@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import {
@@ -122,6 +122,18 @@ export class RequestService {
       })
     );
     return result;
+  }
+
+  getExternal(
+    endpoint: string,
+    parameters: { [key: string]: any },
+    headers?: { [key: string]: string }
+  ): Observable<any> {
+    const result$ = this.http.get(endpoint, {
+      params: parameters,
+      headers: headers,
+    });
+    return result$;
   }
 
   put(endpoint: string, payload: { [key: string]: any }): Observable<any> {
