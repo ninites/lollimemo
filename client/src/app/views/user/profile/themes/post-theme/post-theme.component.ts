@@ -159,7 +159,7 @@ export class PostThemeComponent implements OnInit {
   openGsearch(type: string): void {
     this.searchModal.setInfo({
       type: type,
-      maxChoice: 1,
+      maxChoice: type === 'cardBack' ? 1 : 0,
       opacity: 0.6,
       inputPlaceHolder: 'Rechercher des Images',
     });
@@ -167,8 +167,6 @@ export class PostThemeComponent implements OnInit {
 
   searchModalHandler(): void {
     this.searchModalSub = this.searchModal.userSelection$.subscribe((files) => {
-      console.log(files);
-
       this.postThemeForm.patchValue({ [files.type]: files.payload });
     });
   }

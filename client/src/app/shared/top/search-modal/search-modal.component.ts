@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { from, Observable, of } from 'rxjs';
@@ -21,6 +22,7 @@ export class SearchModalComponent implements OnInit {
     private request: RequestService,
     private searchModalService: SearchModalService,
     private alert: AlertService,
+    private httpClient: HttpClient,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -33,7 +35,7 @@ export class SearchModalComponent implements OnInit {
   });
   isLoading: boolean = false;
   searchResult: { [key: string]: any }[] = [];
-  userSelection: { [key: string]: any }[] = [];
+  userSelection: string[] = [];
 
   ngOnInit(): void {
     this.displayed();
@@ -77,9 +79,24 @@ export class SearchModalComponent implements OnInit {
   }
 
   saveResult(): void {
-    this.searchModalService.userSelection$.next({
-      type: this.props.type,
-      payload: this.userSelection,
+    const payload: any = [];
+    this.searchResult.forEach((result) => {
+      const searchResultThumbTitle = result.image.thumbnailLink;
+      this.userSelection.forEach((url) => {
+        if (url === searchResultThumbTitle) {
+          this.getFileFromUrl(
+            result.link,
+            result.title,
+            result.fileFormat
+          ).subscribe((file) => {
+            payload.push(file);
+            this.searchModalService.userSelection$.next({
+              type: this.props.type,
+              payload: payload,
+            });
+          });
+        }
+      });
     });
   }
 
@@ -94,41 +111,44 @@ export class SearchModalComponent implements OnInit {
     const { picture, checked } = data;
 
     if (!checked) {
-      const isHere = this.userSelection.findIndex((image) => {
-        image.name.trim() === this.createFileTitle(picture).trim();
+      this.userSelection = this.userSelection.filter((url) => {
+        return url !== picture;
       });
-      console.log(isHere);
-
-      this.userSelection = this.userSelection.filter((image) => {
-        image.name !== this.createFileTitle(picture);
-      });
-      return;
     }
 
     if (checked) {
-      // const infinite = this.props.maxChoice === 0;
-      // const overMax = this.userSelection.length >= this.props.maxChoice;
+      const infinite = this.props.maxChoice === 0;
+      const overMax = this.userSelection.length >= this.props.maxChoice;
 
-      // if (!infinite && overMax) {
-      //   this.alert.message = `Vous ne pouvez pas selectionner plus de ${this.props.maxChoice} images`;
-      //   this.alert.switchAlert();
-      //   return;
-      // }
+      if (!infinite && overMax) {
+        this.alert.message = `Vous ne pouvez pas selectionner plus de ${this.props.maxChoice} images`;
+        this.alert.switchAlert();
+        return;
+      }
 
-      this.getFileFromUrl(data.picture).subscribe((file) => {
-        this.userSelection = [...this.userSelection, file];
-        console.log(this.userSelection);
-      });
+      this.userSelection = [...this.userSelection, picture];
     }
   }
 
-  getFileFromUrl(url: string): Observable<any> {
-    const data$ = from(fetch(url)).pipe(
+  getFileFromUrl(
+    url: string,
+    title: string,
+    fileFormat: string
+  ): Observable<any> {
+    const data$ = from(
+      fetch(url, {
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      })
+    ).pipe(
       switchMap((response) => {
         return response.blob();
       }),
       map((blob) => {
-        return new File([blob], this.createFileTitle(url), {
+        return new File([blob], title, {
           type: 'image/jpeg',
           lastModified: Date.now(),
         });
@@ -137,41 +157,34 @@ export class SearchModalComponent implements OnInit {
     return data$;
   }
 
-  createFileTitle(url: string): string {
-    const fullUrl = new URL(url);
-    const title =
-      fullUrl.search.split(':')[fullUrl.search.split(':').length - 1];
-    return title;
-  }
-
   onSubmit(): void {
     if (!this.searchField.controls.q.valid) {
       return;
     }
+
+    this.userSelection = [];
     this.isLoading = true;
-    this.searchField.reset();
+
     const parameters = {
       key: environment.googleSearch,
       cx: environment.googleSearchCx,
       q: this.searchField.value.q,
       searchType: 'image',
     };
-    const headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
-    };
+
     this.request
-      .getExternal(environment.googleSearchUrl, parameters, headers)
+      .getExternal(environment.googleSearchUrl, parameters)
       .subscribe({
         next: (response) => {
           this.isLoading = false;
           this.searchResult = [...response.items];
-          console.log(response);
+          this.searchField.reset();
         },
         error: (error) => {
           this.isLoading = false;
           this.alert.message = 'Un probléme de requete a eu lieu';
           this.alert.switchAlert();
+          this.searchField.reset();
         },
       });
   }

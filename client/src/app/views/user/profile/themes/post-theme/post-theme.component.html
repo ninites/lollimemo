@@ -32,7 +32,9 @@
               [controlName]="'cardBack'"
             ></reg-file>
 
-            <reg-button (click)="openGsearch('cardBack')"> Rechercher </reg-button>
+            <reg-button (click)="openGsearch('cardBack')">
+              Rechercher
+            </reg-button>
             <ng-container *ngIf="gotFiles.cardBack > 0">
               <reg-button [width]="50" (click)="displayCrop('cardBack')"
                 ><i class="fas fa-crop-alt"></i
@@ -55,6 +57,9 @@
               [multiple]="true"
               [multiMax]="100"
             ></reg-file>
+            <reg-button (click)="openGsearch('pictures')">
+              Rechercher
+            </reg-button>
             <ng-container *ngIf="gotFiles.pictures > 0">
               <reg-button [width]="50" (click)="displayCrop('pictures')"
                 ><i class="fas fa-crop-alt"></i
