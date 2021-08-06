@@ -82,17 +82,15 @@ export class SearchModalComponent implements OnInit {
       const searchResultThumbTitle = result.image.thumbnailLink;
       this.userSelection.forEach((url) => {
         if (url === searchResultThumbTitle) {
-          this.getFileFromUrl(
-            result.link,
-            result.title,
-            result.fileFormat
-          ).subscribe((file) => {
-            payload.push(file);
-            this.searchModalService.userSelection$.next({
-              type: this.props.type,
-              payload: payload,
-            });
-          });
+          this.getFileFromUrl(url, result.title, result.fileFormat).subscribe(
+            (file) => {
+              payload.push(file);
+              this.searchModalService.userSelection$.next({
+                type: this.props.type,
+                payload: payload,
+              });
+            }
+          );
         }
       });
     });

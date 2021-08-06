@@ -56,7 +56,7 @@ export class DeleteThemeItemComponent implements OnInit {
   searchModalHandler(): void {
     this.searchModalSub = this.searchModal.userSelection$.subscribe((files) => {
       this.themePutForm.patchValue({
-        [files.type + this.themeIndex]: files.payload,
+        [files.type]: files.payload,
       });
       this.uploadChoice = {
         cardBack: false,
@@ -67,7 +67,7 @@ export class DeleteThemeItemComponent implements OnInit {
 
   openGsearch(type: string): void {
     this.searchModal.setInfo({
-      type: type,
+      type: type + this.themeIndex,
       maxChoice: type === 'cardBack' ? 1 : 0,
       opacity: 0.6,
       inputPlaceHolder: 'Rechercher des Images',
@@ -94,7 +94,7 @@ export class DeleteThemeItemComponent implements OnInit {
         this.uploadChoice = {
           cardBack: false,
           pictures: false,
-        }
+        };
       });
   }
 
@@ -110,7 +110,7 @@ export class DeleteThemeItemComponent implements OnInit {
         this.uploadChoice = {
           cardBack: false,
           pictures: false,
-        }
+        };
       });
   }
 
