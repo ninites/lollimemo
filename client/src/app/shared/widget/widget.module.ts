@@ -40,7 +40,7 @@ import { RegCheckBoxComponent } from './reg-check-box/reg-check-box.component';
     RegFileComponent,
     PicturesPreviewComponent,
     RegSpinnerComponent,
-    RegCheckBoxComponent
+    RegCheckBoxComponent,
   ],
 })
 export class WidgetModule {}

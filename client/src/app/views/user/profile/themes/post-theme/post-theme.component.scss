@@ -8,6 +8,14 @@
     color: $textColor !important;
   }
 
+  &_uploadChoice {
+    background-color: $orangeLight;
+    display: flex;
+    padding: $paddingMedium;
+    border-radius: $borderRadius;
+    box-shadow: $shadowFill;
+  }
+
   &_topTitle {
     display: flex;
     width: 90%;

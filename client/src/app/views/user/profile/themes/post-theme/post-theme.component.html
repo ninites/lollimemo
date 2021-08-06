@@ -25,16 +25,19 @@
           <label for="post_cardBack_button">Ajoutez un dos de carte</label>
 
           <div class="postTheme_picturesButtonsClick">
-            <reg-file
-              id="post_cardBack_button"
-              [width]="130"
-              [parentForm]="postThemeForm"
-              [controlName]="'cardBack'"
-            ></reg-file>
+            <div class="postTheme_uploadChoice">
+              <reg-file
+                id="post_cardBack_button"
+                [width]="60"
+                labelValue="Local"
+                [parentForm]="postThemeForm"
+                [controlName]="'cardBack'"
+              ></reg-file>
 
-            <reg-button (click)="openGsearch('cardBack')">
-              Rechercher
-            </reg-button>
+              <reg-button (click)="openGsearch('cardBack')" [width]="80">
+                En ligne
+              </reg-button>
+            </div>
             <ng-container *ngIf="gotFiles.cardBack > 0">
               <reg-button [width]="50" (click)="displayCrop('cardBack')"
                 ><i class="fas fa-crop-alt"></i
@@ -49,17 +52,22 @@
             images pour creer un theme</label
           >
           <div class="postTheme_picturesButtonsClick">
-            <reg-file
-              id="post_img_button"
-              [width]="130"
-              [parentForm]="postThemeForm"
-              [controlName]="'pictures'"
-              [multiple]="true"
-              [multiMax]="100"
-            ></reg-file>
-            <reg-button (click)="openGsearch('pictures')">
-              Rechercher
-            </reg-button>
+            <div class="postTheme_uploadChoice">
+              <reg-file
+                id="post_img_button"
+                [width]="60"
+                labelValue="Local"
+                [parentForm]="postThemeForm"
+                [controlName]="'pictures'"
+                [multiple]="true"
+                [multiMax]="100"
+              ></reg-file>
+
+              <reg-button (click)="openGsearch('pictures')" [width]="80">
+                En ligne
+              </reg-button>
+            </div>
+
             <ng-container *ngIf="gotFiles.pictures > 0">
               <reg-button [width]="50" (click)="displayCrop('pictures')"
                 ><i class="fas fa-crop-alt"></i

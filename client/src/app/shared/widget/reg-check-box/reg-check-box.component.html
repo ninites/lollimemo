@@ -1,5 +1,5 @@
 <div class="reg-check-box">
-  <div class="reg-check-box_border" (click)="switchCheck()">
-    <i class="fas fa-check fa-2x" *ngIf="isChecked" [@popIn]></i>
+  <div class="reg-check-box_border" (click)="switchCheck()" [ngStyle]="style">
+    <i class="fas fa-check fa-lg" *ngIf="isChecked" [@popIn]></i>
   </div>
 </div>

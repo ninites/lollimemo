@@ -123,7 +123,6 @@ export class SearchModalComponent implements OnInit {
       if (!infinite && overMax) {
         this.alert.message = `Vous ne pouvez pas selectionner plus de ${this.props.maxChoice} images`;
         this.alert.switchAlert();
-        return;
       }
 
       this.userSelection = [...this.userSelection, picture];
@@ -135,15 +134,7 @@ export class SearchModalComponent implements OnInit {
     title: string,
     fileFormat: string
   ): Observable<any> {
-    const data$ = from(
-      fetch(url, {
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      })
-    ).pipe(
+    const data$ = from(fetch(url)).pipe(
       switchMap((response) => {
         return response.blob();
       }),

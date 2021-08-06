@@ -18,8 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const token = this.getToken();
     const noTokensUrl = [environment.googleSearchUrl];
-    console.log(request);
-    
+
     if (!noTokensUrl.includes(request.url)) {
       request = request.clone({
         setHeaders: {

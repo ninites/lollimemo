@@ -35,7 +35,7 @@
           <pictures-preview
             pictureType="path"
             [picture]="result.image.thumbnailLink"
-            [size]="150"
+            [size]="100"
             [crossButton]="false"
             [checkBox]="true"
             (checkedValue)="addToUserChoice($event)"
@@ -43,7 +43,10 @@
         </div>
       </div>
       <div class="cropModal_bottomButtons">
-        <reg-button [width]="130" (click)="saveResult()"
+        <reg-button
+          [width]="130"
+          (click)="saveResult()"
+          [disabled]="this.userSelection.length > this.props.maxChoice && this.props.maxChoice !==0"
           >Sauvegarder</reg-button
         >
         <reg-button [width]="100" (click)="exit()">Quitter</reg-button>
