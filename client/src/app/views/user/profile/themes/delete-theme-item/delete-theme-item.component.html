@@ -9,14 +9,27 @@
     <div class="deleteThemeItem_cardBack">
       <div class="deleteThemeItem_cardBackContainer">
         <div class="deleteThemeItem_picture" [ngStyle]="cardBackStyle">
-          <form [formGroup]="themePutForm">
-            <reg-file
-              [parentForm]="themePutForm"
-              [controlName]="'cardBack' + themeIndex"
-              [width]="50"
-              labelValue="Modifier le dos de carte"
-            ></reg-file>
-          </form>
+          <reg-button
+            *ngIf="!uploadChoice.cardBack"
+            (click)="uploadChoice.cardBack = !uploadChoice.cardBack"
+            >Modifier le dos de carte</reg-button
+          >
+          <div
+            class="deleteThemeItem_uploadChoice"
+            *ngIf="uploadChoice.cardBack"
+          >
+            <form [formGroup]="themePutForm">
+              <reg-file
+                [parentForm]="themePutForm"
+                [controlName]="'cardBack' + themeIndex"
+                [width]="50"
+                labelValue="Local"
+              ></reg-file>
+            </form>
+            <reg-button [width]="70" (click)="openGsearch('cardBack')">
+              En ligne
+            </reg-button>
+          </div>
         </div>
 
         <div class="deleteThemeItem_cardBackModify" *ngIf="cardBackChange">
@@ -46,19 +59,28 @@
     <div class="deleteThemeItem_setPreview">
       <div class="deleteThemeItem_cardTop">
         <p>Cartes</p>
-
-        <form [formGroup]="themePutForm">
-          <reg-file
-            [width]="50"
-            [parentForm]="themePutForm"
-            [controlName]="'pictures' + themeIndex"
-            labelValue=""
-            filesAddText=""
-            [multiple]="true"
-          >
-            <i class="fas fa-plus"></i
-          ></reg-file>
-        </form>
+        <reg-button
+          *ngIf="!uploadChoice.pictures"
+          (click)="uploadChoice.pictures = !uploadChoice.pictures"
+        >
+          <i class="fas fa-plus"></i
+        ></reg-button>
+        <div class="deleteThemeItem_uploadChoice" *ngIf="uploadChoice.pictures">
+          <form [formGroup]="themePutForm">
+            <reg-file
+              [width]="50"
+              [parentForm]="themePutForm"
+              [controlName]="'pictures' + themeIndex"
+              labelValue="Local"
+              filesAddText=""
+              [multiple]="true"
+            >
+            </reg-file>
+            <reg-button [width]="70" (click)="openGsearch('pictures')">
+              En ligne
+            </reg-button>
+          </form>
+        </div>
       </div>
 
       <div

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { combineLatest, fromEvent, Observable } from 'rxjs';
+import { combineLatest, fromEvent, Observable, Subscription } from 'rxjs';
 import { concatAll, filter, map, mergeAll, switchMap } from 'rxjs/operators';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { CropModalService } from 'src/app/shared/top/crop-modal/crop-modal.service';
+import { SearchModalService } from 'src/app/shared/top/search-modal/search-modal.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,6 +22,7 @@ export class DeleteThemeItemComponent implements OnInit {
   constructor(
     private cropModal: CropModalService,
     private readonly alert: AlertService,
+    private searchModal: SearchModalService,
     private request: RequestService
   ) {}
 
@@ -29,16 +31,47 @@ export class DeleteThemeItemComponent implements OnInit {
   cardsPreviewNotPosted: { [key: string]: any }[] = [];
   cardBackChange: boolean = false;
   picturesChange: boolean = false;
+  uploadChoice = {
+    cardBack: false,
+    pictures: false,
+  };
   isLoading: { [key: string]: any } = {
     cardBack: false,
     pictures: false,
     deletePicture: [],
   };
+  searchModalSub: Subscription = this.searchModal.userSelection$.subscribe();
 
   ngOnInit(): void {
     this.getCardBack();
     this.cardsPreview = this.getPreview(this.theme.images);
     this.formHandler();
+    this.searchModalHandler();
+  }
+
+  ngOnDestroy(): void {
+    this.searchModalSub.unsubscribe();
+  }
+
+  searchModalHandler(): void {
+    this.searchModalSub = this.searchModal.userSelection$.subscribe((files) => {
+      this.themePutForm.patchValue({
+        [files.type + this.themeIndex]: files.payload,
+      });
+      this.uploadChoice = {
+        cardBack: false,
+        pictures: false,
+      };
+    });
+  }
+
+  openGsearch(type: string): void {
+    this.searchModal.setInfo({
+      type: type,
+      maxChoice: type === 'cardBack' ? 1 : 0,
+      opacity: 0.6,
+      inputPlaceHolder: 'Rechercher des Images',
+    });
   }
 
   formHandler(): void {
@@ -58,6 +91,10 @@ export class DeleteThemeItemComponent implements OnInit {
       .subscribe((file: any) => {
         this.changeCardBackPreview(file);
         this.cardBackChange = true;
+        this.uploadChoice = {
+          cardBack: false,
+          pictures: false,
+        }
       });
   }
 
@@ -70,6 +107,10 @@ export class DeleteThemeItemComponent implements OnInit {
       .subscribe((files: any) => {
         this.cardsPreviewNotPosted = [...files];
         this.picturesChange = true;
+        this.uploadChoice = {
+          cardBack: false,
+          pictures: false,
+        }
       });
   }
 
@@ -107,12 +148,12 @@ export class DeleteThemeItemComponent implements OnInit {
       this.alert.message = 'Vous ne pouvez pas avoir moins de 10 cartes';
       this.alert.switchAlert();
       return;
-    }    
-    this.isLoading.deletePicture[id] = true
+    }
+    this.isLoading.deletePicture[id] = true;
     this.request.delete('uploads/' + this.theme._id + '/' + id).subscribe({
       next: (response) => {
         this.cardsPreview = this.cardsPreview.filter((card) => card.id !== id);
-        this.isLoading.deletePicture[id] = false
+        this.isLoading.deletePicture[id] = false;
         this.alert.message = 'Carte correctement retirée';
         this.alert.switchAlert();
       },

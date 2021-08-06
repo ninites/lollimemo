@@ -1,5 +1,4 @@
 import { DOCUMENT } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { from, Observable, of } from 'rxjs';
@@ -22,7 +21,6 @@ export class SearchModalComponent implements OnInit {
     private request: RequestService,
     private searchModalService: SearchModalService,
     private alert: AlertService,
-    private httpClient: HttpClient,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
