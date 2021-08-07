@@ -251,7 +251,10 @@ export class DeleteThemeItemComponent implements OnInit {
         this.cardsPreview = this.getPreview(resp.images);
         this.isLoading.pictures = false;
       },
-      error: (err) => {},
+      error: (err) => {
+        console.log(err);
+        
+      },
     });
   }
 }
