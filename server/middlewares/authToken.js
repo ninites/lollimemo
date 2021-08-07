@@ -19,6 +19,7 @@ const authToken = async (req, res, next) => {
       }
       return result;
     });
+    console.log(tokenVerif);
     req.body.userInfo = tokenVerif;
     next();
   } catch (err) {
