@@ -3,6 +3,7 @@ require("dotenv").config();
 const ApiError = require("../error/ApiError");
 
 const authToken = async (req, res, next) => {
+  console.log("token step");
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   const tokenPresence = token === "null" || token === undefined;
