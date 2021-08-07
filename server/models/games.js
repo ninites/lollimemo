@@ -17,7 +17,6 @@ class Games {
       match: filters,
       options: { sort: { date: -1 } },
     });
-    console.log(user);
     return user.games;
   };
 }
