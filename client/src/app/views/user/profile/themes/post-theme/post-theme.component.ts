@@ -167,7 +167,12 @@ export class PostThemeComponent implements OnInit {
 
   searchModalHandler(): void {
     this.searchModalSub = this.searchModal.userSelection$.subscribe((files) => {
-      this.postThemeForm.patchValue({ [files.type]: files.payload });
+      this.postThemeForm.patchValue({
+        [files.type]:
+          files.type === 'pictures'
+            ? [...this.postThemeForm.value.pictures, ...files.payload]
+            : files.payload,
+      });
     });
   }
 }

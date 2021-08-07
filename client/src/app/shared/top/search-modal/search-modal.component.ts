@@ -33,7 +33,7 @@ export class SearchModalComponent implements OnInit {
   });
   isLoading: boolean = false;
   searchResult: { [key: string]: any }[] = [];
-  userSelection: string[] = [];
+  userSelection: { [key: string]: any }[] = [];
 
   ngOnInit(): void {
     this.displayed();
@@ -77,22 +77,9 @@ export class SearchModalComponent implements OnInit {
   }
 
   saveResult(): void {
-    const payload: any = [];
-    this.searchResult.forEach((result) => {
-      const searchResultThumbTitle = result.image.thumbnailLink;
-      this.userSelection.forEach((url) => {
-        if (url === searchResultThumbTitle) {
-          this.getFileFromUrl(url, result.title, result.fileFormat).subscribe(
-            (file) => {
-              payload.push(file);
-              this.searchModalService.userSelection$.next({
-                type: this.props.type,
-                payload: payload,
-              });
-            }
-          );
-        }
-      });
+    this.searchModalService.userSelection$.next({
+      type: this.props.type,
+      payload: this.userSelection,
     });
   }
 
@@ -105,11 +92,14 @@ export class SearchModalComponent implements OnInit {
 
   addToUserChoice(data: { picture: string; checked: boolean }): void {
     const { picture, checked } = data;
+    const actualFile = this.searchResult[this.getSearchResultIndex(picture)];
 
     if (!checked) {
-      this.userSelection = this.userSelection.filter((url) => {
-        return url !== picture;
-      });
+      this.userSelection = this.userSelection.filter(
+        (file: { [key: string]: any }) => {
+          return file.name !== actualFile.title.trim();
+        }
+      );
     }
 
     if (checked) {
@@ -121,8 +111,21 @@ export class SearchModalComponent implements OnInit {
         this.alert.switchAlert();
       }
 
-      this.userSelection = [...this.userSelection, picture];
+      this.getFileFromUrl(
+        picture,
+        actualFile.title,
+        actualFile.fileFormat
+      ).subscribe((file) => {
+        this.userSelection = [...this.userSelection, file];
+      });
     }
+  }
+
+  getSearchResultIndex(url: string): number {
+    return this.searchResult.findIndex((result) => {
+      const searchResultThumbTitle = result.image.thumbnailLink;
+      return url === searchResultThumbTitle;
+    });
   }
 
   getFileFromUrl(
@@ -135,7 +138,7 @@ export class SearchModalComponent implements OnInit {
         return response.blob();
       }),
       map((blob) => {
-        return new File([blob], title, {
+        return new File([blob], title.trim(), {
           type: 'image/jpeg',
           lastModified: Date.now(),
         });
@@ -149,7 +152,6 @@ export class SearchModalComponent implements OnInit {
       return;
     }
 
-    this.userSelection = [];
     this.isLoading = true;
 
     const parameters = {

@@ -11,6 +11,18 @@
   align-items: center;
   justify-content: center;
 
+  &_searchResult{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_userSelectChoice{
+    width: 100%;
+  }
+
   &_picturesPreview {
     width: 100%;
     background-color: $orangeLight;
@@ -35,10 +47,10 @@
 
   &_cropperContainer {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100%;
+    width: 100%;
     overflow-y: auto;
   }
 

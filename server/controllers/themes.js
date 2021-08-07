@@ -27,9 +27,7 @@ class Themes {
   };
 
   static editOne = async (req, res, next) => {
-    console.log("plop");
     const { cardBack, pictures } = req.files;
-    console.log(cardBack, pictures);
     if (cardBack) {
       try {
         const theme = await themesModel.getOne(req.params.id);

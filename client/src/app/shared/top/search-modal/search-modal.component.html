@@ -31,22 +31,39 @@
       </div>
 
       <div class="cropModal_cropperContainer">
-        <div *ngFor="let result of searchResult">
+        <div class="cropModal_userSelectChoice">
+          <swiper [slidesPerView]="3.2">
+            <ng-template swiperSlide *ngFor="let picture of userSelection">
+              <pictures-preview
+                [picture]="picture"
+                [size]="50"
+                [crossButton]="false"
+              ></pictures-preview>
+            </ng-template>
+          </swiper>
+        </div>
+
+        <div class="cropModal_searchResult">
           <pictures-preview
+            *ngFor="let result of searchResult"
             pictureType="path"
             [picture]="result.image.thumbnailLink"
             [size]="100"
-            [crossButton]="false"
             [checkBox]="true"
+            [crossButton]="false"
             (checkedValue)="addToUserChoice($event)"
           ></pictures-preview>
         </div>
       </div>
+
       <div class="cropModal_bottomButtons">
         <reg-button
           [width]="130"
           (click)="saveResult()"
-          [disabled]="this.userSelection.length > this.props.maxChoice && this.props.maxChoice !==0"
+          [disabled]="
+            this.userSelection.length > this.props.maxChoice &&
+            this.props.maxChoice !== 0
+          "
           >Sauvegarder</reg-button
         >
         <reg-button [width]="100" (click)="exit()">Quitter</reg-button>

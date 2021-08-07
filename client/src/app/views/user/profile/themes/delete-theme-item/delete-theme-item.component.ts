@@ -58,6 +58,7 @@ export class DeleteThemeItemComponent implements OnInit {
       this.themePutForm.patchValue({
         [files.type]: files.payload,
       });
+
       this.uploadChoice = {
         cardBack: false,
         pictures: false,
@@ -253,7 +254,6 @@ export class DeleteThemeItemComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        
       },
     });
   }
