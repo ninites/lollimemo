@@ -22,7 +22,7 @@ export class PlayersNameComponent implements OnInit {
     private setupServ: SetupService,
     private alert: AlertService,
     private auth: AuthentificationService,
-    private request: RequestService,
+    private request: RequestService
   ) {}
 
   maxNumberOfPlayer: number = 1;
@@ -36,10 +36,10 @@ export class PlayersNameComponent implements OnInit {
     },
   ];
   validate$ = new BehaviorSubject(this.formValidation);
-  validationSubscription : Subscription = this.validate$.subscribe()
+  validationSubscription: Subscription = this.validate$.subscribe();
   btnValidation: boolean = true;
   isAuth: boolean = false;
-  isLoading : boolean = false
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.maxNumberOfPlayer = this.gameParams.numberOfPlayer;
@@ -51,17 +51,17 @@ export class PlayersNameComponent implements OnInit {
     this.getUserInfo();
   }
 
-  ngOnDestroy() : void {
-    this.validationSubscription.unsubscribe()
+  ngOnDestroy(): void {
+    this.validationSubscription.unsubscribe();
   }
 
   getUserInfo(): void {
     this.auth.isAuth$.subscribe((isAuth) => {
       this.isAuth = isAuth;
       if (isAuth) {
-        this.isLoading = true
+        this.isLoading = true;
         this.request.get('users/info').subscribe((response) => {
-          this.isLoading = false
+          this.isLoading = false;
           this.aliases.patchValue([response.username]);
         });
       }
@@ -107,8 +107,8 @@ export class PlayersNameComponent implements OnInit {
       this.aliases.value[userToModifyIndex]
     );
     this.addPlayerInput();
-    const alertUserIndex =
-      typeof userToModifyIndex === 'string' && parseInt(userToModifyIndex) + 1;
+
+    const alertUserIndex = userToModifyIndex + 1;
 
     this.alert.message = `Le nom du joueur ${alertUserIndex} a bien ete modifie en ${this.aliases.value[userToModifyIndex]} `;
     this.alert.switchAlert();
