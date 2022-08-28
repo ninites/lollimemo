@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  proxy: 'http://localhost:5000/api/',
+  production: true,
+  proxy: 'http://0.0.0.0:5000/api/',
   googleSearch: 'AIzaSyD9PlVsTVjgDTBL00EHLePsRJQ3EsNQBNg',
   googleSearchCx: '0621a687ce2741caf',
   googleSearchUrl: 'https://customsearch.googleapis.com/customsearch/v1',

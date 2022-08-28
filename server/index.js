@@ -21,10 +21,14 @@ const apiErrorHandler = require("./error/apiErroHandler");
 app.use(cors("*"));
 app.use(express.json());
 
+app.get('/api/test', (req, res) => {
+  res.status(200).send("WORKING")
+})
+
 app.use("/api/users", users);
 app.use("/api/themes", themes);
 app.use("/api/uploads", images);
-app.use('/api/games',games)
+app.use('/api/games', games)
 app.use(apiErrorHandler);
 
 app.listen(port, () => {
