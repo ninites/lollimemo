@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { RouteHistoryService } from 'src/app/core/services/route-history/route-history.service';
@@ -12,7 +12,7 @@ import { AlertService } from 'src/app/shared/top/alert/alert.service';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private request: RequestService,
     private router: Router,
     private routeHistory: RouteHistoryService,

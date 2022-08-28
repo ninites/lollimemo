@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
@@ -13,7 +13,7 @@ export class DeleteThemeComponent implements OnInit {
   constructor(
     private request: RequestService,
     private alert: AlertService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private gameParams: GameParametersService,
     private bigSpinner : BigSpinnerService
   ) {}

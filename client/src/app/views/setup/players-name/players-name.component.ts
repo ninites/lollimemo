@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormArray } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
@@ -17,7 +17,7 @@ import { SetupService } from '../setup-service/setup.service';
 export class PlayersNameComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private gameParams: GameParametersService,
     private setupServ: SetupService,
     private alert: AlertService,
@@ -171,6 +171,6 @@ export class PlayersNameComponent implements OnInit {
   }
 
   get aliases() {
-    return this.userForm.get('aliases') as FormArray;
+    return this.userForm.get('aliases') as UntypedFormArray;
   }
 }

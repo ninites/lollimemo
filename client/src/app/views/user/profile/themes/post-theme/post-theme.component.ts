@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { SearchModalService } from 'src/app/shared/top/search-modal/search-modal
 })
 export class PostThemeComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private alert: AlertService,
     private request: RequestService,
     private cropModal: CropModalService,

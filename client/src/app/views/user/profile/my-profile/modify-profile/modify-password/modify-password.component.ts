@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { passwordConfirming } from 'src/app/shared/functions/passwordCheck';
@@ -12,7 +12,7 @@ import { AlertService } from 'src/app/shared/top/alert/alert.service';
 })
 export class ModifyPasswordComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private request: RequestService,
     private alert: AlertService,
     private route: ActivatedRoute,

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { popAnim } from 'src/app/animations/animations';
 
 @Component({
@@ -12,7 +12,7 @@ export class FilterBarComponent implements OnInit {
   @Output() filteredChange = new EventEmitter<{ [key: string]: any }>();
   @Input() filters: { [key: string]: any } = {};
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   select: { [key: string]: any } = {
     difficulty: {

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { from, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { opacityAnim } from 'src/app/animations/animations';
@@ -17,7 +17,7 @@ import { SearchModalService } from './search-modal.service';
 })
 export class SearchModalComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private request: RequestService,
     private searchModalService: SearchModalService,
     private alert: AlertService,
