@@ -3,14 +3,12 @@ const express = require("express");
 const authToken = require("../middlewares/authToken");
 const themes = express.Router();
 const upload = require("../config/multer");
-const duplicateInArray = require("../middlewares/duplicateInArray");
 const alreadyExist = require("../middlewares/alreadyExist");
 const imgUploader = require("../middlewares/imgUploader");
 
 themes.post(
   "/",
   upload.fields([{ name: "pictures" }, { name: "cardBack" }]),
-  duplicateInArray,
   authToken,
   alreadyExist,
   imgUploader,
