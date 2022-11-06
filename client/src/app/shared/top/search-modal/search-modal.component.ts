@@ -22,7 +22,7 @@ export class SearchModalComponent implements OnInit {
     private searchModalService: SearchModalService,
     private alert: AlertService,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) { }
 
   style: { [key: string]: any } = {};
   isDisplayed: boolean = false;
@@ -112,7 +112,7 @@ export class SearchModalComponent implements OnInit {
       }
 
       this.getFileFromUrl(
-        picture,
+        actualFile.original,
         actualFile.title,
         actualFile.fileFormat
       ).subscribe((file) => {
@@ -123,7 +123,7 @@ export class SearchModalComponent implements OnInit {
 
   getSearchResultIndex(url: string): number {
     return this.searchResult.findIndex((result) => {
-      const searchResultThumbTitle = result.image.thumbnailLink;
+      const searchResultThumbTitle = result.thumbnail;
       return url === searchResultThumbTitle;
     });
   }
@@ -155,26 +155,22 @@ export class SearchModalComponent implements OnInit {
     this.isLoading = true;
 
     const parameters = {
-      key: environment.googleSearch,
-      cx: environment.googleSearchCx,
-      q: this.searchField.value.q,
-      searchType: 'image',
+      textSearch: this.searchField.value.q,
     };
 
-    this.request
-      .getExternal(environment.googleSearchUrl, parameters)
-      .subscribe({
-        next: (response) => {
-          this.isLoading = false;
-          this.searchResult = [...response.items];
-          this.searchField.reset();
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.alert.message = 'Un probléme de requete a eu lieu';
-          this.alert.switchAlert();
-          this.searchField.reset();
-        },
-      });
+    this.request.searchImages(parameters).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.searchResult = [...response];
+        this.searchField.reset();
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.alert.message = 'Un probléme de requete a eu lieu';
+        this.alert.switchAlert();
+        this.searchField.reset();
+      },
+    })
+
   }
 }

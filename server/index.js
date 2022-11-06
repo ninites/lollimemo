@@ -27,7 +27,7 @@ app.get('/api/test', (req, res) => {
 
 app.use("/api/users", users);
 app.use("/api/themes", themes);
-app.use("/api/uploads", images);
+app.use("/api/images", images);
 app.use('/api/games', games)
 app.use(apiErrorHandler);
 

@@ -151,7 +151,7 @@ export class DeleteThemeItemComponent implements OnInit {
       return;
     }
     this.isLoading.deletePicture[id] = true;
-    this.request.delete('uploads/' + this.theme._id + '/' + id).subscribe({
+    this.request.delete('images/' + this.theme._id + '/' + id).subscribe({
       next: (response) => {
         this.cardsPreview = this.cardsPreview.filter((card) => card.id !== id);
         this.isLoading.deletePicture[id] = false;

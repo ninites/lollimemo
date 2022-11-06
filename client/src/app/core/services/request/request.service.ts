@@ -21,7 +21,7 @@ export interface Token {
   providedIn: 'root',
 })
 export class RequestService {
-  constructor(private alert: AlertService, private http: HttpClient) {}
+  constructor(private alert: AlertService, private http: HttpClient) { }
 
   apiUrl: string = 'https://picsum.photos/v2/list';
 
@@ -122,6 +122,15 @@ export class RequestService {
       })
     );
     return result;
+  }
+
+  searchImages(parameters: { [key: string]: any }) {
+    const endpoint = "images/search?textSearch=" + parameters.textSearch
+    return this.http.get(environment.proxy + endpoint).pipe(
+      map((response: any) => {
+        return response.images_results
+      })
+    )
   }
 
   getExternal(
