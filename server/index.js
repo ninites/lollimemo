@@ -32,7 +32,7 @@ app.use('/api/games', games)
 app.use(apiErrorHandler);
 
 app.listen(port, () => {
-  console.log("server on port " + port);
+  console.log("LOLLIMEMO ON PORT = " + port);
 });
 
 mongoose.connect(url, client);

@@ -16,6 +16,8 @@ services:
     build: ./server # specify the directory of the Dockerfile
     ports:
       - "5000:5000" #specify ports forewarding
+    volumes:
+      - "./server:/app/server"
     container_name: back-container
     restart: always
     environment:
