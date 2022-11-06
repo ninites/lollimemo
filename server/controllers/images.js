@@ -4,6 +4,7 @@ const fs = require('fs')
 const ApiError = require('../error/ApiError')
 
 class Images {
+  
   static sendOne = (req, res) => {
     const { rep, img } = req.params;
     res.sendFile(`uploads/${rep}/${img}`, { root: "./" });

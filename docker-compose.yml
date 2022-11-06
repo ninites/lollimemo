@@ -4,7 +4,12 @@ services:
   frontend: #name of the first service
     build: ./client # specify the directory of the Dockerfile
     ports:
-      - "80:80" # specify port forewarding
+      - '4200:4200'
+      - '49153:49153'
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - "./client:/app/client"
     container_name: front-container
     restart: always
   backend: #name of the second service
