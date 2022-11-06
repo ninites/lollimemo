@@ -21,7 +21,7 @@ export class CardslistComponent implements OnInit {
     public regPopService: RegPopService,
     private timer: TimerService,
     private bigSpinner: BigSpinnerService
-  ) {}
+  ) { }
 
   cardsList: Picture[] = [];
   isFlipping: boolean = false;
@@ -57,7 +57,7 @@ export class CardslistComponent implements OnInit {
       const cardBack = this.gameParams.selectedTheme.images.filter(
         (img: any) => img.type === 'cardBack'
       );
-      this.cardBack = environment.proxy + cardBack[0].path;
+      this.cardBack = cardBack[0].path;
     } else {
       this.request.getDefaultTheme(diff).subscribe({
         next: (resp): void => {

@@ -24,7 +24,7 @@ export class DeleteThemeItemComponent implements OnInit {
     private readonly alert: AlertService,
     private searchModal: SearchModalService,
     private request: RequestService
-  ) {}
+  ) { }
 
   cardBackStyle: { [key: string]: any } = {};
   cardsPreview: { [key: string]: any }[] = [];
@@ -120,7 +120,7 @@ export class DeleteThemeItemComponent implements OnInit {
       (images: { [key: string]: string }) => images.type === 'cardBack'
     );
     if (cardback.length !== 0)
-      this.changeCardBackPreview(environment.proxy + cardback[0].path);
+      this.changeCardBackPreview(cardback[0].path);
   }
 
   getPreview(array: any): { [key: string]: any }[] {
@@ -130,7 +130,7 @@ export class DeleteThemeItemComponent implements OnInit {
     );
     cardsPreview.forEach((preview: { [key: string]: string }) => {
       this.isLoading.deletePicture.push({ [preview.id]: false });
-      result.push({ file: environment.proxy + preview.path, id: preview._id });
+      result.push({ file: preview.path, id: preview._id });
     });
     return result;
   }
@@ -232,7 +232,7 @@ export class DeleteThemeItemComponent implements OnInit {
         });
         this.isLoading.cardBack = false;
       },
-      error: (err) => {},
+      error: (err) => { },
     });
   }
 

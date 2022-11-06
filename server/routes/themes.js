@@ -5,6 +5,7 @@ const themes = express.Router();
 const upload = require("../config/multer");
 const duplicateInArray = require("../middlewares/duplicateInArray");
 const alreadyExist = require("../middlewares/alreadyExist");
+const imgUploader = require("../middlewares/imgUploader");
 
 themes.post(
   "/",
@@ -12,6 +13,7 @@ themes.post(
   duplicateInArray,
   authToken,
   alreadyExist,
+  imgUploader,
   themesCtrl.postOne
 );
 themes.delete("/:id", authToken, themesCtrl.deleteOne);
@@ -20,6 +22,7 @@ themes.put(
   "/:id",
   upload.fields([{ name: "pictures" }, { name: "cardBack" }]),
   authToken,
+  imgUploader,
   themesCtrl.editOne
 );
 

@@ -1,11 +1,12 @@
 const { Theme, User, Image } = require("./schema/schema");
-const fs = require("fs");
+const Images = require("../models/images")
 
 class Themes {
   static postOne = async (info) => {
     const userId = info.userInfo.id;
-    const newCardBack = await this.postPics(info.cardBack, "cardBack");
-    const newPictures = await this.postPics(info.pictures, "themePic");
+    const { cardBack, pictures } = info.uploadedPictures
+    const newCardBack = await this.postPics(cardBack, "cardBack");
+    const newPictures = await this.postPics(pictures, "themePic");
     const fullSet = [...newCardBack, ...newPictures];
     const newTheme = await Theme.create({ name: info.name });
 
@@ -39,23 +40,9 @@ class Themes {
       { $pull: { themes: id } },
       { new: true, useFindAndModify: false }
     );
-    const themeToDelete = await Theme.findById(id);
-    const imagesToErase = await Image.find({
-      _id: { $in: themeToDelete.images },
-    });
-    const unSyncImg = imagesToErase.forEach(async (image) => {
-      if (fs.existsSync(image.path)) {
-        fs.unlink(image.path, (err) => err);
-      } else {
-        console.error("Picture doesn't exists");
-      }
-    });
-    await Image.deleteMany({
-      _id: {
-        $in: themeToDelete.images,
-      },
-    });
 
+    const themeToDelete = await Theme.findById(id);
+    await Images.deleteImagesInThemes(themeToDelete)
     const themeRemoved = await themeToDelete.deleteOne();
     return themeRemoved;
   };
@@ -63,7 +50,7 @@ class Themes {
   static postPics = async (pictures, type) => {
     const newPictures = await Promise.all(
       pictures.map(async (picture) => {
-        return await Image.create({ type: type, path: picture.path });
+        return await Image.create({ type: type, path: picture.url, public_id: picture.public_id });
       })
     );
     return newPictures;

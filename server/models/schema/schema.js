@@ -17,6 +17,7 @@ const themeSchema = mongoose.Schema({
 const imageSchema = mongoose.Schema({
   type: { type: String, required: true },
   path: { type: String, required: true },
+  public_id: { type: String, required: true },
 });
 
 const gamesSchema = mongoose.Schema({

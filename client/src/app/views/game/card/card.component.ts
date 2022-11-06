@@ -22,7 +22,7 @@ export class CardComponent implements OnInit {
     if (this.card) {
       this.backroungImg = {
         'background-image': `url('${
-          this.card.download_url || environment.proxy + this.card.path
+          this.card.download_url ||  this.card.path
         }')`,
       };
     }

@@ -6,10 +6,6 @@ const fs = require("fs");
 
 class Themes {
   static postOne = async (req, res) => {
-    const { cardBack, pictures } = req.files;
-
-    req.body.cardBack = cardBack;
-    req.body.pictures = pictures;
     const newTheme = await themesModel.postOne(req.body);
     res.status(200).json(newTheme);
   };
@@ -27,7 +23,7 @@ class Themes {
   };
 
   static editOne = async (req, res, next) => {
-    const { cardBack, pictures } = req.files;
+    const { cardBack, pictures } = req.body.uploadedPictures;
     if (cardBack) {
       try {
         const theme = await themesModel.getOne(req.params.id);
@@ -35,8 +31,7 @@ class Themes {
           (image) => image.type === "cardBack"
         );
 
-        if (oldCardBack[0] && fs.existsSync(oldCardBack[0].path)) {
-          fs.unlinkSync(oldCardBack[0].path);
+        if (oldCardBack[0]) {
           await imageModel.deleteOne(req.params.id, oldCardBack[0]._id);
         }
       } catch (err) {

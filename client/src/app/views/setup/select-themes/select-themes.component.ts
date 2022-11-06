@@ -68,7 +68,7 @@ export class SelectThemesComponent implements OnInit {
     this.validation$.next(false);
     const cardBack = this.getCardBack(this.userTheme);
     this.style.backgroundImage = cardBack
-      ? `url('${environment.proxy + cardBack}')`
+      ? `url('${cardBack}')`
       : '';
   }
 
@@ -137,7 +137,7 @@ export class SelectThemesComponent implements OnInit {
     if (Object.keys(this.gameParams.selectedTheme).length !== 0) {
       const cardBack = this.getCardBack([this.gameParams.selectedTheme]);
       this.style.backgroundImage = cardBack
-        ? `url('${environment.proxy + cardBack}')`
+        ? `url('${cardBack}')`
         : '';
     }
     if (paramsValue) this.validation$.next(true);

@@ -1,7 +1,11 @@
+const cloudinaryAdapter = require("../services/cloudinary-adapter").CloudinaryAdapterSingleton;
 const { Theme, User, Image } = require("./schema/schema");
 
 class Images {
   static deleteOne = async (themeId, imgId) => {
+    const image = await this.getOne(imgId)
+    await cloudinaryAdapter.delete(image.public_id)
+    await Image.deleteOne({ _id: imgId })
     const removeImg = await Theme.updateOne(
       { _id: themeId },
       { $pull: { images: imgId } },
@@ -14,7 +18,23 @@ class Images {
     return await Image.findById(imgId);
   };
 
-  static getOneByType = async (type,value) => {
+  static deleteImagesInThemes = async (theme) => {
+    const imagesToErase = await Image.find({
+      _id: { $in: theme.images },
+    });
+
+    for (const image of imagesToErase) {
+      await cloudinaryAdapter.delete(image.public_id)
+    }
+
+    await Image.deleteMany({
+      _id: {
+        $in: theme.images,
+      },
+    });
+  }
+
+  static getOneByType = async (type, value) => {
     return await Image.find({ [type]: value });
   };
 }
