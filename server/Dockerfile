@@ -4,6 +4,6 @@ RUN mkdir -p /app
 WORKDIR /app/server
 COPY . /app/server
 RUN cd /app/server
-RUN npm install
+RUN npm install --legacy-peer-deps
 EXPOSE 5000
 CMD ["npm", "start"]
