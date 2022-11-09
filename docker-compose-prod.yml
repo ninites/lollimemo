@@ -1,14 +1,6 @@
 version: '3.6'
 
 services:
-  frontend: #name of the first service
-    build: 
-      context: ./client
-      dockerfile: ./Dockerfile.prod
-    ports:
-      - '80:80'
-    container_name: front-container
-    restart: always
   backend: #name of the second service
     build: ./server # specify the directory of the Dockerfile
     ports:
@@ -32,3 +24,11 @@ services:
     environment: 
       - MONGO_INITDB_ROOT_USERNAME=api
       - MONGO_INITDB_ROOT_PASSWORD=docker1234
+  frontend: #name of the first service
+    build: 
+      context: ./client
+      dockerfile: ./Dockerfile.prod
+    ports:
+      - '80:80'
+    container_name: front-container
+    restart: always
