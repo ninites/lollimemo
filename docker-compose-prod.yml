@@ -2,7 +2,9 @@ version: '3.6'
 
 services:
   frontend: #name of the first service
-    build: ./client # specify the directory of the Dockerfile
+    build: 
+      context: ./client
+      dockerfile: ./Dockerfile.prod
     ports:
       - '80:80'
     container_name: front-container
