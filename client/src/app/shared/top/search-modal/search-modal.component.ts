@@ -143,7 +143,10 @@ export class SearchModalComponent implements OnInit {
     title: string,
     fileFormat: string
   ): Observable<any> {
-    const data$ = from(fetch(url)).pipe(
+
+    const urlWithCORSPROXY = environment.corsProxyURL + url
+
+    const data$ = from(fetch(urlWithCORSPROXY)).pipe(
       switchMap((response) => {
         return response.blob();
       }),
