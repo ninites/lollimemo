@@ -21,6 +21,7 @@ export class PicturesPreviewComponent implements OnInit {
   @Input() crossButton: boolean = true;
   @Input() checkBox: boolean = false;
   @Input() pictureType: string = 'blob';
+  @Input() isLoading: boolean = false
   @Output() fileDelete = new EventEmitter<any>();
   @Output() checkedValue = new EventEmitter<{
     picture: string;
@@ -29,7 +30,7 @@ export class PicturesPreviewComponent implements OnInit {
 
   style: { [key: string]: any } = {};
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.style = {

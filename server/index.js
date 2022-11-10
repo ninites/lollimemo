@@ -10,29 +10,45 @@ const client = {
   useUnifiedTopology: true,
 };
 
-module.exports = client;
+const initServer = () => {
+  const users = require("./routes/users");
+  const themes = require("./routes/themes");
+  const images = require("./routes/images");
+  const games = require('./routes/games')
+  const apiErrorHandler = require("./error/apiErroHandler");
 
-const users = require("./routes/users");
-const themes = require("./routes/themes");
-const images = require("./routes/images");
-const games = require('./routes/games')
-const apiErrorHandler = require("./error/apiErroHandler");
+  app.use(cors("*"));
+  app.use(express.json());
 
-app.use(cors("*"));
-app.use(express.json());
+  app.get('/api/test', (req, res) => {
+    res.status(200).send("WORKING")
+  })
 
-app.get('/api/test', (req, res) => {
-  res.status(200).send("WORKING")
+  app.use("/api/users", users);
+  app.use("/api/themes", themes);
+  app.use("/api/images", images);
+  app.use('/api/games', games)
+  app.use(apiErrorHandler);
+
+  app.listen(port, () => {
+    console.log("SERVER START FO REAL= " + port);
+  });
+}
+
+
+try {
+  mongoose.connect(url, client);
+} catch (error) {
+  console.log("MONGO CONNECTION ERROR", error);
+  process.env.exit(1)
+}
+
+mongoose.connection.on("error", (error) => {
+  console.log("MONGO CONNECTION ERROR", error);
+  process.env.exit(1)
 })
 
-app.use("/api/users", users);
-app.use("/api/themes", themes);
-app.use("/api/images", images);
-app.use('/api/games', games)
-app.use(apiErrorHandler);
 
-app.listen(port, () => {
-  console.log("LOLLIMEMO ON PORT = " + port);
-});
-
-mongoose.connect(url, client);
+mongoose.connection.on("open", (error) => {
+  initServer()
+})

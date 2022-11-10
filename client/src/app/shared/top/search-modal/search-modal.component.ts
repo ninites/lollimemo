@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { from, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { opacityAnim } from 'src/app/animations/animations';
 import { RequestService } from 'src/app/core/services/request/request.service';
 import { environment } from 'src/environments/environment';
@@ -94,6 +94,7 @@ export class SearchModalComponent implements OnInit {
     const { picture, checked } = data;
     const actualFile = this.searchResult[this.getSearchResultIndex(picture)];
 
+
     if (!checked) {
       this.userSelection = this.userSelection.filter(
         (file: { [key: string]: any }) => {
@@ -111,12 +112,21 @@ export class SearchModalComponent implements OnInit {
         this.alert.switchAlert();
       }
 
+      actualFile.isLoading = true
       this.getFileFromUrl(
         actualFile.original,
         actualFile.title,
         actualFile.fileFormat
-      ).subscribe((file) => {
-        this.userSelection = [...this.userSelection, file];
+      ).subscribe({
+        next: (file) => {
+          this.userSelection = [...this.userSelection, file];
+          actualFile.isLoading = false
+        },
+        error: (error) => {
+          actualFile.isLoading = false
+          this.alert.message = `L'image ne peut pas etre sauvegardée`;
+          this.alert.switchAlert();
+        }
       });
     }
   }
@@ -137,12 +147,15 @@ export class SearchModalComponent implements OnInit {
       switchMap((response) => {
         return response.blob();
       }),
-      map((blob) => {
+      map((blob: any) => {
         return new File([blob], title.trim(), {
           type: 'image/jpeg',
           lastModified: Date.now(),
         });
-      })
+      }),
+      catchError((error) => {
+        throw new Error(error)
+      }),
     );
     return data$;
   }
@@ -161,7 +174,10 @@ export class SearchModalComponent implements OnInit {
     this.request.searchImages(parameters).subscribe({
       next: (response) => {
         this.isLoading = false;
-        this.searchResult = [...response];
+        this.searchResult = response.map((image: any) => {
+          image.isLoading = false
+          return image
+        });
         this.searchField.reset();
       },
       error: (error) => {
