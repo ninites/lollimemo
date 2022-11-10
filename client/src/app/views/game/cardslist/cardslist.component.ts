@@ -52,6 +52,10 @@ export class CardslistComponent implements OnInit {
           this.cardsList = resp;
           this.bigSpinner.hide('cardsList');
         },
+        error: (error) => {
+          console.log(error);
+          this.bigSpinner.hide('cardsList');
+        }
       });
 
       const cardBack = this.gameParams.selectedTheme.images.filter(
@@ -64,6 +68,10 @@ export class CardslistComponent implements OnInit {
           this.cardsList = resp;
           this.bigSpinner.hide('cardsList');
         },
+        error: (error) => {
+          console.log(error);
+          this.bigSpinner.hide('cardsList');
+        }
       });
     }
   }
