@@ -65,7 +65,11 @@
         >
           <i class="fas fa-plus"></i
         ></reg-button>
-        <div class="deleteThemeItem_uploadChoice" *ngIf="uploadChoice.pictures">
+        <div
+          class="deleteThemeItem_uploadChoice"
+          style="flex-direction: row"
+          *ngIf="uploadChoice.pictures"
+        >
           <form [formGroup]="themePutForm">
             <reg-file
               [width]="50"
@@ -76,10 +80,10 @@
               [multiple]="true"
             >
             </reg-file>
-            <reg-button [width]="70" (click)="openGsearch('pictures')">
-              En ligne
-            </reg-button>
           </form>
+          <reg-button [width]="70" (click)="openGsearch('pictures')">
+            En ligne
+          </reg-button>
         </div>
       </div>
 

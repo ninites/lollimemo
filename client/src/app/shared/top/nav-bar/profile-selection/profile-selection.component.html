@@ -1,6 +1,7 @@
-<div class="profileSelection" #profileselection >
+<div class="profileSelection" #profileselection>
   <div class="profileSelection_repeat" *ngFor="let option of userOptions">
     <a class="profileSelection_button" [routerLink]="option.link">
+      <i [class]="option.icon" style="color: #47bdb5"></i>
       {{ option.value }}
     </a>
   </div>

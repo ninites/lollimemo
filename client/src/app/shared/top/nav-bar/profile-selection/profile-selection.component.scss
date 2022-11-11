@@ -9,6 +9,8 @@
     color: $orangeDark;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
+    gap: $marginLow;
   }
 
   &_repeat {

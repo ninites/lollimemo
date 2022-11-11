@@ -31,6 +31,12 @@
     }
   }
 
+  &_uploadChoice {
+    display: flex;
+    gap: $marginLow;
+    flex-direction: column;
+  }
+
   &_pictureContainer {
     margin-top: -5px;
     width: 100%;
