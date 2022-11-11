@@ -3,8 +3,8 @@ const model = require("../models/users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const sendMail = require("../functions/sendMail");
 const ApiError = require("../error/ApiError");
+const { MailerService } = require("../services/mailer");
 class Users {
   static auth = async (req, res) => {
     res.status(200).send(true);
@@ -30,20 +30,20 @@ class Users {
     res.status(200).json(user);
   };
 
-  static postOne = async (req, res, next) => {   
+  static postOne = async (req, res, next) => {
     let hashPass
     try {
-     hashPass = await this.createHashpass(req.body.password);
-    } catch(err) {
+      hashPass = await this.createHashpass(req.body.password);
+    } catch (err) {
       next(ApiError.internal('probleme de creation de hash'))
-      return 
+      return
     }
     req.body.password = hashPass;
     let postUser = {}
     try {
 
       postUser = await model.postOne(req.body);
-    } catch(err) {
+    } catch (err) {
       next(ApiError.internal('probleme de creation de user'))
     }
     res.status(200).json(postUser);
@@ -171,7 +171,7 @@ class Users {
     }
     const secretKey = process.env.JWT.toString();
     const token = jwt.sign({ id: user._id }, secretKey);
-    const mailSent = await sendMail(user, token);
+    const mailSent = await MailerService.sendRetrieveMail(user, token);
     if (!mailSent) {
       next(ApiError.conflict("Probléme pendant l'envoi du mail"));
       return;

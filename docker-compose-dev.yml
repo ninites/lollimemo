@@ -25,6 +25,10 @@ services:
       - MONGO_URL=mongodb://api:docker1234@mongo
       - JWT=Dreamer06
       - PORT=5000
+      - MAIL_LOG=7fcbbc720647509be50be2e73c4a3dde
+      - MAIL_PASS=565163faf9fc084693530f6491185d53 
+      - MAIL_HOST=in-v3.mailjet.com
+      - MAIL_HOST_URL=http://localhost
     links:
       - mongo
   mongo : 
