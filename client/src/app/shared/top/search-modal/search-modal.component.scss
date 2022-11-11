@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
 
-  &_searchResult{
+  &_searchResult {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -19,8 +19,21 @@
     width: 100%;
   }
 
-  &_userSelectChoice{
+  &_userSelectChoice {
     width: 100%;
+  }
+
+  &_actualPage {
+    color: $orangeLight;
+    font-weight: bold;
+  }
+
+  &_pagination {
+    display: flex;
+    gap: $marginMedium;
+    align-items: center;
+    justify-content: center;
+    margin: $marginMedium;
   }
 
   &_picturesPreview {
@@ -40,9 +53,10 @@
 
   &_bottomButtons {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     margin: $marginMedium 0 $marginMedium 0;
     width: 100%;
+    gap: $marginMedium;
   }
 
   &_cropperContainer {

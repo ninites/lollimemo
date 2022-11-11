@@ -34,10 +34,15 @@ export class SearchModalComponent implements OnInit {
   isLoading: boolean = false;
   searchResult: { [key: string]: any }[] = [];
   userSelection: { [key: string]: any }[] = [];
+  quitButtonStyle = { marginRight: "10px" }
+  actualPage = 0
 
   ngOnInit(): void {
     this.displayed();
     this.getInfos();
+    this.searchField.valueChanges.subscribe(() => {
+      this.actualPage = 0
+    })
   }
 
   displayed(): void {
@@ -81,6 +86,11 @@ export class SearchModalComponent implements OnInit {
       type: this.props.type,
       payload: this.userSelection,
     });
+  }
+
+  saveResultAndExit() {
+    this.saveResult()
+    this.exit()
   }
 
   reset(): void {
@@ -163,6 +173,18 @@ export class SearchModalComponent implements OnInit {
     return data$;
   }
 
+  changePage(type: string) {
+    if (type === "previous" && this.actualPage !== 0) {
+      this.actualPage -= 1
+      this.onSubmit()
+    }
+
+    if (type === "next") {
+      this.actualPage += 1
+      this.onSubmit()
+    }
+  }
+
   onSubmit(): void {
     if (!this.searchField.controls.q.valid) {
       return;
@@ -172,6 +194,7 @@ export class SearchModalComponent implements OnInit {
 
     const parameters = {
       textSearch: this.searchField.value.q,
+      page: this.actualPage
     };
 
     this.request.searchImages(parameters).subscribe({
@@ -181,7 +204,6 @@ export class SearchModalComponent implements OnInit {
           image.isLoading = false
           return image
         });
-        this.searchField.reset();
       },
       error: (error) => {
         this.isLoading = false;

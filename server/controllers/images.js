@@ -28,11 +28,11 @@ class Images {
 
   static search = async (req, res) => {
     try {
-      const { textSearch } = req.query
+      const { textSearch, page } = req.query
       const params = {
         q: textSearch,
         tbm: "isch",
-        ijn: "0",
+        ijn: page || "0",
         num: 20,
         engine: "google"
       };

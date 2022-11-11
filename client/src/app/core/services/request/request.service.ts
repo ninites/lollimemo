@@ -125,7 +125,7 @@ export class RequestService {
   }
 
   searchImages(parameters: { [key: string]: any }) {
-    const endpoint = "images/search?textSearch=" + parameters.textSearch
+    const endpoint = `images/search?textSearch=${parameters.textSearch}&page=${parameters.page}`
     return this.http.get(environment.proxy + endpoint).pipe(
       map((response: any) => {
         return response.images_results
