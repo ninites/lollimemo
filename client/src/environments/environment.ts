@@ -4,8 +4,9 @@
 
 export const environment = {
   production: true,
+  host: "localhost:4200",
   proxy: 'http://0.0.0.0:5000/api/',
-  corsProxyURL :"https://api.codetabs.com/v1/proxy?quest="
+  corsProxyURL: "http://0.0.0.0:8080/"
 };
 
 /*

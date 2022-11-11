@@ -1,10 +1,16 @@
-version: '3.6'
+version: "3.6"
 
 services:
-  backend: #name of the second service
-    build: ./server # specify the directory of the Dockerfile
+  cors-proxy:
+    image: redocly/cors-anywhere
     ports:
-      - "5000:5000" #specify ports forewarding
+      - "8080:8080"
+    container_name: cors-proxy
+    restart: always
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
     container_name: back-container
     restart: always
     environment:
@@ -17,20 +23,20 @@ services:
       - MAIL_HOST_URL=http://217.182.171.139
     links:
       - mongo
-  mongo : 
+  mongo:
     image: mongo:4.0
     volumes:
       - "./mongo/data:/data/db"
-    ports: 
+    ports:
       - "27017:27017"
-    environment: 
+    environment:
       - MONGO_INITDB_ROOT_USERNAME=api
       - MONGO_INITDB_ROOT_PASSWORD=docker1234
-  frontend: #name of the first service
-    build: 
+  frontend:
+    build:
       context: ./client
       dockerfile: ./Dockerfile.prod
     ports:
-      - '80:80'
+      - "80:80"
     container_name: front-container
     restart: always
