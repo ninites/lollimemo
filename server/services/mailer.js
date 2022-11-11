@@ -39,7 +39,7 @@ class Mailer {
 
         try {
             console.log("SEND EMAIL START")
-            await this._transporter.sendMail(config).;
+            await this._transporter.sendMail(config);
             console.log("SEND EMAIL SUCCESS")
             return true;
         } catch (err) {
