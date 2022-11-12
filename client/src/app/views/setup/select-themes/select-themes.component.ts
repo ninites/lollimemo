@@ -91,9 +91,8 @@ export class SelectThemesComponent implements OnInit {
     this.usersService.getUsersThemes().subscribe({
       next: ({ mainUserThemes, otherUserThemes }) => {
         this.isLoading = false;
-        const fullList = [...this.userTheme, ...mainUserThemes, ...otherUserThemes];
-        this.userTheme = fullList;
-        fullList.forEach((theme: any) => {
+        this.userTheme  = [...mainUserThemes, ...otherUserThemes];
+        this.userTheme .forEach((theme: any) => {
           this.themesName.push(theme.name);
         });
         this.getSavedValue();

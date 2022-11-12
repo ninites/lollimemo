@@ -5,8 +5,8 @@ import { RegPopService } from '../../../shared/widget/reg-pop/reg-pop.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
-import { environment } from 'src/environments/environment';
 import { BigSpinnerService } from 'src/app/shared/top/big-spinner/big-spinner.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cardslist',
@@ -32,6 +32,7 @@ export class CardslistComponent implements OnInit {
   cardBack: string = '';
   winner: { [key: string]: any } = {};
   draw: boolean = false;
+  subscriptions: Subscription[] = []
 
   ngOnInit(): void {
     this.bigSpinner.show('cardsList');
@@ -45,8 +46,9 @@ export class CardslistComponent implements OnInit {
     this.timer.setTimer(false);
     const selectedTheme = this.gameParams.selectedTheme._id;
     const diff = this.gameParams.selectedDifficulty;
+    let subscription
     if (selectedTheme) {
-      this.request.getThemePics(diff, selectedTheme).subscribe({
+      subscription = this.request.getThemePics(diff, selectedTheme).subscribe({
         next: (resp) => {
           this.cardsList = resp;
           this.bigSpinner.hide('cardsList');
@@ -62,7 +64,7 @@ export class CardslistComponent implements OnInit {
       );
       this.cardBack = cardBack[0].path;
     } else {
-      this.request.getDefaultTheme(diff).subscribe({
+      subscription = this.request.getDefaultTheme(diff).subscribe({
         next: (resp): void => {
           this.cardsList = resp;
           this.bigSpinner.hide('cardsList');
@@ -73,6 +75,8 @@ export class CardslistComponent implements OnInit {
         }
       });
     }
+
+    this.subscriptions.push(subscription)
   }
 
   reset() {
@@ -142,23 +146,39 @@ export class CardslistComponent implements OnInit {
     const isMulti = type === 'multi';
     const { minutes, seconds } = this.timer;
     const gameTime = `${minutes}:${seconds}`;
+
     const savedGame = {
       type: type,
       try: this.game.numberOftries,
+      date: new Date(),
+      time: gameTime,
+      difficulty: selectedDifficultyString,
+    }
+
+    const mainUserSavedGame = {
+      ...savedGame,
       userScore: players[0].totalPoints,
       opponent: isMulti ? players[1].username : '',
       opponentScore: isMulti ? players[1].totalPoints : 0,
-      time: gameTime,
-      difficulty: selectedDifficultyString,
-      date: new Date(),
     };
 
-    this.request.post('games', savedGame).subscribe();
+    const otherUserSavedGame = {
+      ...savedGame,
+      userScore: players[1].totalPoints,
+      opponent: isMulti ? players[0].username : '',
+      opponentScore: isMulti ? players[0].totalPoints : 0,
+    };
+
+    let subscription = this.game.saveGameForUsers(mainUserSavedGame, otherUserSavedGame).subscribe();
+    this.subscriptions.push(subscription)
   }
 
   ngOnDestroy() {
     clearTimeout(this.interval);
     this.timer.resetTimer();
     this.game.hardReset();
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe()
+    })
   }
 }

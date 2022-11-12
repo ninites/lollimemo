@@ -16,6 +16,7 @@ export class UsersService {
 
   private readonly otherUserSubject$: BehaviorSubject<UserInfo> = new BehaviorSubject({} as UserInfo)
   private readonly mainUserSubject$: BehaviorSubject<UserInfo> = new BehaviorSubject({} as UserInfo)
+  private readonly usersSubject$: BehaviorSubject<{ mainUser: UserInfo, otherUser: UserInfo }> = new BehaviorSubject({} as { mainUser: UserInfo, otherUser: UserInfo })
 
   get otherUser$(): Observable<UserInfo> {
     return this.otherUserSubject$.asObservable()
@@ -41,6 +42,10 @@ export class UsersService {
     this.mainUserSubject$.next(user)
   }
 
+  get users() {
+    return this.usersSubject$.value
+  }
+
   getUsers(): Observable<{ mainUser: UserInfo, otherUser: UserInfo }> {
     return this.mainUser$.pipe(
       switchMap((mainUser: UserInfo) => {
@@ -50,7 +55,9 @@ export class UsersService {
         }
         return this.otherUser$.pipe(
           map((otherUser: UserInfo) => {
-            return { mainUser, otherUser }
+            const result = { mainUser, otherUser }
+            this.usersSubject$.next(result)
+            return result
           })
         )
       })

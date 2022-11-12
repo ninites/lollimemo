@@ -12,6 +12,15 @@ class Games {
     res.status(200).json(newGameSaved);
   };
 
+  static postOneByUserId = async (req, res, next) => {
+    const user = req.params.id;
+    const newGameSaved = await gameModel.postOne({
+      game: req.body,
+      user: user,
+    });
+    res.status(200).json(newGameSaved);
+  };
+
   static getGames = async (req, res, next) => {
     const { userInfo } = req.body;   
     const soloGames = await gameModel.getGames(userInfo.id, req.query);

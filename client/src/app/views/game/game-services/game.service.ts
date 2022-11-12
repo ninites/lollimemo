@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
+import { RequestService } from 'src/app/core/services/request/request.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { TimerService } from 'src/app/shared/widget/timer/timer.service';
 
@@ -10,8 +14,10 @@ export class GameService {
   constructor(
     private gameParams: GameParametersService,
     private alert: AlertService,
-    private timer: TimerService
-  ) {}
+    private timer: TimerService,
+    private readonly requestService: RequestService,
+    private readonly usersService: UsersService
+  ) { }
 
   onTurnTry: number = 0;
   turnTry: string[] = [];
@@ -55,9 +61,8 @@ export class GameService {
   }
 
   messageToPlayer(): void {
-    this.alert.message = `Au tour de ${
-      this.gameParams.players[this.playerIndexTurn].username
-    } de jouer`;
+    this.alert.message = `Au tour de ${this.gameParams.players[this.playerIndexTurn].username
+      } de jouer`;
     this.alert.switchAlert();
   }
 
@@ -88,5 +93,17 @@ export class GameService {
 
   getNumberOfTries(): number {
     return this.numberOftries;
+  }
+
+  saveGameForUsers(mainUserSavedGame: any, otherUserSavedGame: any) {
+    const { otherUser } = this.usersService.users
+    const mainUserSavedGame$ = this.requestService.post('games', mainUserSavedGame)
+    const savedGames$ = [mainUserSavedGame$]
+    const gotOtherUser = Object.keys(otherUser).length > 0
+    if (gotOtherUser) {
+      const otherUserSavedGame$ = this.requestService.post(`games/id/${otherUser._id}`, otherUserSavedGame)
+      savedGames$.push(otherUserSavedGame$)
+    }
+    return forkJoin(savedGames$)
   }
 }
