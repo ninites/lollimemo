@@ -26,14 +26,10 @@ export class RequestService {
   apiUrl: string = 'https://picsum.photos/v2/list';
 
   getThemePics(picturesNumber: number, themeId: string): Observable<any> {
-    return this.http.get(environment.proxy + 'themes/all').pipe(
-      map((themes: { [key: string]: any }) => {
-        //// Select good theme
-        const selectedTheme = themes.filter(
-          (theme: { [key: string]: any }) => theme._id === themeId
-        );
-        const [themeImg] = selectedTheme;
-        const images = themeImg.images.filter(
+    return this.http.get(environment.proxy + `themes/id/${themeId}`).pipe(
+      map((theme: { [key: string]: any }) => {
+
+        const images = theme.images.filter(
           (imgs: any) => imgs.type !== 'cardBack'
         );
 

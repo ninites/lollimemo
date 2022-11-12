@@ -5,6 +5,7 @@ import { popAnim } from 'src/app/animations/animations';
 import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
 import { environment } from 'src/environments/environment';
 import { SetupService } from '../setup-service/setup.service';
 
@@ -19,8 +20,9 @@ export class SelectThemesComponent implements OnInit {
     private setupServ: SetupService,
     private request: RequestService,
     private gameParams: GameParametersService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private readonly usersService: UsersService
+  ) { }
 
   userTheme: { [key: string]: any }[] = [{ name: 'default', images: [] }];
   themesName: string[] = [];
@@ -86,10 +88,10 @@ export class SelectThemesComponent implements OnInit {
 
   getThemes(): void {
     this.isLoading = true;
-    this.request.get('themes/all').subscribe({
-      next: (resp) => {
+    this.usersService.getUsersThemes().subscribe({
+      next: ({ mainUserThemes, otherUserThemes }) => {
         this.isLoading = false;
-        const fullList = [...this.userTheme, ...resp];
+        const fullList = [...this.userTheme, ...mainUserThemes, ...otherUserThemes];
         this.userTheme = fullList;
         fullList.forEach((theme: any) => {
           this.themesName.push(theme.name);
@@ -103,7 +105,8 @@ export class SelectThemesComponent implements OnInit {
         this.getSavedValue();
         this.isLoading = false;
       },
-    });
+    })
+
     this.pushThemeButton()
   }
 
@@ -115,8 +118,6 @@ export class SelectThemesComponent implements OnInit {
       },
     });
   }
-
-
 
   getSavedValue(): void {
     const paramsValue = this.gameParams.selectedTheme.name

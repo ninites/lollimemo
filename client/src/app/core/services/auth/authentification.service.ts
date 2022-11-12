@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { BigSpinnerService } from 'src/app/shared/top/big-spinner/big-spinner.service';
 import { RequestService } from '../request/request.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,9 @@ export class AuthentificationService {
   constructor(
     private requestAx: RequestService,
     private router: Router,
-    private bigSpinner: BigSpinnerService
-  ) {}
+    private bigSpinner: BigSpinnerService,
+    private readonly usersService: UsersService
+  ) { }
 
   isAuth$: BehaviorSubject<any> = new BehaviorSubject(null);
 
@@ -29,10 +31,13 @@ export class AuthentificationService {
         this.bigSpinner.hide('authResolve');
         return of(false);
       }),
-      map((resp) => {
+      switchMap((resp) => {
         this.isAuth$.next(resp && true);
+        const result$ = resp && true ? this.usersService.getMainUser().pipe(
+          map(() => true)
+        ) : of(resp && true)
         this.bigSpinner.hide('authResolve');
-        return resp && true;
+        return result$;
       })
     );
   }

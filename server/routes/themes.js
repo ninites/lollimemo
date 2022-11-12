@@ -15,7 +15,9 @@ themes.post(
   themesCtrl.postOne
 );
 themes.delete("/:id", authToken, themesCtrl.deleteOne);
+themes.get("/id/:id", authToken, themesCtrl.getThemeByid)
 themes.get("/all", authToken, themesCtrl.getAllByUser);
+themes.get("/user/:id/all", authToken, themesCtrl.getAllByUserId);
 themes.put(
   "/:id",
   upload.fields([{ name: "pictures" }, { name: "cardBack" }]),

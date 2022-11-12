@@ -20,6 +20,22 @@ class Users {
     res.status(200).json(user);
   };
 
+  static getInfoByUsernameAndPassword = async (req, res, next) => {
+    const { username, password } = req.body;
+    const user = await model.getOne({ username }, false, true);
+    const compare = await this.bcryptCompare(password, user, next)
+    if (!compare) {
+      next(ApiError.unAuth("Login ou mot de passe incorrect"));
+      return;
+    }
+    const result = {
+      username : user.username,
+      themes : user.themes,
+      _id : user._id
+    }
+    res.status(200).json(result);
+  }
+
   static getOne = async (req, res) => {
     let user;
     if (Object.keys(req.query).length > 0) {
@@ -49,6 +65,21 @@ class Users {
     res.status(200).json(postUser);
   };
 
+  static async bcryptCompare(password, selectedUser, next) {
+    try {
+      const compare = await new Promise((resolve, reject) => {
+        bcrypt.compare(password, selectedUser.password, (err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      }).catch((err) => err.message);
+      return compare
+    } catch (err) {
+      next(ApiError.unAuth("Login ou mot de passe incorrect"));
+      return false
+    }
+  }
+
   static login = async (req, res, next) => {
     const users = await model.getAll();
     const { username, password } = req.body;
@@ -62,18 +93,7 @@ class Users {
       return;
     }
 
-    let compare;
-    try {
-      compare = await new Promise((resolve, reject) => {
-        bcrypt.compare(password, selectedUser[0].password, (err, result) => {
-          if (err) reject(err);
-          resolve(result);
-        });
-      }).catch((err) => err.message);
-    } catch (err) {
-      next(ApiError.unAuth("Login ou mot de passe incorrect"));
-      return;
-    }
+    const compare = await this.bcryptCompare(password, selectedUser[0], next);
 
     if (!compare) {
       next(ApiError.unAuth("Login ou mot de passe incorrect"));

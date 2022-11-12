@@ -16,6 +16,18 @@ class Themes {
     res.status(200).json(actualUser.themes);
   };
 
+  static getAllByUserId = async (req, res) => {
+    const { id } = req.params;
+    const actualUser = await userModel.getOne({ id: id });
+    res.status(200).json(actualUser.themes);
+  };
+
+  static getThemeByid = async (req, res) => {
+    const { id } = req.params;
+    const theme = await themesModel.getOne(id);
+    res.status(200).json(theme);
+  };
+
   static deleteOne = async (req, res) => {
     const { id } = req.body.userInfo;
     const deleteTheme = await themesModel.deleteOne(req.params, id);

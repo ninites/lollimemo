@@ -2,7 +2,7 @@ import { GamePlayed } from './profile/played/played.interface';
 
 export interface UserInfo {
   _id: string;
-  games: GamePlayed[];
+  games?: GamePlayed[];
   themes: Theme[];
   username: string;
   password?: string;

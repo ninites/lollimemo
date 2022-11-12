@@ -31,6 +31,16 @@
               ><i class="fas fa-sign-in-alt"></i
             ></reg-button>
           </div>
+          <div
+            class="playerName_connect"
+            *ngIf="i !== 0 && alias.value.length === 0"
+          >
+            <reg-button
+              [routerLink]="['/user/login']"
+              [queryParams]="{ otherPlayer: true }"
+              ><i class="fas fa-sign-in-alt"></i
+            ></reg-button>
+          </div>
         </div>
       </div>
     </div>

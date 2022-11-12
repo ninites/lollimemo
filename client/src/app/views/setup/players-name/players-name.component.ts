@@ -5,6 +5,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { AuthentificationService } from 'src/app/core/services/auth/authentification.service';
 import { GameParametersService } from 'src/app/core/services/game-parameters.service';
 import { RequestService } from 'src/app/core/services/request/request.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
 import { FormValidation } from 'src/app/interface/interface';
 import { AlertService } from 'src/app/shared/top/alert/alert.service';
 import { SetupService } from '../setup-service/setup.service';
@@ -22,8 +23,9 @@ export class PlayersNameComponent implements OnInit {
     private setupServ: SetupService,
     private alert: AlertService,
     private auth: AuthentificationService,
-    private request: RequestService
-  ) {}
+    private request: RequestService,
+    private readonly usersService: UsersService
+  ) { }
 
   maxNumberOfPlayer: number = 1;
   userForm = this.fb.group({
@@ -48,24 +50,35 @@ export class PlayersNameComponent implements OnInit {
     this.useEffectForValidation();
     this.validate$.next(this.formValidation);
     this.inputHandler();
-    this.getUserInfo();
+    this.getAuthStatus()
+    this.getUsersInfo();
   }
 
   ngOnDestroy(): void {
     this.validationSubscription.unsubscribe();
   }
 
-  getUserInfo(): void {
+  getAuthStatus() {
     this.auth.isAuth$.subscribe((isAuth) => {
       this.isAuth = isAuth;
-      if (isAuth) {
-        this.isLoading = true;
-        this.request.get('users/info').subscribe((response) => {
-          this.isLoading = false;
-          this.aliases.patchValue([response.username]);
-        });
-      }
     });
+  }
+
+  getUsersInfo(): void {
+    this.isLoading = true;
+    this.usersService.getUsers().subscribe({
+      next: ({ mainUser, otherUser }) => {
+        const gotOtherUser = Object.keys(otherUser).length > 0
+        this.aliases.patchValue([mainUser.username]);
+        if (gotOtherUser) {
+          this.addPlayerInput(otherUser.username)
+        }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   useEffectForValidation(): void {
@@ -128,7 +141,7 @@ export class PlayersNameComponent implements OnInit {
     this.addPlayerInput();
   }
 
-  addPlayerInput(): void {
+  addPlayerInput(playerName = ""): void {
     const playersNameInputs = this.aliases.length;
 
     if (playersNameInputs < this.maxNumberOfPlayer) {
@@ -136,7 +149,7 @@ export class PlayersNameComponent implements OnInit {
         isMinlength: false,
         isSubmited: false,
       });
-      this.aliases.push(this.fb.control(''));
+      this.aliases.push(this.fb.control(playerName));
     }
     this.validate$.next(this.formValidation);
   }

@@ -10,6 +10,7 @@ users.post("/password", userCtrl.changePass);
 users.post("/retrieve", checkFields, userCtrl.retrievePassword);
 users.post("/login", checkFields, userCtrl.login);
 users.get("/info", authToken, userCtrl.getInfo);
+users.post("/info/username-password", authToken, userCtrl.getInfoByUsernameAndPassword);
 users.get("/auth", authToken, userCtrl.auth);
 users.get("/", authToken, userCtrl.getOne);
 users.put("/", checkFields, authToken, userCtrl.putInfo);

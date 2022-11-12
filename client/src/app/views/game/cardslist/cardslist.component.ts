@@ -45,7 +45,6 @@ export class CardslistComponent implements OnInit {
     this.timer.setTimer(false);
     const selectedTheme = this.gameParams.selectedTheme._id;
     const diff = this.gameParams.selectedDifficulty;
-
     if (selectedTheme) {
       this.request.getThemePics(diff, selectedTheme).subscribe({
         next: (resp) => {
