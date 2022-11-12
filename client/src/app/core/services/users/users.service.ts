@@ -44,6 +44,10 @@ export class UsersService {
   getUsers(): Observable<{ mainUser: UserInfo, otherUser: UserInfo }> {
     return this.mainUser$.pipe(
       switchMap((mainUser: UserInfo) => {
+        const gotOtherUser = Object.keys(this.otherUserValue).length > 0
+        if (!gotOtherUser) {
+          return of({ mainUser, otherUser: {} as UserInfo })
+        }
         return this.otherUser$.pipe(
           map((otherUser: UserInfo) => {
             return { mainUser, otherUser }
@@ -68,7 +72,7 @@ export class UsersService {
         if (!gotOtherUserLoggged) {
           return of({ mainUserThemes, otherUserThemes: [] })
         }
-        
+
         return this.requestService.get(`themes/user/${this.otherUserValue._id}/all`).pipe(
           map((otherUserThemes) => {
             return { mainUserThemes, otherUserThemes }

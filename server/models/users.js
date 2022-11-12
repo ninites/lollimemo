@@ -1,6 +1,7 @@
 const { User } = require("./schema/schema");
 class Users {
   static getOne = async (filter, mail = false, password = false) => {
+    console.log({ mail, password });
     const wording = filter.id;
 
     if (filter.id) {
@@ -10,11 +11,11 @@ class Users {
 
     let toRemove = ["-password", "-email"];
 
-    if (!mail) {
+    if (mail) {
       toRemove = toRemove.filter((field) => field === "-email")
     }
 
-    if (!password) {
+    if (password) {
       toRemove = toRemove.filter((field) => field === "-password")
     }
 

@@ -22,7 +22,7 @@ class Users {
 
   static getInfoByUsernameAndPassword = async (req, res, next) => {
     const { username, password } = req.body;
-    const user = await model.getOne({ username }, false, true);
+    const user = await model.getOne({ username }, true, false);
     const compare = await this.bcryptCompare(password, user, next)
     if (!compare) {
       next(ApiError.unAuth("Login ou mot de passe incorrect"));

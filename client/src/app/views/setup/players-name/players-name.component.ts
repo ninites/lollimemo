@@ -101,7 +101,9 @@ export class PlayersNameComponent implements OnInit {
       next: (resp) => {
         const { aliases } = resp;
         aliases.forEach((alias: string, index: number) => {
-          this.formValidation[index].isMinlength = alias.length > 2 && true;
+          if(alias) {
+            this.formValidation[index].isMinlength = alias.length > 2 && true;
+          }
         });
         this.validate$.next(this.formValidation);
         this.btnValidation = true;
