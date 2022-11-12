@@ -28,6 +28,13 @@
             </reg-button>
           </div>
         </form>
+        <reg-select
+          [values]="imageTypes"
+          [(choice)]="imageType"
+          [placeholder]="''"
+          (choiceChange)="onImageTypeChange()"
+          [width]="50"
+        ></reg-select>
       </div>
 
       <div class="cropModal_userSelectChoice">

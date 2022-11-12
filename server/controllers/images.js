@@ -28,14 +28,25 @@ class Images {
 
   static search = async (req, res) => {
     try {
-      const { textSearch, page } = req.query
+      const { textSearch, page, imgType } = req.query
       const params = {
         q: textSearch,
         tbm: "isch",
         ijn: page || "0",
         num: 20,
-        engine: "google"
+        engine: "google",
+        tbs: "",
       };
+
+      switch (imgType) {
+        case "gif":
+          params.tbs = "itp:animated"
+          break;
+
+        default:
+          break;
+      }
+
       const result = await serpImages.search(params)
       res.status(200).json(result)
 

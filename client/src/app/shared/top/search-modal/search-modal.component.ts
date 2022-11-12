@@ -34,8 +34,11 @@ export class SearchModalComponent implements OnInit {
   isLoading: boolean = false;
   searchResult: { [key: string]: any }[] = [];
   userSelection: { [key: string]: any }[] = [];
-  quitButtonStyle = { marginRight: "10px" }
   actualPage = 0
+  imageTypes = ["tous", "gif"]
+  imageType = "tous"
+
+  quitButtonStyle = { marginRight: "10px" }
 
   ngOnInit(): void {
     this.displayed();
@@ -187,6 +190,13 @@ export class SearchModalComponent implements OnInit {
     }
   }
 
+  onImageTypeChange() {
+    if (!this.searchField.controls.q.valid) {
+      return;
+    }
+    this.onSubmit()
+  }
+
   onSubmit(): void {
     if (!this.searchField.controls.q.valid) {
       return;
@@ -196,7 +206,8 @@ export class SearchModalComponent implements OnInit {
 
     const parameters = {
       textSearch: this.searchField.value.q,
-      page: this.actualPage
+      page: this.actualPage,
+      imgType: this.imageType
     };
 
     this.request.searchImages(parameters).subscribe({
