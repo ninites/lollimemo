@@ -16,12 +16,15 @@
           [controlName]="'profilePic'"
         ></reg-file>
         <reg-button [label]="'Prendre une photo'" [width]="120"></reg-button>
-        <reg-button
-          [label]="'Enregistrer'"
-          [width]="120"
-          (click)="saveProfilePic()"
-          *ngIf="profilePicture"
-        ></reg-button>
+        <div style="position: relative">
+          <reg-spinner [size]="20" [isDisplayed]="isLoading.put"></reg-spinner>
+          <reg-button
+            [label]="'Enregistrer'"
+            [width]="120"
+            (click)="saveProfilePic()"
+            *ngIf="profilePictureSave"
+          ></reg-button>
+        </div>
       </div>
     </div>
     <div

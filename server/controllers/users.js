@@ -29,12 +29,8 @@ class Users {
       next(ApiError.unAuth("Login ou mot de passe incorrect"));
       return;
     }
-    const result = {
-      username: user.username,
-      themes: user.themes,
-      _id: user._id
-    }
-    res.status(200).json(result);
+    delete user.password
+    res.status(200).json(user);
   }
 
   static getOne = async (req, res) => {

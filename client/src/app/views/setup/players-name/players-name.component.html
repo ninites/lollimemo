@@ -26,6 +26,20 @@
             [solo]="false"
             [confirmation]="btnValidation"
           ></reg-button>
+          <pictures-preview
+            [pictureType]="'path'"
+            [crossButton]="false"
+            [size]="30"
+            [picture]="profilePictures.main"
+            *ngIf="i === 0 && profilePictures.main"
+          ></pictures-preview>
+          <pictures-preview
+            [size]="30"
+            [crossButton]="false"
+            [pictureType]="'path'"
+            [picture]="profilePictures.other"
+            *ngIf="i === 1 && profilePictures.other"
+          ></pictures-preview>
           <div class="playerName_connect" *ngIf="i === 0 && !isAuth">
             <reg-button [routerLink]="['/user/login']"
               ><i class="fas fa-sign-in-alt"></i

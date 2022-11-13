@@ -10,7 +10,7 @@ export class GameParametersService {
   players: Player[] = [];
   numberOfPlayer: number = 1;
   selectedTheme: { [key: string]: any } = {};
-  constructor() {}
+  constructor() { }
 
   setDifficulty(diff: string) {
     this.selectedDifficultyString = diff;
@@ -29,16 +29,16 @@ export class GameParametersService {
     this.numberOfPlayer = number;
   }
 
-  setTheme(theme: {}): void {    
-    this.selectedTheme = {...theme};    
+  setTheme(theme: {}): void {
+    this.selectedTheme = { ...theme };
   }
 
   modifyUserName(index: number, newName: string): void {
     this.players[index].username = newName;
   }
 
-  postPlayerName(name: string): void {
-    this.players = [...this.players, { username: name, totalPoints: 0 }];
+  postPlayerName(name: string, profilePic: string): void {
+    this.players = [...this.players, { username: name, totalPoints: 0, profilePic }];
   }
 
   addPointToPlayer(index: number) {
@@ -47,16 +47,16 @@ export class GameParametersService {
 
   gameParamsValidation(): { [key: string]: string } {
     this.players = this.players.slice(0, this.numberOfPlayer);
-    
+
     const gameParameters = {
       difficulty: this.selectedDifficulty,
       names: this.players,
       players: this.numberOfPlayer,
       themes: this.selectedTheme,
     };
-    
+
     const errors: { [key: string]: string } = {};
-   
+
     for (const key in gameParameters) {
       const message = 'Merci de renseigner ';
       switch (key) {

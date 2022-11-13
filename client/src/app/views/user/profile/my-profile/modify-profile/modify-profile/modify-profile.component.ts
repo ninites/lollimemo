@@ -30,6 +30,7 @@ export class ModifyProfileComponent implements OnInit {
 
   profilePictureType = "path"
   profilePicture = ""
+  profilePictureSave = false
 
   ngOnInit(): void {
     this.getUserInfo();
@@ -49,16 +50,19 @@ export class ModifyProfileComponent implements OnInit {
       if (form.profilePic) {
         this.profilePictureType = "blob"
         this.profilePicture = form.profilePic[0]
+        this.profilePictureSave = true
       }
     })
   }
 
   saveProfilePic() {
+    this.isLoading.put = true
     const formData = new FormData()
     formData.append("profilePic", this.profilePicture)
     this.request.put('users', formData).subscribe({
       next: (resp) => {
         this.isLoading.put = false
+        this.profilePictureSave = false
         this.alert.message =
           'Modification de votre compte correctement enregistrée';
         this.alert.switchAlert();

@@ -1,13 +1,21 @@
 <div class="playerInfo">
   <ng-container *ngIf="player">
+    <pictures-preview
+      [picture]="player.profilePic"
+      [pictureType]="'path'"
+      [size]="50"
+      [crossButton]="false"
+    ></pictures-preview>
     <div
       class="playerInfo_container"
       [ngClass]="{ playerInfo_myTurn: game.playerIndexTurn === index }"
     >
-      <p>{{ player.totalPoints }}</p>
-      <h3>
-        {{ player.username }}
-      </h3>
+      <div>
+        <p>{{ player.totalPoints }}</p>
+        <h3>
+          {{ player.username }}
+        </h3>
+      </div>
     </div>
   </ng-container>
 </div>

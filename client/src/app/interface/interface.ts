@@ -12,6 +12,7 @@ interface Picture {
 interface Player {
   username: string;
   totalPoints: number;
+  profilePic?: string
 }
 
 interface FormValidation {

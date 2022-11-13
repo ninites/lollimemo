@@ -42,6 +42,10 @@ export class PlayersNameComponent implements OnInit {
   btnValidation: boolean = true;
   isAuth: boolean = false;
   isLoading: boolean = false;
+  profilePictures: any = {
+    main: "",
+    other: ""
+  }
 
   ngOnInit(): void {
     this.maxNumberOfPlayer = this.gameParams.numberOfPlayer;
@@ -70,8 +74,10 @@ export class PlayersNameComponent implements OnInit {
       next: ({ mainUser, otherUser }) => {
         const gotOtherUser = Object.keys(otherUser).length > 0
         this.aliases.patchValue([mainUser.username]);
+        this.profilePictures.main = mainUser.profilePicURL
         if (gotOtherUser) {
           this.addPlayerInput(otherUser.username)
+          this.profilePictures.other = otherUser.profilePicURL
         }
         this.isLoading = false;
       },
@@ -101,7 +107,7 @@ export class PlayersNameComponent implements OnInit {
       next: (resp) => {
         const { aliases } = resp;
         aliases.forEach((alias: string, index: number) => {
-          if(alias) {
+          if (alias) {
             this.formValidation[index].isMinlength = alias.length > 2 && true;
           }
         });
@@ -113,7 +119,8 @@ export class PlayersNameComponent implements OnInit {
 
   onSubmit(index: number): void {
     const checkState = this.formValidation[index].isSubmited;
-    checkState ? this.modifyUserName(index) : this.sendUserName();
+    const userProfilePic = Object.values(this.profilePictures)[index]
+    checkState ? this.modifyUserName(index) : this.sendUserName(userProfilePic);
   }
 
   modifyUserName(userToModifyIndex: number) {
@@ -130,14 +137,14 @@ export class PlayersNameComponent implements OnInit {
     this.btnValidation = false;
   }
 
-  sendUserName(): void {
+  sendUserName(userProfilePic: any): void {
     const lastWrittenName = this.aliases.value.length - 1;
     const dontOverrideArray =
       this.formValidation.length <= this.maxNumberOfPlayer;
 
     if (dontOverrideArray) {
       this.formValidation[lastWrittenName].isSubmited = true;
-      this.gameParams.postPlayerName(this.aliases.value[lastWrittenName]);
+      this.gameParams.postPlayerName(this.aliases.value[lastWrittenName], userProfilePic);
       this.btnValidation = false;
     }
     this.addPlayerInput();
