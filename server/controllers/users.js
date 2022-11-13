@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const ApiError = require("../error/ApiError");
 const { MailerService } = require("../services/mailer");
+const cloudinaryAdapter = require("../services/cloudinary-adapter").CloudinaryAdapterSingleton;
 class Users {
   static auth = async (req, res) => {
     res.status(200).send(true);
@@ -29,9 +30,9 @@ class Users {
       return;
     }
     const result = {
-      username : user.username,
-      themes : user.themes,
-      _id : user._id
+      username: user.username,
+      themes: user.themes,
+      _id: user._id
     }
     res.status(200).json(result);
   }
@@ -57,7 +58,11 @@ class Users {
     req.body.password = hashPass;
     let postUser = {}
     try {
-
+      const { profilePic } = req.body.uploadedPictures || []
+      if (profilePic.length > 0) {
+        req.body.profilePicURL = profilePic[0].url
+        req.body.profilePicId = profilePic[0].public_id
+      }
       postUser = await model.postOne(req.body);
     } catch (err) {
       next(ApiError.internal('probleme de creation de user'))
@@ -176,6 +181,15 @@ class Users {
       return;
     }
     try {
+      const user = await model.getOne({ id })
+      const { profilePic } = req.body.uploadedPictures || []
+      if (user.profilePicId && profilePic.length > 0) {
+        await cloudinaryAdapter.delete(user.profilePicId)
+      }
+      if (profilePic.length > 0) {
+        req.body.profilePicURL = profilePic[0].url
+        req.body.profilePicId = profilePic[0].public_id
+      }
       const modifiedUser = await model.putOne(req.body);
       res.status(200).json(modifiedUser);
     } catch (err) {

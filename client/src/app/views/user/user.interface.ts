@@ -7,6 +7,8 @@ export interface UserInfo {
   username: string;
   password?: string;
   email?: string;
+  profilePicURL?: string
+  profilePicId?: string
 }
 
 export interface Theme {

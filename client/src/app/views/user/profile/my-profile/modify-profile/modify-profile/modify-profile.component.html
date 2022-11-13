@@ -1,6 +1,29 @@
 <div class="modifyProfile">
   <h2>Modifier mes informations</h2>
   <form [formGroup]="modifyProfileForm" (submit)="onSubmit()">
+    <div class="modifyProfile_profilPicWrapper">
+      <pictures-preview
+        [picture]="profilePicture"
+        [pictureType]="profilePictureType"
+        [size]="100"
+        [crossButton]="false"
+      ></pictures-preview>
+      <div class="modifyProfile_profilPic">
+        <reg-file
+          [labelValue]="'Local'"
+          [width]="100"
+          [parentForm]="modifyProfileForm"
+          [controlName]="'profilePic'"
+        ></reg-file>
+        <reg-button [label]="'Prendre une photo'" [width]="120"></reg-button>
+        <reg-button
+          [label]="'Enregistrer'"
+          [width]="120"
+          (click)="saveProfilePic()"
+          *ngIf="profilePicture"
+        ></reg-button>
+      </div>
+    </div>
     <div
       class="modifyProfile_formRepeat"
       *ngFor="
@@ -10,24 +33,27 @@
       "
     >
       <label [attr.for]="inputField.key">{{ label[i] }}</label>
-      <div class="modifyProfile_spinnerBox">
+      <div
+        class="modifyProfile_spinnerBox"
+        *ngIf="inputField.key !== 'profilePic'"
+      >
         <reg-spinner [size]="20" [isDisplayed]="isLoading.get"></reg-spinner>
- 
-      <reg-input
-        [attr.id]="inputField.key"
-        [parentForm]="modifyProfileForm"
-        [parentControlName]="inputField.key"
-        [width]="200"
-      ></reg-input>
+
+        <reg-input
+          [attr.id]="inputField.key"
+          [parentForm]="modifyProfileForm"
+          [parentControlName]="inputField.key"
+          [width]="200"
+        ></reg-input>
       </div>
     </div>
-   <div class="modifyProfile_spinnerBox">
-    <reg-spinner [size]="20" [isDisplayed]="isLoading.put"></reg-spinner>
-    <reg-button
-      [label]="'Modifier'"
-      [disabled]="!modifyProfileForm.valid"
-      [type]="'submit'"
-    ></reg-button>
-   </div>
+    <div class="modifyProfile_spinnerBox">
+      <reg-spinner [size]="20" [isDisplayed]="isLoading.put"></reg-spinner>
+      <reg-button
+        [label]="'Modifier'"
+        [disabled]="!modifyProfileForm.valid"
+        [type]="'submit'"
+      ></reg-button>
+    </div>
   </form>
 </div>

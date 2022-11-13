@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 .modifyProfile {
   display: flex;
@@ -12,6 +12,18 @@
     position: relative;
     width: fit-content;
   }
+
+  &_profilPic {
+    display: flex;
+    flex-direction: column;
+    gap: $marginMedium;
+  }
+
+  &_profilPicWrapper {
+    align-items: flex-start;
+    display: flex;
+  }
+
   form {
     background-color: $orangeMedium;
     border-radius: $borderRadius;

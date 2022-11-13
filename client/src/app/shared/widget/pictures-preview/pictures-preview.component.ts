@@ -33,6 +33,10 @@ export class PicturesPreviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  ngOnChanges() {
     this.style = {
       width: this.size + 'px',
       height: this.size + 'px',

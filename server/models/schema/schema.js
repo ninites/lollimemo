@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 const userSchema = mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
+  profilePicURL: { type: String, },
+  profilePicId: { type: String, },
   email: { type: String, required: true },
   themes: [{ type: Schema.Types.ObjectId, ref: "Theme" }],
   games: [{ type: Schema.Types.ObjectId, ref: "Game" }],

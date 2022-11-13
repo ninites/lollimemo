@@ -17,7 +17,7 @@ export class SubscribeComponent implements OnInit {
     private request: RequestService,
     private router: Router,
     private alert: AlertService
-  ) {}
+  ) { }
 
   subForm = this.fb.group(
     {
@@ -25,6 +25,7 @@ export class SubscribeComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      profilePic: [''],
     },
     { validator: passwordConfirming }
   );
@@ -46,10 +47,17 @@ export class SubscribeComponent implements OnInit {
   onSubmit(): void {
     this.isLoading = true;
     const subInfo = { ...this.subForm.value };
+    const formData = new FormData()
     for (const key in subInfo) {
-      subInfo[key] = subInfo[key].trim();
+      if (typeof subInfo[key] === "string") {
+        subInfo[key] = subInfo[key].trim();
+        formData.append(key, subInfo[key])
+      }
     }
-    this.request.post('users', subInfo).subscribe({
+
+    formData.append("profilePic", subInfo.profilePic[0])
+
+    this.request.post('users', formData).subscribe({
       next: () => {
         this.isLoading = false;
         this.router.navigate(['/user/login']);

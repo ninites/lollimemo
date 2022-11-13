@@ -10,6 +10,7 @@
     >
       <label [attr.for]="inputField.key">{{ label[index] }}</label>
       <reg-input
+        *ngIf="inputField.key !== 'profilePic'"
         [attr.id]="inputField.key"
         [parentForm]="subForm"
         [parentControlName]="inputField.key"
@@ -23,6 +24,13 @@
           inputField.key !== 'password' && inputField.key !== 'confirmPassword'
         "
       ></reg-input>
+      <reg-file
+        *ngIf="inputField.key === 'profilePic'"
+        [width]="60"
+        labelValue="Photo"
+        [parentForm]="subForm"
+        [controlName]="'profilePic'"
+      ></reg-file>
     </div>
     <div class="subscribe_validSpinn">
       <reg-spinner [size]="20" [isDisplayed]="isLoading"></reg-spinner>

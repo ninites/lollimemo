@@ -1,7 +1,6 @@
 const { User } = require("./schema/schema");
 class Users {
   static getOne = async (filter, mail = false, password = false) => {
-    console.log({ mail, password });
     const wording = filter.id;
 
     if (filter.id) {
