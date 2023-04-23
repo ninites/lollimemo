@@ -28,7 +28,7 @@ services:
     volumes:
       - "./mongo/data:/data/db"
     ports:
-      - "27017:27017"
+      - "27018:27018"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=api
       - MONGO_INITDB_ROOT_PASSWORD=docker1234
