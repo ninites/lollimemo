@@ -164,9 +164,9 @@ export class CardslistComponent implements OnInit {
 
     const otherUserSavedGame = {
       ...savedGame,
-      userScore: players[1].totalPoints,
-      opponent: isMulti ? players[0].username : '',
-      opponentScore: isMulti ? players[0].totalPoints : 0,
+      userScore: isMulti ? players[1]?.totalPoints : 0,
+      opponent: isMulti ? players[0]?.username : '',
+      opponentScore: isMulti ? players[0]?.totalPoints : 0,
     };
 
     let subscription = this.game.saveGameForUsers(mainUserSavedGame, otherUserSavedGame).subscribe();
