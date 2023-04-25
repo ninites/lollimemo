@@ -96,7 +96,7 @@ export class GameService {
   }
 
   saveGameForUsers(mainUserSavedGame: any, otherUserSavedGame: any) {
-    const { otherUser } = this.usersService.users
+    const { otherUser = { _id: "" } } = this.usersService.users
     const mainUserSavedGame$ = this.requestService.post('games', mainUserSavedGame)
     const savedGames$ = [mainUserSavedGame$]
     const gotOtherUser = Object.keys(otherUser).length > 0
